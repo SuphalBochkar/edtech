@@ -1,13 +1,18 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { LogOut } from "lucide-react";
+import { useRouter } from "next/navigation";
+import ThemeSwitch from "./ThemeSwitch";
 
 const NavBar = () => {
-  const session = useSession();
-  const user = session.data?.user;
+  const { data: session, status } = useSession();
+  const user = session?.user;
+  const router = useRouter();
 
   const [loading, setLoading] = useState(false);
   const handleSignIn = async () => {
@@ -15,6 +20,10 @@ const NavBar = () => {
     await signIn("google");
     setLoading(false);
   };
+
+  useEffect(() => {
+    // if (status === "authenticated" && session?.user) router.push("/test");
+  }, [status, session, router]);
 
   return (
     <nav className="sticky wrapper top-0 z-50 flex items-center justify-center gap-2 py-6 w-full text-[#f9fafb]">
@@ -27,7 +36,7 @@ const NavBar = () => {
           type: "spring",
           damping: 10,
         }}
-        className="flex w-[90%] sm:w-[70%] justify-between shadow-lg backdrop-blur-lg border border-gray-800 p-6 rounded-2xl"
+        className="flex w-[90%] sm:w-[70%] justify-between backdrop-blur-lg border dark:border-gray-800 p-6 rounded-2xl"
       >
         <Link href={"/"} className="flex items-center gap-2 cursor-pointer">
           <Image
@@ -37,20 +46,21 @@ const NavBar = () => {
             height={200}
             className="rounded-full size-10"
           />
-          <span className="text-lg md:text-2xl font-bold tracking-tight hidden text-[#f9fafb] md:block">
+          <span className="text-lg md:text-2xl font-bold tracking-tight hidden text-purple-800 dark:text-foreground md:block">
             Finish66
           </span>
         </Link>
         <div className="flex items-center gap-5">
+          <ThemeSwitch />
           <Link href={"/pricing"} className="flex align-middle">
-            <span className="text-base sm:text-xl font-medium sm:font-bold">
+            <span className="text-base sm:text-xl font-medium sm:font-bold text-foreground">
               Pricing
             </span>
           </Link>
           <div className="flex items-center gap-8">
             {!user ? (
               <button
-                className={`inline-flex items-center justify-center text-sm font-medium bg-[#f9fafb] text-[#0a0a0a] h-10 rounded-md px-8 transition duration-300 ease-in-out ${
+                className={`inline-flex items-center justify-center text-sm font-medium text-background bg-foreground h-10 rounded-md px-8 transition duration-300 ease-in-out ${
                   loading ? "cursor-not-allowed opacity-70" : ""
                 }`}
                 onClick={handleSignIn}
@@ -92,7 +102,6 @@ const NavBar = () => {
                   height={40}
                   className="rounded-full "
                 />
-
                 <button
                   onClick={() => signOut()}
                   className="text-white p-2 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
