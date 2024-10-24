@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-export default function LevelComponent({ level }: { level: number }) {
+export default function LevelComponent({ level }: { level?: number }) {
   return (
     <motion.div
       className="relative w-[300px] h-[200px] overflow-hidden rounded-xl bg-purple-100 shadow-lg"

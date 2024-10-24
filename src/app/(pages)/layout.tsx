@@ -1,6 +1,8 @@
+// /src/app/(pages)/layout.tsx
+
 import type { Metadata } from "next";
 import "./globals.css";
-import { ThemeProvider } from "next-themes";
+import Providers from "@/providers/providers";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,8 +16,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
-        <ThemeProvider attribute="class">{children}</ThemeProvider>
+      <body className="bg-background text-foreground">
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
