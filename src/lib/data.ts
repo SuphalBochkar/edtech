@@ -1,5 +1,13 @@
 import { Status, tempTestData, TestData } from "@/lib/types";
 
+export const aeTests = [
+  { id: 1, name: "Test 1", type: "Aptitude & Verbal", date: "19/04/2024" },
+  { id: 2, name: "Test 2", type: "Aptitude & Verbal", date: "20/04/2024" },
+  { id: 3, name: "Test 3", type: "Aptitude & Verbal", date: "21/04/2024" },
+];
+
+export const levelTests = [1, 2, 3, 4];
+
 export const data: TestData = {
   "1": {
     aptitude: {

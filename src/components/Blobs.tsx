@@ -67,7 +67,7 @@ const Blobs: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full min-h-screen relative overflow-hidden">
+    <div className="w-full min-h-screen absolute left-0 right-0 overflow-hidden">
       {blobPositions.map((blob, index) => (
         <Image
           key={index}

@@ -22,7 +22,7 @@ const NavBar = () => {
   };
 
   useEffect(() => {
-    // if (status === "authenticated" && session?.user) router.push("/test");
+    if (status === "authenticated" && session?.user) router.push("/test");
   }, [status, session, router]);
 
   return (
@@ -52,7 +52,10 @@ const NavBar = () => {
         </Link>
         <div className="flex items-center gap-5">
           <ThemeSwitch />
-          <Link href={"/pricing"} className="flex align-middle">
+          <Link
+            href={"/pricing"}
+            className="md:flex align-middle hidden md:visible"
+          >
             <span className="text-base sm:text-xl font-medium sm:font-bold text-foreground">
               Pricing
             </span>
@@ -106,7 +109,7 @@ const NavBar = () => {
                   onClick={() => signOut()}
                   className="text-white p-2 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
                 >
-                  <LogOut size={20} />
+                  <LogOut size={15} />
                 </button>
               </div>
             )}

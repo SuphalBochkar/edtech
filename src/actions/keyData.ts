@@ -1,7 +1,7 @@
 import { data, tempData } from "@/lib/data";
 
-export async function getLevelData(level: string) {
-  await new Promise((resolve) => setTimeout(resolve, 100));
+export function getLevelData(level: string) {
+  //   await new Promise((resolve) => setTimeout(resolve, 100));
   return data[level] || null;
 }
 

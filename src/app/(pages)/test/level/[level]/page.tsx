@@ -32,15 +32,32 @@
 //   );
 // }
 
+"use client";
+
+import { getLevelData } from "@/actions/keyData";
+import { useRouter } from "next/navigation";
 import React from "react";
 
-const page = ({ params }: { params: object }) => {
+const Page = ({
+  params,
+}: {
+  params: {
+    level: string;
+  };
+}) => {
+  const router = useRouter();
+  const data = getLevelData(params.level);
+
+  if (!data) {
+    router.push("/test/");
+  }
+
   return (
-    <div className="text-background">
-      This is level\[level] page.tsx
-      <div>{JSON.stringify(params)}</div>
+    <div className="text-foreground">
+      This is level\[level] Page.tsx
+      <div>{JSON.stringify(data, null, 3)}</div>
     </div>
   );
 };
 
-export default page;
+export default Page;

@@ -11,7 +11,6 @@ export default function LevelComponent({ level }: { level: number }) {
       transition={{ duration: 0.5 }}
     >
       <div className="absolute inset-0 backdrop-blur-sm bg-white/30" />
-
       <motion.div
         className="absolute -top-20 -left-20 w-[200px] h-[200px] bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70"
         animate={{

@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import AllTests from "@/components/Tests/AllTests";
 import WelcomeMsg from "@/components/WelcomeMsg";
-import LevelComponent from "@/ui/Aceternity/LevelComponent";
+import Blobs from "@/components/Blobs";
 
 const Page = () => {
   const router = useRouter();
@@ -18,13 +18,13 @@ const Page = () => {
   }, [user, router]);
 
   return (
-    <div className="max-h-screen w-screen">
+    <div className="max-h-screen">
       <NavBar />
+      <Blobs />
       <div className="flex flex-col align-middle justify-center items-center content-center">
         <WelcomeMsg name={user?.name || "User"} isPaid={user?.paid || false} />
         <AllTests />
       </div>
-      <LevelComponent />
     </div>
   );
 };
