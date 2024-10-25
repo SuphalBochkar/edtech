@@ -69,22 +69,8 @@ export default function AllTests() {
         },
       }}
     >
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <motion.div variants={fadeInUp} className="p-6 rounded-lg">
-          <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4">
-            Level Tests
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {levelTests.map((level) => (
-              <LevelComponent
-                key={level}
-                level={level}
-                onClick={() => router.push("/test/level/" + level)}
-              />
-            ))}
-          </div>
-        </motion.div>
-        <motion.div variants={fadeInUp} className="p-6 rounded-lg">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8">
+        <motion.div variants={fadeInUp} className="p-3 md:p-6 rounded-lg">
           <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4">
             AE Tests
           </h2>
@@ -94,6 +80,20 @@ export default function AllTests() {
                 key={test.id}
                 {...test}
                 onClick={() => router.push("/test/practice/" + test.id)}
+              />
+            ))}
+          </div>
+        </motion.div>
+        <motion.div variants={fadeInUp} className="p-3 md:p-6 rounded-lg">
+          <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4">
+            Level Tests
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {levelTests.map((level) => (
+              <LevelComponent
+                key={level}
+                level={level}
+                onClick={() => router.push("/test/level/" + level)}
               />
             ))}
           </div>

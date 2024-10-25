@@ -6,15 +6,16 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { LogOut } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import ThemeSwitch from "./ThemeSwitch";
 
 const NavBar = () => {
   const { data: session, status } = useSession();
   const user = session?.user;
   const router = useRouter();
-
+  const pathname = usePathname();
   const [loading, setLoading] = useState(false);
+
   const handleSignIn = async () => {
     setLoading(true);
     await signIn("google");
@@ -24,17 +25,25 @@ const NavBar = () => {
   useEffect(() => {
     const pathname = window.location.pathname;
     if (pathname.includes("/pricing")) return;
-    
     if (status === "loading") return;
     if (!user) router.push("/");
   }, [user, status, router]);
+
+  const relativeRoutes = ["/test/level/", "/test/practice/"];
+  const isRelativeRoute = relativeRoutes.some((route) =>
+    pathname.startsWith(route)
+  );
 
   //   useEffect(() => {
   //     if (status === "authenticated" && session?.user) router.push("/test");
   //   }, [status, session, router]);
 
   return (
-    <nav className="sticky wrapper top-0 z-50 flex items-center justify-center gap-2 py-6 w-full text-[#f9fafb]">
+    <nav
+      className={`${
+        isRelativeRoute ? "relative" : "sticky"
+      }  wrapper top-0 z-50 flex items-center justify-center gap-2 py-6 w-full text-[#f9fafb]`}
+    >
       <motion.div
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

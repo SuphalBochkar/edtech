@@ -1,18 +1,17 @@
-import { getTestData } from "@/actions/keyData";
-import JsonPage from "@/components/Tests/JsonPage";
 import React from "react";
+import { getPracticeTestsData } from "@/actions/keyData";
+import JsonPage from "@/components/Tests/JsonPage";
 
 export default async function Page({
   params,
 }: {
   params: {
-    level: string;
+    practice: string;
     type: string;
-    testNumber: string;
   };
 }) {
-  const { level, type, testNumber } = params;
-  const testId = getTestData(level, type, testNumber);
+  const { practice, type } = params;
+  const testId = getPracticeTestsData(practice, type);
   const response = await fetch(
     `http://localhost:3000/api/hitbullseye/getdata/${testId}`
   );
@@ -28,7 +27,7 @@ export default async function Page({
   const myData = data?.data;
 
   return (
-    <div className="text-foreground">
+    <div className="">
       <JsonPage data={myData} />
     </div>
   );

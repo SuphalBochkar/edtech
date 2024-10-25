@@ -24,7 +24,6 @@ model User {
 }
 
 model Hitbullseye {
-    id        String   @id @default(auto()) @map("_id") @db.ObjectId
-    data      Json
-    createdAt DateTime @default(now())
+    id   String @id @default(auto()) @map("_id") @db.ObjectId
+    data Json
 }

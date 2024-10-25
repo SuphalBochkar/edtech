@@ -32,9 +32,9 @@ body {
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@100;200;300;400;500;600;700;800;900&display=swap"); */
 
 @layer base {
   :root {
@@ -46,4 +46,22 @@ body {
     --background: #0a0a0a;
     --foreground: #ffffff;
   }
+}
+
+/* src/index.css */
+.question-block h3,
+.question-block h4,
+.question-block p,
+.question-block span {
+  margin: 10px 0 !important;
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+  font-family: "JetBrains Mono", monospace !important;
+  text-indent: 0pt !important;
+}
+
+.question-block div {
+  color: var(--foreground) !important;
+  font-family: "JetBrains Mono", monospace !important;
+  text-indent: 0pt !important;
 }
