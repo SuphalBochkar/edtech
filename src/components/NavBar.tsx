@@ -22,8 +22,16 @@ const NavBar = () => {
   };
 
   useEffect(() => {
-    if (status === "authenticated" && session?.user) router.push("/test");
-  }, [status, session, router]);
+    const pathname = window.location.pathname;
+    if (pathname.includes("/pricing")) return;
+    
+    if (status === "loading") return;
+    if (!user) router.push("/");
+  }, [user, status, router]);
+
+  //   useEffect(() => {
+  //     if (status === "authenticated" && session?.user) router.push("/test");
+  //   }, [status, session, router]);
 
   return (
     <nav className="sticky wrapper top-0 z-50 flex items-center justify-center gap-2 py-6 w-full text-[#f9fafb]">

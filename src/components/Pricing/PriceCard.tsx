@@ -33,18 +33,18 @@ export default function Example() {
           The right price for you
         </p>
       </div>
-      <p className="mx-auto max-w-xl text-center text-base sm:text-lg sm:leading-8 text-gray-400">
+      <p className="text-foreground mx-auto max-w-xl text-center text-base sm:text-lg sm:leading-8 text-gray-400">
         Get all the answers at one place which can help study better and
         complete all modules
       </p>
       <div className=" w-[95%] sm:w-[65%] backdrop-blur-lg border border-gray-800 shadow-2xl rounded-3xl p-8 mt-5 ring-1 ring-gray-900/10 sm:p-10">
-        <h3 className="text-violet-400 text-base font-semibold leading-7">
+        <h3 className="text-foreground text-violet-400 text-base font-semibold leading-7">
           Lifetime
         </h3>
-        <p className="mt-4 flex items-baseline gap-x-2">
-          <span className="text-white text-5xl font-bold tracking-tight">
-            <span className="line-through text-4xl text-gray-500">₹89</span>{" "}
-            <span className="text-violet-100">₹49</span>
+        <p className="text-background mt-4 flex items-baseline gap-x-2">
+          <span className="text-5xl font-bold tracking-tight">
+            <span className="line-through text-4xl text-violet-100">₹89</span>{" "}
+            <span className="text-gray-500">₹49</span>
           </span>
         </p>
 

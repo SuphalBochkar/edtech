@@ -13,9 +13,9 @@ export default async function TestPage({
     params.testNumber
   );
 
-  if (!testData) {
-    notFound();
-  }
+//   if (!testData) {
+//     notFound();
+//   }
 
   return (
     <div>

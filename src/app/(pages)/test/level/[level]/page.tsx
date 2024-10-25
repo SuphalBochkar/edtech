@@ -36,7 +36,17 @@
 
 import { getLevelData } from "@/actions/keyData";
 import { useRouter } from "next/navigation";
-import React from "react";
+import NavBar from "@/components/NavBar";
+import Blobs from "@/components/Blobs";
+import LevelCard from "@/components/Tests/LevelCard";
+import { useEffect } from "react";
+import { motion } from "framer-motion";
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 10 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.4 },
+};
 
 const Page = ({
   params,
@@ -48,14 +58,42 @@ const Page = ({
   const router = useRouter();
   const data = getLevelData(params.level);
 
+  useEffect(() => {
+    if (!data) {
+      router.push("/test/");
+    }
+  }, [data, router]);
+
   if (!data) {
-    router.push("/test/");
+    return <div></div>;
   }
 
   return (
-    <div className="text-foreground">
-      This is level\[level] Page.tsx
-      <div>{JSON.stringify(data, null, 3)}</div>
+    <div>
+      <Blobs />
+      <div className="flex flex-col justify-center items-center py-8">
+        <div className="">{JSON.stringify(data, null, 3)}</div>
+        <div className="w-[90vw] lg:w-[70vw] py-4 md:py-10 shadow-lg rounded-lg overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <LevelCard
+                level={params.level}
+                type="Aptitude"
+                tests={data?.aptitude}
+              />
+            </div>
+            <div className="">
+              <div className="space-y-4">
+                <LevelCard
+                  level={params.level}
+                  type="Programming"
+                  tests={data?.programming}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

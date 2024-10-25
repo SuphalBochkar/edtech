@@ -13,6 +13,7 @@ const Content = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (status === "loading") return;
     if (status === "authenticated" && session?.user) router.push("/test");
   }, [status, session, router]);
 
