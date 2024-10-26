@@ -57,14 +57,13 @@ export default function Page({
   }, [data, router]);
 
   if (!data) {
-    return <div></div>;
+    return <div>{""}</div>;
   }
 
   return (
     <div>
       <Blobs />
-      <div className="pl-10">
-      </div>
+      <div className="pl-10"></div>
       <div className="flex flex-col justify-center items-center py-4 md:py-8">
         <div className="w-[90vw] lg:w-[70vw] py-4 md:py-10 rounded-lg overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-4">
