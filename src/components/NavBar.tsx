@@ -69,14 +69,14 @@ const NavBar = () => {
         </Link>
         <div className="flex items-center gap-5">
           <ThemeSwitch />
-          <Link
+          {/* <Link
             href={"/pricing"}
             className="md:flex align-middle hidden md:visible"
           >
             <span className="text-base sm:text-xl font-medium sm:font-bold text-foreground">
               Pricing
             </span>
-          </Link>
+          </Link> */}
           <div className="flex items-center gap-8">
             {!user ? (
               <button

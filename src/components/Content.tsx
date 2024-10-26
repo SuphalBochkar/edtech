@@ -44,9 +44,7 @@ const Content = () => {
           <span className="font-bold bg-gradient-to-b from-violet-300 to-violet-800 bg-clip-text text-transparent">
             Finish66
           </span>
-          <span className="pl-4 block sm:inline text-foreground">
-            Hitbullsye.
-          </span>
+          <span className="pl-4 block sm:inline text-foreground">EdTech.</span>
         </h1>
       </div>
       <p className="text-foreground max-w-lg text-center tracking-tight md:text-lg font-light">
@@ -89,12 +87,12 @@ const Content = () => {
             </>
           )}
         </button>
-        <button
+        {/* <button
           onClick={() => router.push("/pricing")}
           className="bg-gradient-to-r from-violet-400 text-sm sm:text-lg to-violet-500 px-6 py-2 rounded-md text-white font-semibold tracking-tight hover:from-violet-500 hover:to-violet-900"
         >
           See Pricing
-        </button>
+        </button> */}
         {/* <PricingButton /> */}
       </div>
     </motion.div>

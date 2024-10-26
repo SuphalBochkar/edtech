@@ -30,7 +30,10 @@ export default async function Page({
   if (testId === Status.Updating) {
     return (
       <div className="text-foreground">
-        <ErrorPage text="We're currently updating the data. Please check back in a few moments." />
+        <ErrorPage
+          status={Status.Updating}
+          text="We're currently updating the data. Please check back in a few moments."
+        />
       </div>
     );
   }

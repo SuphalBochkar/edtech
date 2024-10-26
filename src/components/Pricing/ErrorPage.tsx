@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { RefreshCw } from "lucide-react";
 import { Status } from "@/lib/types";
+import updating from "@/assets/updating.gif";
+import errorImage from "@/assets/404-error.gif";
 
 export default function ErrorPage({
   status = null,
@@ -11,15 +13,21 @@ export default function ErrorPage({
   status?: Status | null;
   text: string;
 }) {
+  const image = status === null ? errorImage : updating;
+  console.log("status", status);
   return (
     <div className="flex flex-col items-center justify-center p-4 text-foreground">
-      <div className="w-full max-w-md">
+      <div className="flex flex-col items-center w-full max-w-lg text-center">
         <Image
-          src={"/images/error.svg"}
+          src={image}
           alt={text}
-          width={400}
-          height={300}
-          className="w-full h-auto rounded-lg shadow-lg mb-8"
+          width={100}
+          height={100}
+          className={`${
+            status === null
+              ? "w-[300px] h-[350px] md:w-[400px] md:h-[450px]"
+              : "w-[200px] h-[300px] md:w-[300px] md:h-[400px]"
+          } rounded-lg shadow-lg mb-8`}
         />
         <h1 className="text-3xl md:text-4xl font-bold text-center mb-4">
           {text}
