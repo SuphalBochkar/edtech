@@ -66,7 +66,7 @@ export default function CustomBreadcrumb({
   return (
     <nav
       aria-label="Breadcrumb"
-      className={`${sizeClasses[size]} font-semibold`}
+      className={`text-base md:${sizeClasses[size]} font-semibold`}
     >
       <ol className="flex items-center space-x-2">
         {pathArray.map((path, index) => (

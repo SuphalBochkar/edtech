@@ -134,11 +134,11 @@ const JsonPage = ({ data }: { data: DataItem[] }) => {
 
   return (
     <>
-      <div className="flex justify-center">
-        <CustomBreadcrumb size={"md"} />
+      <div className="flex justify-center md:justify-start md:flex-none md:my-5 md:pl-[15%]">
+        <CustomBreadcrumb size={"lg"} />
       </div>
       <div className="text-white flex flex-col items-center md:p-4 min-h-screen question-block overflow-clip">
-        <h1 className="text-base px-2 sm:text-xl lg:text-4xl font-semibold my-4">
+        <h1 className="px-2 text-xl lg:text-4xl font-semibold my-4">
           {testName}
         </h1>
         <div className="w-full md:max-w-4xl p-2 md:p-4 md:rounded-lg bg-purple-800/5">
