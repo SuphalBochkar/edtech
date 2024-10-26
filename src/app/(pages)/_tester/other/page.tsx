@@ -12,7 +12,7 @@ const BackgroundLayer: React.FC<BackgroundLayerProps> = ({
   gradientFrom,
   gradientTo,
 }) => {
-  let random = (Math.floor(Math.random() * 100) + 1) % 360;
+  const random = (Math.floor(Math.random() * 100) + 1) % 360;
 
   return (
     <div
@@ -37,7 +37,7 @@ const Page = () => {
   return (
     <div className="w-full h-full relative">
       <TestPage />
-      <LevelComponent />
+      {/* <LevelComponent /> */}
       {/* <BackgroundLayer gradientFrom="#ed4445" gradientTo="#7f1d1e" /> */}
       {/* <BackgroundLayer gradientFrom="violet-400" gradientTo="violet-900" /> */}
       {/* <BackgroundLayer gradientFrom="#8b3ef0" gradientTo="#9089fc" /> */}

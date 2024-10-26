@@ -2,11 +2,12 @@
 
 import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "@/lib/prisma";
-import { AccountType, SessionType, TokenType, UserType } from "@/lib/types";
-// import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { User, Account } from "next-auth";
+import { SessionType, TokenType } from "./types";
 
 export const AUTH_PROVIDERS = {
-  //   adapter: PrismaAdapter(prisma),
+  // Uncomment this line if you want to use Prisma adapter
+  // adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
@@ -29,8 +30,8 @@ export const AUTH_PROVIDERS = {
   },
 
   callbacks: {
-    async signIn({ user, account }: { user: UserType; account: AccountType }) {
-      if (account?.provider === "google" && user && user.email) {
+    async signIn({ user, account }: { user: User; account: Account | null }) {
+      if (account?.provider === "google" && user.email) {
         const existingUser = await prisma.user.findUnique({
           where: { email: user.email },
         });
@@ -55,7 +56,7 @@ export const AUTH_PROVIDERS = {
       return true;
     },
 
-    async jwt({ token, user }: { token: TokenType; user: UserType }) {
+    async jwt({ token, user }: { token: TokenType; user: User | null }) {
       if (user) {
         token.userId = user.id;
         token.paid = user.paid;

@@ -1,18 +1,35 @@
-import { JWTPayload } from "jose";
+// import { JWTPayload } from "jose";
 import { DefaultUser, DefaultSession } from "next-auth";
 
-export type CookieType = {
-  id: number | string;
-  email: string;
-  username?: string | null;
-};
+// export type CookieType = {
+//   id: number | string;
+//   email: string;
+//   username?: string | null;
+// };
 
-export interface SessionPayload extends JWTPayload {
+// export interface SessionPayload extends JWTPayload {
+//   id: string;
+// }
+
+// export interface SessionData {
+//   session: string | undefined;
+// }
+
+// Auth Types
+
+export interface UserType extends DefaultUser {
   id: string;
+  paid: boolean;
 }
 
-export interface SessionData {
-  session: string | undefined;
+export interface TokenType {
+  userId: string;
+  paid: boolean;
+  
+}
+
+export interface SessionType extends DefaultSession {
+  user: UserType & { userId: string; paid: boolean };
 }
 
 export enum Status {
@@ -33,24 +50,6 @@ export interface tempTestData {
   [category: string]: {
     [testName: string]: string;
   };
-}
-
-export interface UserType extends DefaultUser {
-  id: string;
-  paid: boolean;
-}
-
-export interface AccountType {
-  provider: string;
-}
-
-export interface TokenType {
-  userId: string;
-  paid: boolean;
-}
-
-export interface SessionType extends DefaultSession {
-  user: UserType & { userId: string; paid: boolean };
 }
 
 export enum HttpStatus {
