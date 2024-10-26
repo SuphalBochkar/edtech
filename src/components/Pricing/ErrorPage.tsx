@@ -14,7 +14,6 @@ export default function ErrorPage({
   text: string;
 }) {
   const image = status === null ? errorImage : updating;
-  console.log("status", status);
   return (
     <div className="flex flex-col items-center justify-center p-4 text-foreground">
       <div className="flex flex-col items-center w-full max-w-lg text-center">

@@ -39,6 +39,7 @@ import { useRouter } from "next/navigation";
 import Blobs from "@/components/Blobs";
 import LevelCard from "@/components/Tests/LevelCard";
 import { useEffect } from "react";
+import CustomBreadcrumb from "@/components/Tests/CustomBreadcrumb";
 
 export default function Page({
   params,
@@ -63,25 +64,25 @@ export default function Page({
   return (
     <div>
       <Blobs />
-      <div className="pl-10"></div>
       <div className="flex flex-col justify-center items-center py-4 md:py-8">
         <div className="w-[90vw] lg:w-[70vw] py-4 md:py-10 rounded-lg overflow-hidden">
+          <div className="p-4 md:justify-start">
+            <CustomBreadcrumb />
+          </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-4">
               <LevelCard
                 level={params.level}
                 type="Aptitude"
                 tests={data?.aptitude}
               />
             </div>
-            <div className="">
-              <div className="space-y-4">
-                <LevelCard
-                  level={params.level}
-                  type="Programming"
-                  tests={data?.programming}
-                />
-              </div>
+            <div className="space-y-4">
+              <LevelCard
+                level={params.level}
+                type="Programming"
+                tests={data?.programming}
+              />
             </div>
           </div>
         </div>

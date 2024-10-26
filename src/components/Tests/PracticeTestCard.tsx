@@ -11,8 +11,6 @@ export default function PracticeTestCard({
   practice,
   type,
 }: PracticeTestCardProps) {
-  console.log("practice", practice);
-  console.log("type", type);
   return (
     <>
       <div className="hover:shadow-lg transition-shadow">

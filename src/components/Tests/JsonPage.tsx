@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import CustomBreadcrumb from "./CustomBreadcrumb";
 
 interface DataItem {
   question1?: string;
@@ -132,31 +133,35 @@ const JsonPage = ({ data }: { data: DataItem[] }) => {
   )} Test ${cap(pathname[5])}`;
 
   return (
-    <div className="text-white flex flex-col items-center md:p-4 min-h-screen question-block overflow-clip">
-      <h1 className="text-base px-2 sm:text-xl lg:text-4xl font-semibold my-4">
-        {testName}
-      </h1>
-      <div className="w-full md:max-w-4xl p-2 md:p-4 md:rounded-lg bg-purple-800/5">
-        {/* {!error && id && ( */}
-        <>
-          <div className="sticky top-0 z-5 bg-purple-800/5 p-2">
-            <div className="flex items-center gap-2 mb-2 md:gap-4 md:mb-4">
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={handleSearchChange}
-                placeholder="Search question or options..."
-                className="w-full p-2 rounded-md text-[14px] md:text-lg text-white search-input focus:outline-none focus:ring-1 focus:ring-white"
-              />
-              <button
-                onClick={handleClear}
-                className="px-4 py-2 text-[14px] md:text-lg rounded-md bg-background text-foreground active:bg-purple-900 focus:outline-none"
-              >
-                Clear
-              </button>
+    <>
+      <div className="flex justify-center">
+        <CustomBreadcrumb size={"md"} />
+      </div>
+      <div className="text-white flex flex-col items-center md:p-4 min-h-screen question-block overflow-clip">
+        <h1 className="text-base px-2 sm:text-xl lg:text-4xl font-semibold my-4">
+          {testName}
+        </h1>
+        <div className="w-full md:max-w-4xl p-2 md:p-4 md:rounded-lg bg-purple-800/5">
+          {/* {!error && id && ( */}
+          <>
+            <div className="sticky top-0 z-5 bg-purple-800/5 p-2">
+              <div className="flex items-center gap-2 mb-2 md:gap-4 md:mb-4">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  placeholder="Search question or options..."
+                  className="w-full p-2 rounded-md text-[14px] md:text-lg text-white search-input focus:outline-none focus:ring-1 focus:ring-white"
+                />
+                <button
+                  onClick={handleClear}
+                  className="px-4 py-2 text-[14px] md:text-lg rounded-md bg-background text-foreground active:bg-purple-900 focus:outline-none"
+                >
+                  Clear
+                </button>
+              </div>
             </div>
-          </div>
-          {/* {isProgramming() && (
+            {/* {isProgramming() && (
             <div className="flex justify-around mb-4">
               {["All", "A", "B", "C", "D", "E"].map((filter) => (
                 <div
@@ -173,95 +178,96 @@ const JsonPage = ({ data }: { data: DataItem[] }) => {
               ))}
             </div>
           )} */}
-        </>
-        {/* )} */}
-        {/* {loading && <JsonLoading />}
+          </>
+          {/* )} */}
+          {/* {loading && <JsonLoading />}
         {!loading && error && <ErrorPage text={error} />}
         {!loading && !error && data && id && ( */}
-        <div className="space-y-2 md:space-y-4">
-          {/* {!loading && */}
-          {isFiltered && filteredData && filteredData.length === 0 && (
-            <div className="flex flex-col items-center justify-center py-10 bg-purple-900 bg-purple-800/5 rounded-md">
-              <div className="text-lg md:text-2xl font-semibold text-purple-300 bg-purple-800/5 mb-4 text-center">
-                No Questions Found 😕
-              </div>
-              {/* {isProgramming() && (
+          <div className="space-y-2 md:space-y-4">
+            {/* {!loading && */}
+            {isFiltered && filteredData && filteredData.length === 0 && (
+              <div className="flex flex-col items-center justify-center py-10 bg-purple-900 bg-purple-800/5 rounded-md">
+                <div className="text-lg md:text-2xl font-semibold text-purple-300 bg-purple-800/5 mb-4 text-center">
+                  No Questions Found 😕
+                </div>
+                {/* {isProgramming() && (
                   <div className="text-lg md:text-2xl font-semibold text-purple-300 bg-purple-800/5 mb-4 text-center">
                     Click on "All" to display all Questions
                   </div>
                 )} */}
-              <div className="text-xs sm:text-sm md:text-base text-purple-300 bg-purple-800/5 text-center">
-                Try adjusting your search terms or clearing the search input.
+                <div className="text-xs sm:text-sm md:text-base text-purple-300 bg-purple-800/5 text-center">
+                  Try adjusting your search terms or clearing the search input.
+                </div>
+                <button
+                  onClick={handleClear}
+                  className="mt-6 px-4 py-2 rounded-md bg-purple-900/10 text-white hover:bg-purple-900/5 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                >
+                  Clear Search
+                </button>
               </div>
-              <button
-                onClick={handleClear}
-                className="mt-6 px-4 py-2 rounded-md bg-purple-900/10 text-white hover:bg-purple-900/5 focus:outline-none focus:ring-2 focus:ring-purple-400"
-              >
-                Clear Search
-              </button>
-            </div>
-          )}
-          {filteredData.map((dataObj: DataItem, index: number) => {
-            const questionNo = index + 1;
-            const { question1, question2, options, correctAnswer } = dataObj;
-            return (
-              <div
-                key={index}
-                className="bg-purple-900/10 p-2 md:p-4 rounded-lg border border-foreground"
-              >
-                <div className="text-lg md:text-2xl text-white mb-2 p-2 rounded-md">
-                  Question {questionNo}:
-                </div>
-                {question1 && (
-                  <div
-                    className="text-xs md:text-base text-white bg-purple-800/5 p-2 rounded-md"
-                    dangerouslySetInnerHTML={{
-                      __html: highlightHTML(question1, searchQuery),
-                    }}
-                  />
-                )}
-                {question2 && (
-                  <div
-                    className="text-xs md:text-base text-white bg-purple-800/5 p-2 rounded-md"
-                    dangerouslySetInnerHTML={{
-                      __html: highlightHTML(question2, searchQuery),
-                    }}
-                  />
-                )}
-                <div className="text-xs md:text-lg p-2 rounded-md">
-                  Options:
-                </div>
-                <ul className="text-xs md:text-base pl-4 bg-purple-800/5 rounded-md p-3">
-                  {Object.entries(options).map(([optionKey, option]) =>
-                    option ? (
-                      <li
-                        key={optionKey}
-                        className={`mb-1 ${
-                          optionKey.toUpperCase() === correctAnswer
-                            ? "border md:border-2 px-2 rounded-md border-foreground"
-                            : ""
-                        }`}
-                      >
-                        {optionKey.toUpperCase()}:{" "}
-                        <span
-                          className="ml-3 inline-block"
-                          dangerouslySetInnerHTML={{
-                            __html: highlightHTML(option, searchQuery),
-                          }}
-                        />
-                      </li>
-                    ) : null
+            )}
+            {filteredData.map((dataObj: DataItem, index: number) => {
+              const questionNo = index + 1;
+              const { question1, question2, options, correctAnswer } = dataObj;
+              return (
+                <div
+                  key={index}
+                  className="bg-purple-900/10 p-2 md:p-4 rounded-lg border border-foreground"
+                >
+                  <div className="text-lg md:text-2xl text-white mb-2 p-2 rounded-md">
+                    Question {questionNo}:
+                  </div>
+                  {question1 && (
+                    <div
+                      className="text-xs md:text-base text-white bg-purple-800/5 p-2 rounded-md"
+                      dangerouslySetInnerHTML={{
+                        __html: highlightHTML(question1, searchQuery),
+                      }}
+                    />
                   )}
-                </ul>
-                <h4 className="text-base md:text-lg text-white bg-purple-800/5 p-2 rounded-md my-2">
-                  Correct Answer: {correctAnswer}
-                </h4>
-              </div>
-            );
-          })}
+                  {question2 && (
+                    <div
+                      className="text-xs md:text-base text-white bg-purple-800/5 p-2 rounded-md"
+                      dangerouslySetInnerHTML={{
+                        __html: highlightHTML(question2, searchQuery),
+                      }}
+                    />
+                  )}
+                  <div className="text-xs md:text-lg p-2 rounded-md">
+                    Options:
+                  </div>
+                  <ul className="text-xs md:text-base pl-4 bg-purple-800/5 rounded-md p-3">
+                    {Object.entries(options).map(([optionKey, option]) =>
+                      option ? (
+                        <li
+                          key={optionKey}
+                          className={`mb-1 ${
+                            optionKey.toUpperCase() === correctAnswer
+                              ? "border md:border-2 px-2 rounded-md border-foreground"
+                              : ""
+                          }`}
+                        >
+                          {optionKey.toUpperCase()}:{" "}
+                          <span
+                            className="ml-3 inline-block"
+                            dangerouslySetInnerHTML={{
+                              __html: highlightHTML(option, searchQuery),
+                            }}
+                          />
+                        </li>
+                      ) : null
+                    )}
+                  </ul>
+                  <h4 className="text-base md:text-lg text-white bg-purple-800/5 p-2 rounded-md my-2">
+                    Correct Answer: {correctAnswer}
+                  </h4>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 export default JsonPage;
