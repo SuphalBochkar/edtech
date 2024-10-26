@@ -43,8 +43,8 @@ export default function Example() {
         </h3>
         <p className="text-background mt-4 flex items-baseline gap-x-2">
           <span className="text-5xl font-bold tracking-tight">
-            <span className="line-through text-4xl text-violet-100">₹89</span>{" "}
-            <span className="text-gray-500">₹49</span>
+            <span className="line-through text-4xl text-gray-500">₹89</span>{" "}
+            <span className="text-violet-100">₹49</span>
           </span>
         </p>
 

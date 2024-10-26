@@ -124,7 +124,7 @@ const NavBar = () => {
                 />
                 <button
                   onClick={() => signOut()}
-                  className="text-white p-2 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+                  className="text-foreground p-2 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
                 >
                   <LogOut size={15} />
                 </button>

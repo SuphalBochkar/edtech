@@ -112,7 +112,7 @@ function LevelComponent({
 }) {
   return (
     <motion.div
-      className="bg-gradient-to-br from-gray-100 to-purple-50 dark:from-gray-900 dark:to-purple-900 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+      className="bg-gradient-to-br from-gray-100 to-purple-100 dark:from-gray-900 dark:to-purple-900 rounded-lg overflow-hidden cursor-pointer"
       whileHover={{ y: -3 }}
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
@@ -156,7 +156,7 @@ function PracticeComponent({
 }) {
   return (
     <motion.div
-      className="bg-gradient-to-br from-white to-purple-50 dark:from-gray-800 dark:to-purple-900 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 border border-purple-100 dark:border-purple-800 cursor-pointer"
+      className="bg-gradient-to-br from-white to-purple-50 dark:from-gray-800 dark:to-purple-900 rounded-lg overflow-hidden border border-purple-100 dark:border-purple-800 cursor-pointer"
       whileHover={{ y: -3 }}
       whileTap={{ scale: 0.98 }}
       onClick={onClick}

@@ -40,25 +40,41 @@ export const tempData: tempTestData = {
   },
 };
 
-export const levelTests = [1, 2, 3, 4];
+export const levelTests = [1, 2];
 
 export const data: TestData = {
   "1": {
     aptitude: {
       "1": "66ab84054dd68a6f814b06d7",
-      "2": "66ab84a94dd68a6f814b06ea",
-      "3": "66ab84c44dd68a6f814b06ee",
-      "4": "66ab85224dd68a6f814b06f4",
-      "5": "66ab85634dd68a6f814b06f8",
+      "2": Status.Updating,
+      "3": Status.Updating,
+      "4": Status.Updating,
+      "5": Status.Updating,
     },
     programming: {
-      "1": "66ab85854dd68a6f814b06fa",
-      "2": "66ab86104dd68a6f814b06fe",
-      "3": "66ab86554dd68a6f814b0702",
-      "4": "66ab86f34dd68a6f814b0708",
-      "5": "66ab87e24dd68a6f814b070c",
+      "1": Status.Updating,
+      "2": Status.Updating,
+      "3": Status.Updating,
+      "4": Status.Updating,
+      "5": Status.Updating,
     },
   },
+  //   "1": {
+  //     aptitude: {
+  //       "1": "66ab84054dd68a6f814b06d7",
+  //       "2": "66ab84a94dd68a6f814b06ea",
+  //       "3": "66ab84c44dd68a6f814b06ee",
+  //       "4": "66ab85224dd68a6f814b06f4",
+  //       "5": "66ab85634dd68a6f814b06f8",
+  //     },
+  //     programming: {
+  //       "1": "66ab85854dd68a6f814b06fa",
+  //       "2": "66ab86104dd68a6f814b06fe",
+  //       "3": "66ab86554dd68a6f814b0702",
+  //       "4": "66ab86f34dd68a6f814b0708",
+  //       "5": "66ab87e24dd68a6f814b070c",
+  //     },
+  //   },
   //   "2": {
   //     aptitude: {
   //       "1": "66ab88334dd68a6f814b0710",
@@ -84,8 +100,8 @@ export const data: TestData = {
   //       "5": "66dd469dcc80a03015d78af5",
   //     },
   //     programming: {
-  //       "1": "66bfb0f5c44dc209859b00ec-@-66df5fea1cf66d1871b06fa9",
-  //       "2": "66c04ec09bc4b00bb23e1e66-@-66df60211cf66d1871b06fab",
+  //       "1": "66bfb0f5c44dc209859b00ec-66df5fea1cf66d1871b06fa9",
+  //       "2": "66c04ec09bc4b00bb23e1e66-66df60211cf66d1871b06fab",
   //       "3": "66c050621ea8cc0124018ea1-66df603c1cf66d1871b06fad",
   //       "4": "66c05235ce7f81fd696d4e0a-66df605e1cf66d1871b06faf",
   //       "5": "66c0ece55281c0d2cd1f4c18-66df60811cf66d1871b06fb1",
