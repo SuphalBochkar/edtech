@@ -44,9 +44,7 @@ const Content = () => {
           <span className="font-bold bg-gradient-to-b from-violet-300 to-violet-800 bg-clip-text text-transparent">
             Finish66
           </span>
-          <span className="pl-4 block sm:inline text-foreground">
-            Hitbullseye
-          </span>
+          <span className="pl-4 block sm:inline text-foreground">EdTech</span>
         </h1>
       </div>
       <p className="text-foreground max-w-lg text-center tracking-tight md:text-lg font-light">
@@ -85,7 +83,7 @@ const Content = () => {
           ) : (
             <>
               <Image src={google} alt="Google logo" width={20} height={20} />
-              Login for answers
+              Sign in with Google
             </>
           )}
         </button>
