@@ -237,7 +237,7 @@ const JsonPage = ({ data }: { data: DataItem[] }) => {
                           key={optionKey}
                           className={`mb-1 ${
                             optionKey.toUpperCase() === correctAnswer
-                              ? "border md:border-2 px-2 rounded-md border-gray-400 dark:border-gray-400"
+                              ? "border-2 px-2 rounded-md border-gray-400 dark:border-gray-400"
                               : ""
                           }`}
                         >
@@ -252,7 +252,7 @@ const JsonPage = ({ data }: { data: DataItem[] }) => {
                       ) : null
                     )}
                   </ul>
-                  <h4 className="text-base md:text-lg text-white p-2 rounded-md my-2">
+                  <h4 className="text-base md:text-lg text-white p-2 rounded-md my-2 border-[1.5px] px-2">
                     Correct Answer: {correctAnswer}
                   </h4>
                 </div>
