@@ -112,7 +112,7 @@ function LevelComponent({
 }) {
   return (
     <motion.div
-      className="bg-gradient-to-br from-gray-100 to-purple-100 dark:from-gray-900 dark:to-purple-900 rounded-lg overflow-hidden cursor-pointer"
+      className="relative overflow-hidden rounded-lg border border-gray-400 dark:border-gray-600 cursor-pointer backdrop-blur-md bg-purple-800/10 dark:bg-purple-800/20"
       whileHover={{ y: -3 }}
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
@@ -122,7 +122,7 @@ function LevelComponent({
           <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mr-2">
             Level {level}
           </h3>
-          <p className="text-[10px] md:text-xs text-gray-600 dark:text-gray-400">
+          <p className="text-[12px] md:text-xs text-gray-600 dark:text-gray-400">
             Aptitude & Programming
           </p>
         </div>
@@ -130,7 +130,7 @@ function LevelComponent({
           {["A", "B", "C", "D", "E"].map((set) => (
             <motion.span
               key={set}
-              className="text-xs font-semibold bg-purple-100 dark:bg-purple-900 text-gray-800 dark:text-gray-200 px-1.5 py-0.5 rounded"
+              className="text-xs font-semibold px-1.5 py-0.5 rounded border border-gray-400 dark:border-gray-600 cursor-pointer backdrop-blur-md bg-purple-800/10 dark:bg-purple-800/20"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -156,30 +156,34 @@ function PracticeComponent({
 }) {
   return (
     <motion.div
-      className="bg-gradient-to-br from-white to-purple-50 dark:from-gray-800 dark:to-purple-900 rounded-lg overflow-hidden border border-purple-100 dark:border-purple-800 cursor-pointer"
+      className="relative overflow-hidden rounded-lg border border-gray-400 dark:border-gray-600 cursor-pointer backdrop-blur-md bg-purple-800/10 dark:bg-purple-800/20"
       whileHover={{ y: -3 }}
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
     >
-      <div className="p-3">
+      <div className="relative z-10 p-4">
         <div className="flex justify-between items-start">
           <div className="flex-1">
-            <h3 className="text-sm font-semibold text-purple-900 dark:text-purple-100 leading-tight">
+            <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200 leading-tight mb-2">
               {name}
             </h3>
-            <div className="flex justify-between items-center mt-1">
+            <div className="flex justify-between items-center">
               <p className="text-xs text-gray-600 dark:text-gray-400 flex items-center">
                 <BookOpen className="w-3 h-3 mr-1" />
                 {type}
               </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">{date}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-500">{date}</p>
             </div>
           </div>
-          <div className="bg-purple-100 dark:bg-purple-900 rounded-full p-1 ml-2">
-            <CalendarIcon className="w-3 h-3 text-purple-600 dark:text-purple-400" />
+          <div className="bg-gray-100 dark:bg-gray-800 rounded-full p-1.5 ml-2">
+            <CalendarIcon className="w-4 h-4 text-gray-600 dark:text-gray-400" />
           </div>
         </div>
       </div>
+      <div
+        className="absolute inset-0 bg-gradient-to-br from-gray-100 to-white dark:from-gray-900 dark:to-gray-800 opacity-30"
+        style={{ filter: "blur(20px)" }}
+      />
     </motion.div>
   );
 }

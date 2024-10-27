@@ -3,6 +3,7 @@
 import React from "react";
 // import { Sparkles, Star } from "lucide-react";
 import { motion } from "framer-motion";
+import { ExternalLink } from "lucide-react";
 
 const WelcomeMsg = ({ name = "User", isPaid = false }) => {
   const firstName = name.split(" ")[0];
@@ -19,13 +20,22 @@ const WelcomeMsg = ({ name = "User", isPaid = false }) => {
     >
       <h1 className="text-2xl md:text-3xl font-semibold text-gray-800 dark:text-gray-200 mb-1">
         Welcome,{" "}
-        <span className="text-purple-800 dark:text-purple-700">
+        <span className="font-bold bg-gradient-to-b from-violet-300 to-violet-800 bg-clip-text text-transparent">
           {firstName}
         </span>
       </h1>
-      <p className="text-xs md:text-base text-foreground mb-2">
-        Glad to have you back!
-      </p>
+      <div>
+        Join
+        <a
+          href="https://t.me/+sYgr_ndeZQIzZTll"
+          target="_blank"
+          className="text-violet-500 px-1 hover:text-violet-600 transition-colors duration-200 inline-flex items-center"
+        >
+          Telegram
+          <ExternalLink className="ml-1 h-4 w-4" />
+        </a>{" "}
+        group
+      </div>
       {/* <motion.div
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.97 }}
