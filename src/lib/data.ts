@@ -45,18 +45,18 @@ export const levelTests = [1, 2];
 export const data: TestData = {
   "1": {
     aptitude: {
-      "1": Status.Paid,
-      "2": Status.Paid,
-      "3": Status.Paid,
-      "4": Status.Paid,
-      "5": Status.Paid,
+      "1": Status.Updating,
+      "2": Status.Updating,
+      "3": Status.Updating,
+      "4": Status.Updating,
+      "5": Status.Updating,
     },
     programming: {
-      "1": Status.Paid,
-      "2": Status.Paid,
-      "3": Status.Paid,
-      "4": Status.Paid,
-      "5": Status.Paid,
+      "1": Status.Updating,
+      "2": Status.Updating,
+      "3": Status.Updating,
+      "4": Status.Updating,
+      "5": Status.Updating,
     },
   },
   //   "1": {

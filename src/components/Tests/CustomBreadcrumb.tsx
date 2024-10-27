@@ -51,6 +51,10 @@ export default function CustomBreadcrumb({
   const getPath = (index: number) => {
     if (pathArray[index] === "Practice" || pathArray[index] === "Level")
       return "/test";
+
+    if (pathArray[index] === "Aptitude" || pathArray[index] === "Programming")
+      return `/test/level/${pathArray[2]}`;
+
     return `/${pathArray
       .slice(0, index + 1)
       .join("/")

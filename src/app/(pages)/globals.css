@@ -60,10 +60,39 @@ body {
   color: var(--foreground) !important;
   font-family: "JetBrains Mono", monospace !important;
   text-indent: 0pt !important;
+  font-size: small !important;
 }
 
 .question-block div {
   color: var(--foreground) !important;
   font-family: "JetBrains Mono", monospace !important;
   text-indent: 0pt !important;
+  font-size: small !important;
+}
+
+/* Media Queries for Font Size */
+@media (min-width: 600px) {
+  .question-block h3,
+  .question-block h4,
+  .question-block p,
+  .question-block span,
+  .question-block div {
+    font-size: medium !important;
+  }
+  .question-block div {
+    font-size: medium !important;
+  }
+}
+
+@media (min-width: 900px) {
+  .question-block h3,
+  .question-block h4,
+  .question-block p,
+  .question-block span,
+  .question-block div {
+    font-size: large !important;
+  }
+  .question-block div {
+    font-size: large !important;
+  }
 }

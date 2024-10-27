@@ -77,7 +77,7 @@ export default function Example() {
           aria-describedby="tier-enterprise"
           className="bg-violet-500 text-white shadow-sm hover:bg-violet-400 focus-visible:outline-violet-500 mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 sm:mt-10"
         >
-          Access the answers
+          Get Access (Implementing Soon)
         </a>
       </div>
     </motion.div>
