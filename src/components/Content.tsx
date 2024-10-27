@@ -34,7 +34,7 @@ const Content = () => {
         delay: 0.3,
       }}
       initial={{ y: -20, opacity: 0 }}
-      className="max-w-8xl px-4 pt-40 sm:pt-52 flex flex-col gap-5 items-center justify-center"
+      className="max-w-8xl px-4 pt-20 md:pt-40 sm:pt-52 flex flex-col gap-5 items-center justify-center"
     >
       <div className="flex flex-col items-center justify-center">
         <span className="tracking-tighter text-2xl md:text-3xl text-center font-medium text-foreground">
