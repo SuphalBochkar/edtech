@@ -25,7 +25,6 @@ export interface UserType extends DefaultUser {
 export interface TokenType {
   userId: string;
   paid: boolean;
-  
 }
 
 export interface SessionType extends DefaultSession {
@@ -36,6 +35,7 @@ export enum Status {
   Updating = "updating",
   NotAvailable = "na",
   Other = "other",
+  Paid = "paid",
 }
 
 export interface TestData {

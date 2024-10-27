@@ -3,6 +3,7 @@ import ErrorPage from "@/components/Pricing/ErrorPage";
 import JsonPage from "@/components/Tests/JsonPage";
 import { Status } from "@/lib/types";
 import React from "react";
+import { redirect } from "next/navigation";
 
 export default async function Page({
   params,
@@ -15,6 +16,10 @@ export default async function Page({
 }) {
   const { level, type, testNumber } = params;
   const testId = getTestData(level, type, testNumber);
+
+  if (testId === Status.Paid) {
+    redirect("/pricing");
+  }
 
   if (
     testId === undefined ||

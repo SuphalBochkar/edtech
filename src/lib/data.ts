@@ -35,8 +35,8 @@ export const tempData: tempTestData = {
     verbal: "6713bce84e5ee3e89d4dbee4",
   },
   "4": {
-    analytical: Status.Updating,
-    verbal: Status.Updating,
+    analytical: "671dcee7c566b5e58242e99f",
+    verbal: "671dd5017b4a2e1b689d30f9",
   },
 };
 
@@ -46,17 +46,17 @@ export const data: TestData = {
   "1": {
     aptitude: {
       "1": "66ab84054dd68a6f814b06d7",
-      "2": Status.Updating,
-      "3": Status.Updating,
-      "4": Status.Updating,
-      "5": Status.Updating,
+      "2": Status.Paid,
+      "3": Status.Paid,
+      "4": Status.Paid,
+      "5": Status.Paid,
     },
     programming: {
-      "1": Status.Updating,
-      "2": Status.Updating,
-      "3": Status.Updating,
-      "4": Status.Updating,
-      "5": Status.Updating,
+      "1": Status.Paid,
+      "2": Status.Paid,
+      "3": Status.Paid,
+      "4": Status.Paid,
+      "5": Status.Paid,
     },
   },
   //   "1": {

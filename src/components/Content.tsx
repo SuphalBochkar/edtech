@@ -44,7 +44,9 @@ const Content = () => {
           <span className="font-bold bg-gradient-to-b from-violet-300 to-violet-800 bg-clip-text text-transparent">
             Finish66
           </span>
-          <span className="pl-4 block sm:inline text-foreground">EdTech.</span>
+          <span className="pl-4 block sm:inline text-foreground">
+            Hitbullseye
+          </span>
         </h1>
       </div>
       <p className="text-foreground max-w-lg text-center tracking-tight md:text-lg font-light">
@@ -54,7 +56,7 @@ const Content = () => {
       <div className="flex gap-4">
         <button
           onClick={handleSignIn}
-          className={`flex gap-3 items-center text-sm sm:text-lg font-bold border border-transparent bg-gradient-to-r from-white to-gray-300 text-black px-6 py-3 rounded-lg transition-all duration-300 transform hover:from-gray-100 hover:to-white hover:scale-105 ${
+          className={`flex gap-2 md:gap-3 items-center text-sm sm:text-lg font-bold border border-transparent bg-gradient-to-r from-white to-gray-300 text-black px-4 py-4 md:px-6 md:py-3 rounded-lg transition-all duration-300 transform hover:from-gray-100 hover:to-white hover:scale-105 ${
             loading ? "cursor-not-allowed opacity-75" : ""
           }`}
           disabled={loading}
@@ -83,7 +85,7 @@ const Content = () => {
           ) : (
             <>
               <Image src={google} alt="Google logo" width={20} height={20} />
-              Login with Google
+              Login for answers
             </>
           )}
         </button>

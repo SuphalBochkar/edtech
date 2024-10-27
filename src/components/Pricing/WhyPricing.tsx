@@ -31,7 +31,7 @@ const WhyPricing = () => {
 
       <section className="max-w-2xl mx-auto my-10 sm:my-0">
         {/* <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 text-violet-200"> */}
-        <h2 className="h-16 text-3xl text-center tracking-tight sm:text-5xl font-bold bg-gradient-to-b from-violet-300 to-violet-800 bg-clip-text text-transparent">
+        <h2 className="h-20 text-3xl text-center tracking-tight sm:text-5xl font-bold bg-gradient-to-b from-violet-300 to-violet-800 bg-clip-text text-transparent">
           Why Are We Charging?
         </h2>
         <div className="backdrop-blur-lg border border-gray-800 shadow-2xl sm:mt-20 sm:h-[53vh] sm:p-10 text-gray-300 rounded-3xl p-6">
@@ -48,7 +48,8 @@ const WhyPricing = () => {
             If you’re unable to pay or would like to request to reduce fee,
             please reach out to us on{" "}
             <a
-              href="#"
+              href="https://t.me/+sYgr_ndeZQIzZTll"
+              target="_blank"
               className="text-violet-500 px-1 hover:text-violet-600 transition-colors duration-200 inline-flex items-center"
             >
               Telegram

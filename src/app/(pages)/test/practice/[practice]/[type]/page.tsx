@@ -3,6 +3,7 @@ import { getPracticeTestsData } from "@/actions/keyData";
 import JsonPage from "@/components/Tests/JsonPage";
 import { Status } from "@/lib/types";
 import ErrorPage from "@/components/Pricing/ErrorPage";
+import { redirect } from "next/navigation";
 
 export default async function Page({
   params,
@@ -14,6 +15,10 @@ export default async function Page({
 }) {
   const { practice, type } = params;
   const testId = getPracticeTestsData(practice, type);
+
+  if (testId === Status.Paid) {
+    redirect("/pricing");
+  }
 
   if (
     testId === undefined ||
