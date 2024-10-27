@@ -186,7 +186,7 @@ const JsonPage = ({ data }: { data: DataItem[] }) => {
           <div className="space-y-2 md:space-y-4">
             {/* {!loading && */}
             {isFiltered && filteredData && filteredData.length === 0 && (
-              <div className="flex flex-col items-center justify-center py-10 bg-purple-900 bg-purple-800/5 rounded-md">
+              <div className="flex flex-col items-center justify-center py-10 bg-purple-900/5 rounded-md">
                 <div className="text-lg md:text-2xl font-semibold text-purple-300 bg-purple-800/5 mb-4 text-center">
                   No Questions Found 😕
                 </div>
