@@ -2,12 +2,13 @@
 
 import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "@/lib/prisma";
-import { User, Account } from "next-auth";
+import { User, Account, SessionStrategy } from "next-auth";
 import { SessionType, TokenType } from "./types";
+// import { PrismaAdapter } from "@next-auth/prisma-adapter";
+// import type { Adapter } from "next-auth/adapters";
 
 export const AUTH_PROVIDERS = {
-  // Uncomment this line if you want to use Prisma adapter
-  // adapter: PrismaAdapter(prisma),
+  //   adapter: PrismaAdapter(prisma) as Adapter,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
@@ -21,12 +22,12 @@ export const AUTH_PROVIDERS = {
   ],
   secret: process.env.NEXTAUTH_SECRET,
   session: {
-    strategy: "jwt" as const,
+    strategy: "jwt" as SessionStrategy,
     maxAge: 30 * 24 * 60 * 60,
   },
 
   pages: {
-    signIn: "/signin",
+    signIn: "/auth/signin",
   },
 
   callbacks: {

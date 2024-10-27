@@ -1,9 +1,9 @@
 import React from "react";
 import { getPracticeTestsData } from "@/actions/keyData";
-import JsonPage from "@/components/Tests/JsonPage";
 import { Status } from "@/lib/types";
 import ErrorPage from "@/components/Pricing/ErrorPage";
 import { redirect } from "next/navigation";
+import AnswerPage from "@/components/Tests/AnswerPage";
 
 export default async function Page({
   params,
@@ -57,12 +57,12 @@ export default async function Page({
     );
   }
 
-  const data = await response.json();
-  const myData = data?.data;
+  const serverData = await response.json();
+  const myData = serverData?.data;
 
   return (
-    <div className="">
-      <JsonPage data={myData} />
+    <div className="text-foreground">
+      <AnswerPage data={myData} />
     </div>
   );
 }

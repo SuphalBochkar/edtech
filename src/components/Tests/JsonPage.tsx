@@ -3,13 +3,7 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import CustomBreadcrumb from "./CustomBreadcrumb";
-
-interface DataItem {
-  question1?: string;
-  question2?: string;
-  options: { [key: string]: string };
-  correctAnswer: string;
-}
+import { DataItem } from "@/lib/types";
 
 const JsonPage = ({ data }: { data: DataItem[] }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -144,18 +138,18 @@ const JsonPage = ({ data }: { data: DataItem[] }) => {
         <div className="w-full md:max-w-4xl p-2 md:p-4 md:rounded-lg bg-purple-800/5">
           {/* {!error && id && ( */}
           <>
-            <div className="sticky top-0 z-5 bg-purple-800/5 p-2">
-              <div className="flex items-center gap-2 mb-2 md:gap-4 md:mb-4">
+            <div className="sticky top-0 z-5 bg-purple-800/5 p-2 md:mb-4">
+              <div className="flex items-center gap-2 md:gap-4">
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={handleSearchChange}
                   placeholder="Search question or options..."
-                  className="w-full p-2 rounded-md text-[14px] md:text-lg text-white search-input focus:outline-none focus:ring-1 focus:ring-white"
+                  className="w-full p-2 rounded-md text-[14px] md:text-lg text-white search-input focus:outline-none focus:ring-1 focus:ring-white border border-gray-700 dark:border-gray-400"
                 />
                 <button
                   onClick={handleClear}
-                  className="px-4 py-2 text-[14px] md:text-lg rounded-md bg-background text-foreground active:bg-purple-900 focus:outline-none"
+                  className="px-4 py-2 text-[14px] md:text-lg rounded-md bg-background text-foreground active:bg-purple-900 focus:outline-none border border-gray-700 dark:border-gray-400"
                 >
                   Clear
                 </button>
@@ -187,7 +181,7 @@ const JsonPage = ({ data }: { data: DataItem[] }) => {
             {/* {!loading && */}
             {isFiltered && filteredData && filteredData.length === 0 && (
               <div className="flex flex-col items-center justify-center py-10 bg-purple-900/5 rounded-md">
-                <div className="text-lg md:text-2xl font-semibold text-purple-300 bg-purple-800/5 mb-4 text-center">
+                <div className="text-lg md:text-2xl font-semibold text-purple-300 bg-purple-900/5 mb-4 text-center">
                   No Questions Found 😕
                 </div>
                 {/* {isProgramming() && (
@@ -212,14 +206,14 @@ const JsonPage = ({ data }: { data: DataItem[] }) => {
               return (
                 <div
                   key={index}
-                  className="bg-purple-900/10 p-2 md:p-4 rounded-lg border border-gray-400 dark:border-gray-400"
+                  className="p-2 md:p-4 rounded-lg border border-gray-700 dark:border-gray-400"
                 >
-                  <div className="text-lg md:text-2xl text-white mb-2 p-2 rounded-md">
+                  <div className="!text-lg md:!text-2xl text-white mb-2 p-2 rounded-md">
                     Question {questionNo}:
                   </div>
                   {question1 && (
                     <div
-                      className="text-xs md:text-base text-white bg-purple-800/5 p-2 rounded-md"
+                      className="text-xs md:text-base text-white p-2 rounded-md"
                       dangerouslySetInnerHTML={{
                         __html: highlightHTML(question1, searchQuery),
                       }}
@@ -227,7 +221,7 @@ const JsonPage = ({ data }: { data: DataItem[] }) => {
                   )}
                   {question2 && (
                     <div
-                      className="text-xs md:text-base text-white bg-purple-800/5 p-2 rounded-md"
+                      className="text-xs md:text-base text-white p-2 rounded-md"
                       dangerouslySetInnerHTML={{
                         __html: highlightHTML(question2, searchQuery),
                       }}
@@ -236,7 +230,7 @@ const JsonPage = ({ data }: { data: DataItem[] }) => {
                   <div className="text-xs md:text-lg p-2 rounded-md">
                     Options:
                   </div>
-                  <ul className="text-xs md:text-base pl-4 bg-purple-800/5 rounded-md p-3">
+                  <ul className="text-xs md:text-base pl-4 rounded-md p-3">
                     {Object.entries(options).map(([optionKey, option]) =>
                       option ? (
                         <li
@@ -258,7 +252,7 @@ const JsonPage = ({ data }: { data: DataItem[] }) => {
                       ) : null
                     )}
                   </ul>
-                  <h4 className="text-base md:text-lg text-white bg-purple-800/5 p-2 rounded-md my-2">
+                  <h4 className="text-base md:text-lg text-white p-2 rounded-md my-2">
                     Correct Answer: {correctAnswer}
                   </h4>
                 </div>

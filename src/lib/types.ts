@@ -38,6 +38,13 @@ export enum Status {
   Paid = "paid",
 }
 
+export interface DataItem {
+  question1?: string;
+  question2?: string;
+  options: { [key: string]: string };
+  correctAnswer: string;
+}
+
 export interface TestData {
   [level: string]: {
     [category: string]: {

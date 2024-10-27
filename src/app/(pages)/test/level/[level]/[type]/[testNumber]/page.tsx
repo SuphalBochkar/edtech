@@ -1,9 +1,9 @@
 import { getTestData } from "@/actions/keyData";
 import ErrorPage from "@/components/Pricing/ErrorPage";
-import JsonPage from "@/components/Tests/JsonPage";
 import { Status } from "@/lib/types";
 import React from "react";
 import { redirect } from "next/navigation";
+import AnswerPage from "@/components/Tests/AnswerPage";
 
 export default async function Page({
   params,
@@ -58,12 +58,12 @@ export default async function Page({
     );
   }
 
-  const data = await response.json();
-  const myData = data?.data;
+  const serverData = await response.json();
+  const myData = serverData?.data;
 
   return (
     <div className="text-foreground">
-      <JsonPage data={myData} />
+      <AnswerPage data={myData} />
     </div>
   );
 }
