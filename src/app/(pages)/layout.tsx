@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Providers from "@/providers/providers";
 import { Lato } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "Finish66 EdTech",
@@ -26,6 +27,7 @@ export default function RootLayout({
       <link rel="icon" href="./icon.svg" type="image/svg+xml" />
       <body className={`${lato.className} bg-background text-foreground`}>
         <Providers>{children}</Providers>
+        <Analytics />
       </body>
     </html>
   );

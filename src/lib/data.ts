@@ -45,7 +45,7 @@ export const levelTests = [1, 2];
 export const data: TestData = {
   "1": {
     aptitude: {
-      "1": "66ab84054dd68a6f814b06d7",
+      "1": Status.Paid,
       "2": Status.Paid,
       "3": Status.Paid,
       "4": Status.Paid,
