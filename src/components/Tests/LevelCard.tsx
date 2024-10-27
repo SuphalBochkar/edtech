@@ -10,7 +10,7 @@ type LevelCardProps = {
 
 export default function LevelCard({ level, type, tests }: LevelCardProps) {
   return (
-    <motion.div className="bg-purple-800/10 rounded-lg p-6 shadow-sm transition-shadow cursor-pointer">
+    <motion.div className="rounded-xl p-6 transition-shadow cursor-pointer bg-transparent border-[1.75px] border-gray-400 dark:border-gray-400">
       <div className="text-xl font-semibold mb-2">
         Level {level} - {type}
       </div>
@@ -19,7 +19,7 @@ export default function LevelCard({ level, type, tests }: LevelCardProps) {
           {Object.entries(tests).map(([testNumber, testId]) => (
             <motion.li
               key={testId}
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.03, x: 5 }}
               transition={{ type: "spring", stiffness: 300 }}
               className="flex items-center space-x-2"
             >
