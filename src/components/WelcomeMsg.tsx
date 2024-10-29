@@ -3,7 +3,7 @@
 import React from "react";
 // import { Sparkles, Star } from "lucide-react";
 import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+// import { ExternalLink } from "lucide-react";
 
 const WelcomeMsg = ({ name = "User", isPaid = false }) => {
   const firstName = name.split(" ")[0];
@@ -24,7 +24,7 @@ const WelcomeMsg = ({ name = "User", isPaid = false }) => {
           {firstName}
         </span>
       </h1>
-      <div>
+      {/* <div>
         Join
         <a
           href="https://t.me/+sYgr_ndeZQIzZTll"
@@ -35,7 +35,7 @@ const WelcomeMsg = ({ name = "User", isPaid = false }) => {
           <ExternalLink className="ml-1 h-4 w-4" />
         </a>{" "}
         group
-      </div>
+      </div> */}
       {/* <motion.div
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.97 }}
