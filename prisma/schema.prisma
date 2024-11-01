@@ -15,6 +15,8 @@ model User {
     expireAt  DateTime?
     paid      Boolean   @default(false)
     createdAt DateTime  @default(now())
+    payments  Payment[] @relation("UserPayments")
+    courses   Course[]
 }
 
 model Hitbullseye {
@@ -22,34 +24,55 @@ model Hitbullseye {
     data Json
 }
 
-// model User {
-//     id            String          @id @default(auto()) @map("_id") @db.ObjectId
+enum Course {
+    C1011
+    C1012
+}
+
+enum PaymentStatus {
+    PENDING
+    SUCCESS
+    FAILED
+}
+
+model Payment {
+    id                  String        @id @default(auto()) @map("_id") @db.ObjectId
+    razorpay_payment_id String?
+    razorpay_signature  String?
+    razorpay_order_id   String
+    status              PaymentStatus @default(PENDING)
+    userId              String        @map("user_id") @db.ObjectId
+    user                User          @relation("UserPayments", fields: [userId], references: [id])
+}
+
+// Other Schema Model
+// model Customer {
+//     id            String    @id @default(auto()) @map("_id") @db.ObjectId
 //     name          String?
-//     email         String          @unique
+//     email         String    @unique
 //     image         String?
-//     expireAt      DateTime?
-//     paid          Boolean         @default(false)
-//     createdAt     DateTime        @default(now())
 //     emailVerified DateTime?
+//     paid          Boolean   @default(false)
+//     createdAt     DateTime  @default(now())
 //     accounts      Account[]
 //     sessions      Session[]
-//     Authenticator Authenticator[]
+//     payments      Payment[]
 // }
 
 // model Account {
-//     id                String  @id @default(auto()) @map("_id") @db.ObjectId
-//     userId            String  @db.ObjectId
+//     id                String   @id @default(auto()) @map("_id") @db.ObjectId
+//     customerId        String   @db.ObjectId
 //     type              String
 //     provider          String
 //     providerAccountId String
-//     refresh_token     String? @db.String
-//     access_token      String? @db.String
+//     refresh_token     String?  @db.String
+//     access_token      String?  @db.String
 //     expires_at        Int?
 //     token_type        String?
 //     scope             String?
-//     id_token          String? @db.String
+//     id_token          String?  @db.String
 //     session_state     String?
-//     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+//     customer          Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
 
 //     @@unique([provider, providerAccountId])
 // }
@@ -57,9 +80,9 @@ model Hitbullseye {
 // model Session {
 //     id           String   @id @default(auto()) @map("_id") @db.ObjectId
 //     sessionToken String   @unique
-//     userId       String   @db.ObjectId
+//     customerId   String   @db.ObjectId
 //     expires      DateTime
-//     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+//     customer     Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
 // }
 
 // model VerificationToken {
@@ -71,16 +94,21 @@ model Hitbullseye {
 //     @@unique([identifier, token])
 // }
 
-// model Authenticator {
-//     id                   String  @id @default(auto()) @map("_id") @db.ObjectId
-//     credentialID         String  @unique
-//     userId               String  @db.ObjectId
-//     providerAccountId    String
-//     credentialPublicKey  String
-//     counter              Int
-//     credentialDeviceType String
-//     credentialBackedUp   Boolean
-//     transports           String?
+// model Hitbullseye {
+//     id   String @id @default(auto()) @map("_id") @db.ObjectId
+//     data Json
+// }
 
-//     user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+// enum Course {
+//     C1011
+//     C1012
+// }
+
+// model Payment {
+//     id                  String   @id @default(auto()) @map("_id") @db.ObjectId
+//     razorpay_payment_id String   @db.String
+//     razorpay_order_id   String   @db.String
+//     razorpay_signature  String   @db.String
+//     customerId          String   @db.ObjectId
+//     customer            Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
 // }

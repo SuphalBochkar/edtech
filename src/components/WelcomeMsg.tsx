@@ -1,15 +1,11 @@
 "use client";
 
 import React from "react";
-// import { Sparkles, Star } from "lucide-react";
 import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Sparkles, Star } from "lucide-react";
 
-const WelcomeMsg = ({ name = "User", isPaid = false }) => {
+const WelcomeMsg = ({ name, isPaid }: { name: string; isPaid: boolean }) => {
   const firstName = name.split(" ")[0];
-
-  if (!isPaid) {
-  }
 
   return (
     <motion.div
@@ -36,7 +32,7 @@ const WelcomeMsg = ({ name = "User", isPaid = false }) => {
         </a>{" "}
         group
       </div>
-      {/* <motion.div
+      <motion.div
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.97 }}
         className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-white text-xs font-medium ${
@@ -51,7 +47,7 @@ const WelcomeMsg = ({ name = "User", isPaid = false }) => {
           <Star className="w-3 h-3" />
         )}
         <span>{isPaid ? "Premium User" : "Free User"}</span>
-      </motion.div> */}
+      </motion.div>
     </motion.div>
   );
 };

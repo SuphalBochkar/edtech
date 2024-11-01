@@ -8,6 +8,8 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { LogOut } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 import ThemeSwitch from "./ThemeSwitch";
+import defaultImage from "@/assets/default-avatar.png";
+import ForceLogout from "./ForceLogout";
 
 const NavBar = () => {
   const { data: session, status } = useSession();
@@ -24,9 +26,11 @@ const NavBar = () => {
 
   useEffect(() => {
     const pathname = window.location.pathname;
-    if (pathname.includes("/pricing")) return;
     if (status === "loading") return;
-    if (!user) router.push("/");
+    if (!user) {
+      router.push("/");
+    }
+    if (pathname.includes("/pricing")) return;
   }, [user, status, router]);
 
   const relativeRoutes = ["/test/level/", "/test/practice/"];
@@ -77,62 +81,67 @@ const NavBar = () => {
               Pricing
             </span>
           </Link> */}
-          <div className="flex items-center gap-8">
-            {!user ? (
-              <button
-                className={`inline-flex items-center justify-center text-sm font-medium text-background bg-foreground h-10 rounded-md px-8 transition duration-300 ease-in-out ${
-                  loading ? "cursor-not-allowed opacity-70" : ""
-                }`}
-                onClick={handleSignIn}
-                disabled={loading}
-              >
-                {loading ? (
-                  <span className="flex items-center">
-                    <svg
-                      className="animate-spin h-5 w-5 mr-2 text-gray-900"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      ></circle>
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                      ></path>
-                    </svg>
-                  </span>
-                ) : (
-                  "Login"
-                )}
-              </button>
-            ) : (
-              <div className="flex items-center space-x-4">
-                <Image
-                  src={user.image || "/default-avatar.png"}
-                  alt="Profile"
-                  width={40}
-                  height={40}
-                  className="rounded-full "
-                />
+          {status !== "loading" && (
+            <div className="flex items-center gap-8">
+              {!user ? (
                 <button
-                  onClick={() => signOut()}
-                  className="text-foreground p-2 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+                  className={`inline-flex items-center justify-center text-sm font-medium text-background bg-foreground h-10 rounded-md px-8 transition duration-300 ease-in-out ${
+                    loading ? "cursor-not-allowed opacity-70" : ""
+                  }`}
+                  onClick={handleSignIn}
+                  disabled={loading}
                 >
-                  <LogOut size={15} />
+                  {loading ? (
+                    <span className="flex items-center">
+                      <svg
+                        className="animate-spin h-5 w-5 mr-2 text-gray-900"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                        ></path>
+                      </svg>
+                    </span>
+                  ) : (
+                    "Login"
+                  )}
                 </button>
-              </div>
-            )}
-          </div>
+              ) : (
+                <div className="flex items-center space-x-4">
+                  <Image
+                    src={user.image || defaultImage}
+                    alt="Profile"
+                    width={40}
+                    height={40}
+                    className="rounded-full"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <button
+                    onClick={() => signOut()}
+                    className="text-foreground p-2 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+                  >
+                    <LogOut size={15} />
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </motion.div>
+      <ForceLogout />
     </nav>
   );
 };

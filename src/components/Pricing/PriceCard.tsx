@@ -1,8 +1,10 @@
-// import { CheckIcon } from "@heroicons/react/20/solid";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function Example() {
+  const router = useRouter();
+
   return (
     <motion.div
       animate={{ y: 0, opacity: 1 }}
@@ -73,11 +75,11 @@ export default function Example() {
           </li>
         </ul>
         <a
-          href="#"
           aria-describedby="tier-enterprise"
-          className="bg-violet-500 text-white shadow-sm hover:bg-violet-400 focus-visible:outline-violet-500 mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 sm:mt-10"
+          className="bg-violet-500 text-white shadow-sm hover:bg-violet-400 focus-visible:outline-violet-500 mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 sm:mt-10 cursor-pointer"
+          onClick={() => router.push("/pay")}
         >
-          Get Access (Implementing Soon)
+          Get Access Now
         </a>
       </div>
     </motion.div>
