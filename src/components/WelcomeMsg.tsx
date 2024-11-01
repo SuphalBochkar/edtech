@@ -2,10 +2,14 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ExternalLink, Sparkles, Star } from "lucide-react";
+// import { ExternalLink, Sparkles, Star } from "lucide-react";
+// import { ExternalLink } from "lucide-react";
 
 const WelcomeMsg = ({ name, isPaid }: { name: string; isPaid: boolean }) => {
   const firstName = name.split(" ")[0];
+
+  if (isPaid) {
+  }
 
   return (
     <motion.div
@@ -20,7 +24,7 @@ const WelcomeMsg = ({ name, isPaid }: { name: string; isPaid: boolean }) => {
           {firstName}
         </span>
       </h1>
-      <div>
+      {/* <div>
         Join
         <a
           href="https://t.me/+sYgr_ndeZQIzZTll"
@@ -33,6 +37,8 @@ const WelcomeMsg = ({ name, isPaid }: { name: string; isPaid: boolean }) => {
         group
       </div>
       <motion.div
+      </div> */}
+      {/* <motion.div
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.97 }}
         className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-white text-xs font-medium ${
@@ -47,7 +53,7 @@ const WelcomeMsg = ({ name, isPaid }: { name: string; isPaid: boolean }) => {
           <Star className="w-3 h-3" />
         )}
         <span>{isPaid ? "Premium User" : "Free User"}</span>
-      </motion.div>
+      </motion.div> */}
     </motion.div>
   );
 };
