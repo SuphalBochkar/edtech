@@ -206,6 +206,8 @@ export default function Page() {
         modal: {
           ondismiss: function () {
             if (confirm("Are you sure, you want to close the form?")) {
+              setIsProcessing(false);
+              setPaymentFlow("error");
               console.log("Checkout form closed by the user");
             } else {
               console.log("Complete the Payment");

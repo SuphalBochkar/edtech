@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { prisma } from "@/lib/prisma";
 import { Course } from "@/lib/types";
-import { getToken } from "next-auth/jwt";
+import { getServerSession } from "next-auth";
 
 const generatedSignature = (
   razorpayOrderId: string,
@@ -18,9 +18,9 @@ const generatedSignature = (
 };
 
 export async function POST(req: NextRequest) {
-  const getSessionData = await getToken({ req });
+  const session = await getServerSession();
 
-  if (!getSessionData) {
+  if (!session || !session.user?.email) {
     return NextResponse.json({ error: "Not Authorized" }, { status: 401 });
   }
 

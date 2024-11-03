@@ -80,18 +80,28 @@ export async function getRazorPayOptions(
   setPaymentFlow: (value: SetStateAction<FlowTypes>) => void,
   setIsProcessing: (value: SetStateAction<boolean>) => void
 ) {
-  console.log("sessionData", sessionData);
-
   let orderId: string;
   try {
-    const data = await axios.post(
+    const response = await axios.post(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/razorpay/createOrder`
     );
-    orderId = data.data.orderId;
+
+    if (response.status === 200) {
+      const data = response.data;
+      orderId = data.orderId;
+    } else {
+      console.error(`Error: Received status code ${response.status}`);
+      setPaymentFlow("error");
+      setIsProcessing(false);
+      return;
+    }
   } catch (error) {
+    setPaymentFlow("error");
+    setIsProcessing(false);
     console.error("Failed to create Razorpay order", error);
     throw new Error("Order creation failed. Please try again.");
   }
+
   const options = {
     key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
     amount: amount * 100,

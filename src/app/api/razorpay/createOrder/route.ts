@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { Course } from "@/lib/types";
-import { getToken } from "next-auth/jwt";
-import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { NextResponse } from "next/server";
 import Razorpay from "razorpay";
 
 const razorPayInstance = new Razorpay({
@@ -9,14 +9,14 @@ const razorPayInstance = new Razorpay({
   key_secret: process.env.RAZORPAY_KEY_SECRET!,
 });
 
-export async function POST(req: NextRequest) {
-  const tokenData = await getToken({ req });
+export async function POST() {
+  const session = await getServerSession();
 
-  console.log("TokenData", tokenData);
-
-  if (!tokenData || !tokenData?.email) {
+  if (!session || !session.user?.email) {
     return NextResponse.json({ error: "Not Authorized" }, { status: 401 });
   }
+
+  const userEmail = session.user?.email;
 
   const options = {
     amount: 100 * 100,
@@ -24,14 +24,14 @@ export async function POST(req: NextRequest) {
     receipt: "receipt#" + Math.random().toString(36).substring(7),
     notes: {
       paymentFor: "Edu Course",
-      userEmail: tokenData.email || "",
-      productId: Course.Course2_MyPer || "",
+      userEmail: userEmail || "",
+      productId: Course.Course1_Hit || "",
     },
   };
 
   try {
     const user = await prisma.user.findUnique({
-      where: { email: tokenData.email },
+      where: { email: userEmail },
       select: { id: true },
     });
 
@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
     });
 
     await prisma.user.update({
-      where: { email: tokenData.email },
+      where: { email: userEmail },
       data: {
         payments: {
           connect: {
