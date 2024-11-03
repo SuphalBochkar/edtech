@@ -27,7 +27,7 @@ export default async function Page({
   ) {
     return (
       <div className="text-foreground">
-        <ErrorPage text="We couldn't find the data you're looking for. Please try again later." />
+        <ErrorPage text="No Data Found. Try again later." />
       </div>
     );
   }
@@ -35,10 +35,7 @@ export default async function Page({
   if (testId === Status.Updating) {
     return (
       <div className="text-foreground">
-        <ErrorPage
-          status={Status.Updating}
-          text="We're currently updating the data. Please check back in a few moments."
-        />
+        <ErrorPage status={Status.Updating} text="Will be updating soon." />
       </div>
     );
   }
