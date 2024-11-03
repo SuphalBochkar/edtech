@@ -9,7 +9,7 @@ import { LogOut } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 import ThemeSwitch from "./ThemeSwitch";
 import defaultImage from "@/assets/default-avatar.png";
-import ForceLogout from "./ForceLogout";
+// import ForceLogout from "./ForceLogout";
 
 const NavBar = () => {
   const { data: session, status } = useSession();
@@ -141,7 +141,7 @@ const NavBar = () => {
           )}
         </div>
       </motion.div>
-      <ForceLogout />
+      {/* <ForceLogout /> */}
     </nav>
   );
 };
