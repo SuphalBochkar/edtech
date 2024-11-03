@@ -17,12 +17,28 @@ export default async function TestPageComponent({ fetchData }: TestPageProps) {
   const testId = fetchData();
   const session = await getServerSession();
 
-  if (!session) {
+  if (!session || !session.user || !session.user.email) {
     redirect("/");
   }
 
   if (testId === Status.Paid) {
     redirect("/pricing");
+  }
+
+  const userCourses = await prisma.user.findFirst({
+    where: {
+      email: session.user.email,
+    },
+    select: {
+      courses: true,
+    },
+  });
+
+  const isAuthorized = userCourses?.courses.includes(Course.Course1_Hit);
+
+  if (!isAuthorized) {
+    redirect("/pricing");
+    return;
   }
 
   if (
@@ -46,37 +62,6 @@ export default async function TestPageComponent({ fetchData }: TestPageProps) {
         />
       </div>
     );
-  }
-
-  /*
-
-  model User {
-    id        String    @id @default(auto()) @map("_id") @db.ObjectId
-    name      String?
-    email     String    @unique
-    image     String?
-    expireAt  DateTime?
-    paid      Boolean   @default(false)
-    createdAt DateTime  @default(now())
-    payments  Payment[] @relation("UserPayments")
-    courses   Course[]
-}
-   */
-
-  const userCourses = await prisma.user.findFirst({
-    where: {
-      id: session.user.id,
-    },
-    select: {
-      courses: true,
-    },
-  });
-
-  const isAuthorized = userCourses?.courses.includes(Course.Course1_Hit);
-
-  if (!isAuthorized) {
-    redirect("/pricing");
-    return;
   }
 
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";

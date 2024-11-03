@@ -2,7 +2,6 @@
 
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt";
 // import { getServerSession } from "next-auth";
 // import { AUTH_PROVIDERS } from "@/lib/auth";
 
@@ -22,9 +21,6 @@ export async function GET(
   }
 ) {
   const { id: testId } = params;
-  const tokenData = await getToken({ req });
-
-  console.log("tokenData", tokenData);
 
   //   if (!session || !session.user?.id) {
   //     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

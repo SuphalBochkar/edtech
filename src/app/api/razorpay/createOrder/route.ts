@@ -12,6 +12,8 @@ const razorPayInstance = new Razorpay({
 export async function POST(req: NextRequest) {
   const tokenData = await getToken({ req });
 
+  console.log("TokenData", tokenData);
+
   if (!tokenData || !tokenData?.email) {
     return NextResponse.json({ error: "Not Authorized" }, { status: 401 });
   }
