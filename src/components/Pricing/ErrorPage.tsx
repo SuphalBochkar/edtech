@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
+// import Image from "next/image";
+// import errorImage from "@/assets/404-error.gif";
 import { RefreshCw } from "lucide-react";
 import { Status } from "@/lib/types";
 // import updating from "@/assets/updating.gif";
-import errorImage from "@/assets/404-error.gif";
 import CustomBreadcrumb from "../Tests/CustomBreadcrumb";
 
 export default function ErrorPage({
@@ -22,13 +22,13 @@ export default function ErrorPage({
       </div>
       <div className="flex flex-col items-center justify-center p-4 text-foreground">
         <div className="flex flex-col items-center w-full max-w-lg text-center">
-          <Image
+          {/* <Image
             src={errorImage}
             alt={text}
             width={100}
             height={100}
             className={`w-[250px] h-[300px] md:w-[400px] md:h-[450px] rounded-lg shadow-lg mb-8`}
-          />
+          /> */}
           <h1 className="text-3xl md:text-4xl font-bold text-center mb-4">
             {text}
           </h1>

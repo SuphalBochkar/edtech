@@ -3,17 +3,23 @@ import { Status, tempTestData, TestData } from "@/lib/types";
 export const aeTests = [
   //   { id: 1, name: "Test 1", type: "Aptitude & Verbal", date: "19/04/2024" },
   //   { id: 2, name: "Test 2", type: "Aptitude & Verbal", date: "20/04/2024" },
+  //   {
+  //     id: 3,
+  //     name: "AE Practice Test (2026) 3",
+  //     type: "Aptitude & Verbal",
+  //     date: "19/04/2024",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "AE Practice Test (2026) 4",
+  //     type: "Aptitude & Verbal",
+  //     date: "26/04/2024",
+  //   },
   {
-    id: 3,
-    name: "AE Practice Test (2026) 3",
+    id: 5,
+    name: "AE Practice Test (2026) 5",
     type: "Aptitude & Verbal",
-    date: "19/04/2024",
-  },
-  {
-    id: 4,
-    name: "AE Practice Test (2026) 4",
-    type: "Aptitude & Verbal",
-    date: "26/04/2024",
+    date: "-/-/2024",
   },
 ];
 
@@ -30,13 +36,17 @@ export const tempData: tempTestData = {
   //     "AE Analytical Practice Test 3 (2026)": "670057f68ed2eabc8a0d3384",
   //     "AE Verbal Practice Test 3 (2026)": "6702c577dde09469b5249c92",
   //   },
-  "3": {
-    analytical: "6713b94fbba9ac82bf84be8a",
-    verbal: "6713bce84e5ee3e89d4dbee4",
-  },
-  "4": {
-    analytical: "671dcee7c566b5e58242e99f",
-    verbal: "671dd5017b4a2e1b689d30f9",
+  //   "3": {
+  //     analytical: "6713b94fbba9ac82bf84be8a",
+  //     verbal: "6713bce84e5ee3e89d4dbee4",
+  //   },
+  //   "4": {
+  //     analytical: "671dcee7c566b5e58242e99f",
+  //     verbal: "671dd5017b4a2e1b689d30f9",
+  //   },
+  "5": {
+    analytical: Status.NotAvailable,
+    verbal: Status.NotAvailable,
   },
 };
 
@@ -46,7 +56,7 @@ export const data: TestData = {
   "1": {
     aptitude: {
       "1": "66ab84054dd68a6f814b06d7",
-      "2": Status.Updating,
+      "2": "66ab84a94dd68a6f814b06ea",
       "3": Status.Updating,
       "4": Status.Updating,
       "5": Status.Updating,
