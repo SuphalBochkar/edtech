@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { getRazorPayOptions } from "@/lib/razorPay";
 import Script from "next/script";
 import NavBar from "@/components/NavBar";
@@ -100,12 +100,12 @@ declare global {
 //   );
 // }
 
-export function forceSignOut() {
-  setTimeout(() => {
-    signOut();
-  }, 2000);
-  return null;
-}
+// export function forceSignOut() {
+//   setTimeout(() => {
+//     signOut();
+//   }, 2000);
+//   return null;
+// }
 
 export type FlowTypes =
   | "idle"
