@@ -65,7 +65,7 @@ export default async function TestPageComponent({ fetchData }: TestPageProps) {
   }
 
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-  const response = await fetch(`${baseURL}/api/hitbullseye/getdata/${testId}`);
+  const response = await fetch(`${baseURL}/api/course1/getdata/${testId}`);
 
   if (!response.ok) {
     console.error("Error fetching data:", response.status, response.statusText);
