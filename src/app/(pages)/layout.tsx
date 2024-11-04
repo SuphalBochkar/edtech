@@ -5,7 +5,7 @@ import "./globals.css";
 import Providers from "@/providers/providers";
 import { Lato } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
-import Script from "next/script";
+// import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Finish66 EdTech",
@@ -30,7 +30,7 @@ export default async function RootLayout({
         <Providers>{children}</Providers>
         <Analytics />
       </body>
-      <Script src="https://checkout.razorpay.com/v1/checkout.js" />
+      {/* <Script src="https://checkout.razorpay.com/v1/checkout.js" /> */}
     </html>
   );
 }
