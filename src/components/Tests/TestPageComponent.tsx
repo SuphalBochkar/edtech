@@ -64,6 +64,22 @@ export default async function TestPageComponent({ fetchData }: TestPageProps) {
     );
   }
 
+  const testIds = testId.split("-");
+  const allDataArrays = await Promise.all(
+    testIds.map((id) => fetchTestData(id))
+  );
+  const combinedData = allDataArrays.flat();
+
+  return (
+    <Suspense fallback={<JsonLoading />}>
+      <div className="text-foreground">
+        {isAuthorized && <AnswerPage data={combinedData} />}
+      </div>
+    </Suspense>
+  );
+}
+
+const fetchTestData = async (testId: string) => {
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
   const response = await fetch(`${baseURL}/api/course1/getdata/${testId}`);
 
@@ -71,21 +87,9 @@ export default async function TestPageComponent({ fetchData }: TestPageProps) {
     console.error("Error fetching data:", response.status, response.statusText);
     const errorText = await response.text();
     console.error("Response body:", errorText);
-    return (
-      <div className="text-foreground">
-        <ErrorPage text="We couldn't find the data you're looking for. Please try again later." />
-      </div>
-    );
+    return [];
   }
 
   const serverData = await response.json();
-  const myData = serverData?.data;
-
-  return (
-    <Suspense fallback={<JsonLoading />}>
-      <div className="text-foreground">
-        {isAuthorized && <AnswerPage data={myData} />}
-      </div>
-    </Suspense>
-  );
-}
+  return serverData?.data || [];
+};
