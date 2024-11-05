@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ChevronRight, ExternalLink } from "lucide-react";
+import { Dot, ExternalLink } from "lucide-react";
 
 type LevelCardProps = {
   level: string;
@@ -23,12 +23,12 @@ export default function LevelCard({ level, type, tests }: LevelCardProps) {
               transition={{ type: "spring", stiffness: 300 }}
               className="flex items-center space-x-2"
             >
-              <ChevronRight size={16} />
+              <Dot />
               <Link
                 href={`/test/level/${level}/${type.toLowerCase()}/${testNumber}`}
                 className="flex gap-1 items-center dark:text-purple-300 hover:underline font-medium text-purple-950"
               >
-                Test {testNumber}
+                Test {testNumber} (Click Here)
                 <ExternalLink className="ml-1 h-4 w-4" />
               </Link>
             </motion.li>
