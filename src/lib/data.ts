@@ -9,18 +9,18 @@ export const aeTests = [
   //     type: "Aptitude & Verbal",
   //     date: "19/04/2024",
   //   },
-  //   {
-  //     id: 4,
-  //     name: "AE Practice Test (2026) 4",
-  //     type: "Aptitude & Verbal",
-  //     date: "26/04/2024",
-  //   },
   {
-    id: 5,
-    name: "AE Practice Test (2026) 5",
+    id: 4,
+    name: "AE Practice Test (2026) 4",
     type: "Aptitude & Verbal",
-    date: "-/-/2024",
+    date: "26/04/2024",
   },
+  //   {
+  //     id: 5,
+  //     name: "AE Practice Test (2026) 5",
+  //     type: "Aptitude & Verbal",
+  //     date: "-/-/2024",
+  //   },
 ];
 
 export const tempData: tempTestData = {
@@ -40,14 +40,14 @@ export const tempData: tempTestData = {
   //     analytical: "6713b94fbba9ac82bf84be8a",
   //     verbal: "6713bce84e5ee3e89d4dbee4",
   //   },
-  //   "4": {
-  //     analytical: "671dcee7c566b5e58242e99f",
-  //     verbal: "671dd5017b4a2e1b689d30f9",
-  //   },
-  "5": {
-    analytical: Status.Updating,
-    verbal: Status.Updating,
+  "4": {
+    analytical: "671dcee7c566b5e58242e99f",
+    verbal: "671dd5017b4a2e1b689d30f9",
   },
+  //   "5": {
+  //     analytical: Status.Updating,
+  //     verbal: Status.Updating,
+  //   },
 };
 
 export const levelTests = [1, 2];
