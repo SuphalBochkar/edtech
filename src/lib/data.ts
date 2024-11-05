@@ -50,7 +50,7 @@ export const tempData: tempTestData = {
   //   },
 };
 
-export const levelTests = [1, 2];
+export const levelTests = [1];
 
 export const data: TestData = {
   "1": {
