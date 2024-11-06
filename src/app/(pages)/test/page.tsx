@@ -1,25 +1,42 @@
 "use client";
 
-import AllTests from "@/components/Tests/AllTests";
-import Blobs from "@/components/Blobs";
-import WelcomeMsg from "@/components/WelcomeMsg";
+import { Suspense } from "react";
 import { useSession } from "next-auth/react";
+import dynamic from "next/dynamic";
+import Blobs from "@/components/Blobs";
+import Loading from "./loading";
+
+import Notify from "@/components/Notifications/Notify";
+
+const DynamicAllTests = dynamic(() => import("@/components/Tests/AllTests"), {
+  loading: () => <Loading />,
+});
+const DynamicWelcomeMsg = dynamic(() => import("@/components/WelcomeMsg"), {
+  loading: () => <Loading />,
+});
 
 const Page = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return <Loading />;
+  }
 
   return (
     <div className="flex flex-col relative overflow-hidden">
       <Blobs />
       {session?.user && (
         <div className="flex flex-col align-middle justify-center items-center content-center">
-          <WelcomeMsg
-            name={session.user.name || "User"}
-            isPaid={session.user.paid || false}
-          />
-          <AllTests />
+          <Suspense fallback={<Loading />}>
+            <DynamicWelcomeMsg
+              name={session.user.name || "User"}
+              isPaid={session.user.paid || false}
+            />
+            <DynamicAllTests />
+          </Suspense>
         </div>
       )}
+      <Notify />;
     </div>
   );
 };
