@@ -12,7 +12,7 @@ const DynamicAllTests = dynamic(() => import("@/components/Tests/AllTests"), {
   loading: () => <Loading />,
 });
 const DynamicWelcomeMsg = dynamic(() => import("@/components/WelcomeMsg"), {
-  loading: () => <Loading />,
+  loading: () => <></>,
 });
 
 const Page = () => {
@@ -36,7 +36,7 @@ const Page = () => {
           </Suspense>
         </div>
       )}
-      <Notify />;
+      <Notify />
     </div>
   );
 };
