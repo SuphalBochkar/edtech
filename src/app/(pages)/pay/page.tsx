@@ -95,7 +95,7 @@ const renderFlowStatus = (paymentFlow: FlowTypes) => {
       return (
         <div className={`${baseClasses} bg-red-50 text-red-700`}>
           <AlertCircle className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3" />
-          <span>Error: Payment Failed</span>
+          <span>Error: Payment Cancelled or Failed</span>
         </div>
       );
     default:
@@ -153,13 +153,13 @@ export default function Page() {
         ...options,
         modal: {
           ondismiss: function () {
-            if (confirm("Are you sure, you want to close the form?")) {
-              setIsProcessing(false);
-              setPaymentFlow("error");
-              console.log("Checkout form closed by the user");
-            } else {
-              console.log("Complete the Payment");
-            }
+            // if (confirm("Do you want to cancel the payment?")) {
+            setIsProcessing(false);
+            setPaymentFlow("error");
+            //   console.log("Checkout form closed by the user");
+            // } else {
+            //   console.log("Complete the Payment");
+            // }
           },
         },
       });

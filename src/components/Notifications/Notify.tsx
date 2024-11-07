@@ -41,7 +41,7 @@ const Notify = () => {
     } else {
       enqueueSnackbar({
         variant: "default",
-        autoHideDuration: 1800,
+        autoHideDuration: 2200,
         anchorOrigin: {
           vertical: "top",
           horizontal: "center",

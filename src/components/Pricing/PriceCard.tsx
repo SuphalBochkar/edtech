@@ -165,8 +165,9 @@ export default function Example() {
 
         <ul className="mt-6 sm:mt-8 space-y-3 sm:space-y-4 text-gray-300 text-xs sm:text-sm leading-5 sm:leading-6">
           {[
-            "Access answers for every test question",
-            "Quickly search and locate specific questions",
+            "Access answers for every level test",
+            "Quickly search and locate specific questions and images support",
+            "No more searching in PDF's",
             "A secure, reliable alternative to misleading sources",
             "Free access to all upcoming tests once registered",
           ].map((feature, index) => (

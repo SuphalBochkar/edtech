@@ -1,3 +1,4 @@
+import { Course1_Hit_Amount } from "@/lib/data";
 import { prisma } from "@/lib/prisma";
 import { Course } from "@/lib/types";
 import { getServerSession } from "next-auth";
@@ -19,7 +20,7 @@ export async function POST() {
   const userEmail = session.user?.email;
 
   const options = {
-    amount: 100 * 100,
+    amount: Course1_Hit_Amount * 100,
     currency: "INR",
     receipt: "receipt#" + Math.random().toString(36).substring(7),
     notes: {
