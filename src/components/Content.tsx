@@ -19,8 +19,9 @@ const Content = () => {
 
   const handleSignIn = async () => {
     setLoading(true);
-    await signIn("google");
+    await signIn("google", { redirectTo: "/test" });
     setLoading(false);
+    router.push("/test");
   };
 
   return (

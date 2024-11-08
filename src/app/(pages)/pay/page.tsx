@@ -88,7 +88,10 @@ const renderFlowStatus = (paymentFlow: FlowTypes) => {
       return (
         <div className={`${baseClasses} bg-green-50 text-green-700`}>
           <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3" />
-          <span>Payment successful! Redirecting to test page...</span>
+          <span>
+            Payment successful! Please check your email for confirmation.
+            Redirecting to the test page...
+          </span>
         </div>
       );
     case "error":

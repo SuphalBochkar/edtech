@@ -3,6 +3,7 @@ import crypto from "crypto";
 import { prisma } from "@/lib/prisma";
 import { Course } from "@/lib/types";
 import { getServerSession } from "next-auth";
+// import buyCourseMail from "@/actions/buyCourseMail";
 
 const generatedSignature = (
   razorpayOrderId: string,
@@ -109,6 +110,11 @@ export async function POST(req: NextRequest) {
         },
       });
     });
+
+    // await buyCourseMail({
+    //   name: session.user?.name || "Learner",
+    //   email: session.user?.email,
+    // });
 
     return NextResponse.json(
       { message: "Payment Done successfully" },
