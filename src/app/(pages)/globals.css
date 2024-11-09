@@ -60,11 +60,11 @@ body {
 .question-block p,
 .question-block span {
   margin: 10px 0 !important;
-  background-color: var(--question) !important;
+  /* background-color: var(--question) !important; */
   color: var(--foreground) !important;
   font-family: var(--question-font) !important;
   text-indent: 0pt !important;
-  font-size: medium !important;
+  font-size: small !important;
   line-height: 1.5;
 }
 
@@ -72,7 +72,7 @@ body {
   color: var(--foreground) !important;
   font-family: var(--question-font) !important;
   text-indent: 0pt !important;
-  font-size: medium !important;
+  font-size: small !important;
   line-height: 1.5;
 }
 
@@ -83,11 +83,11 @@ body {
   .question-block p,
   .question-block span,
   .question-block div {
-    font-size: large !important;
+    font-size: medium !important;
     line-height: 1.5;
   }
   .question-block div {
-    font-size: large !important;
+    font-size: medium !important;
     line-height: 1.5;
   }
 }
@@ -98,11 +98,11 @@ body {
   .question-block p,
   .question-block span,
   .question-block div {
-    font-size: large !important;
+    font-size: medium !important;
     line-height: 1.5;
   }
   .question-block div {
-    font-size: large !important;
+    font-size: medium !important;
     line-height: 1.5;
   }
 }

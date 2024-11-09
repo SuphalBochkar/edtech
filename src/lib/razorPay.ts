@@ -115,7 +115,7 @@ export async function getRazorPayOptions(
     amount: amount * 100,
     currency: "INR",
     name: sessionData.user.name,
-    description: "Test Transaction",
+    description: "Course Payment",
     order_id: orderId,
     handler: async (response: {
       razorpay_payment_id: string;

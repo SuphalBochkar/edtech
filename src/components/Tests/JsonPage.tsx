@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import CustomBreadcrumb from "./CustomBreadcrumb";
 import { DataItem } from "@/lib/types";
+import { Search, X } from "lucide-react";
 
 const JsonPage = ({ data }: { data: DataItem[] }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -63,38 +64,8 @@ const JsonPage = ({ data }: { data: DataItem[] }) => {
     return doc.body.innerHTML;
   }
 
-  //   function handleFilterClick(filter: string) {
-  //     setSelectedFilter(filter);
-  //     setSearchQuery("");
-  //   }
-
   useEffect(() => {
     if (!data) return;
-
-    // let newFilteredData = [];
-
-    // switch (selectedFilter) {
-    //   case "All":
-    //     newFilteredData = data;
-    //     break;
-    //   //   case "A":
-    //   //     newFilteredData = data.slice(0, 30);
-    //   //     break;
-    //   //   case "B":
-    //   //     newFilteredData = data.slice(30, 60);
-    //   //     break;
-    //   //   case "C":
-    //   //     newFilteredData = data.slice(60, 90);
-    //   //     break;
-    //   //   case "D":
-    //   //     newFilteredData = data.slice(90, 120);
-    //   //     break;
-    //   //   case "E":
-    //   //     newFilteredData = data.slice(120, 150);
-    //   //     break;
-    //   default:
-    //     newFilteredData = data;
-    // }
 
     const filteredResults = data?.filter((dataObj: DataItem) => {
       const questionText = `${dataObj.question1 || ""} ${
@@ -112,10 +83,6 @@ const JsonPage = ({ data }: { data: DataItem[] }) => {
     setIsFiltered(true);
   }, [data, selectedFilter, searchQuery]);
 
-  //   function isProgramming() {
-  //     return state?.testName?.split(" ")[2] === "Programming";
-  //   }
-
   function cap(word: string) {
     if (!word) return "";
     return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
@@ -131,76 +98,53 @@ const JsonPage = ({ data }: { data: DataItem[] }) => {
       <div className="flex justify-center md:justify-start md:flex-none md:my-5 md:pl-[15%]">
         <CustomBreadcrumb size={"lg"} />
       </div>
-      <div className="text-white flex flex-col items-center md:p-4 min-h-screen question-block overflow-clip">
+      <div className="mx-2 text-white flex flex-col items-center md:p-4 min-h-screen overflow-clip">
         <h1 className="px-2 text-xl lg:text-4xl font-semibold my-4">
           {testName}
         </h1>
-        <div className="w-full md:max-w-4xl p-2 md:p-4 md:rounded-lg bg-purple-800/5">
-          {/* {!error && id && ( */}
-          <>
-            <div className="sticky top-0 z-5 bg-purple-800/5 p-2 md:mb-4">
-              <div className="flex items-center gap-2 md:gap-4">
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={handleSearchChange}
-                  placeholder="Search question or options..."
-                  className="w-full p-2 rounded-md text-[14px] md:text-lg text-white search-input focus:outline-none focus:ring-1 focus:ring-white border border-gray-700 dark:border-gray-400"
-                />
-                <button
-                  onClick={handleClear}
-                  className="px-4 py-2 text-[14px] md:text-lg rounded-md bg-background text-foreground active:bg-purple-900 focus:outline-none border border-gray-700 dark:border-gray-400"
-                >
-                  Clear
-                </button>
-              </div>
+        <div className="w-full md:max-w-4xl p-2 md:p-4 md:rounded-lg bg-purple-800/5 font-jetbrains">
+          <div className="sticky top-0 z-5 bg-purple-800/5 mb-2 md:mb-4">
+            <div className="flex items-center gap-2 md:gap-4">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={handleSearchChange}
+                placeholder="Search question or options..."
+                className="w-full p-2 rounded-md text-[14px] md:text-lg text-white search-input focus:outline-none focus:ring-1 focus:ring-white border border-gray-700 dark:border-gray-400"
+              />
+              <button
+                onClick={handleClear}
+                className="px-4 py-2 text-[14px] md:text-lg rounded-md bg-background text-foreground active:bg-purple-900 focus:outline-none border border-gray-700 dark:border-gray-400"
+              >
+                Clear
+              </button>
             </div>
-            {/* {isProgramming() && (
-            <div className="flex justify-around mb-4">
-              {["All", "A", "B", "C", "D", "E"].map((filter) => (
-                <div
-                  key={filter}
-                  onClick={() => handleFilterClick(filter)}
-                  className={`cursor-pointer px-3 py-1 lg:px-4 lg:py-2 rounded-lg flex items-center justify-center transition-all duration-200 ${
-                    selectedFilter === filter
-                      ? "bg-purple-400 bg-purple-800/5 text-white border-2 border-white"
-                      : "bg-purple-700 bg-purple-800/5 text-purple-200/bg-purple-800/5 hover:bg-purple-600/bg-purple-800/5 hover:text-white border-2 border-transparent"
-                  }`}
-                >
-                  {filter}
-                </div>
-              ))}
-            </div>
-          )} */}
-          </>
-          {/* )} */}
-          {/* {loading && <JsonLoading />}
-        {!loading && error && <ErrorPage text={error} />}
-        {!loading && !error && data && id && ( */}
+          </div>
+
           <div className="space-y-2 md:space-y-4">
-            {/* {!loading && */}
             {isFiltered && filteredData && filteredData.length === 0 && (
-              <div className="flex flex-col items-center justify-center py-10 bg-purple-900/5 rounded-md">
-                <div className="text-lg md:text-2xl font-semibold text-purple-300 bg-purple-900/5 mb-4 text-center">
-                  No Questions Found 😕
+              <div className="flex flex-col items-center justify-center py-6 sm:py-8 px-4 sm:px-6 bg-gradient-to-b from-purple-50 to-white dark:from-purple-950 dark:to-gray-950 rounded-md shadow-lg border border-purple-100 dark:border-purple-800 transition-colors duration-300">
+                <div className="mb-4 p-2 sm:p-3 bg-purple-100 dark:bg-purple-900/50 rounded-full">
+                  <Search className="w-6 h-6 sm:w-8 sm:h-8 text-purple-500 dark:text-purple-300" />
                 </div>
-                {/* {isProgramming() && (
-                  <div className="text-lg md:text-2xl font-semibold text-purple-300 bg-purple-800/5 mb-4 text-center">
-                    Click on "All" to display all Questions
-                  </div>
-                )} */}
-                <div className="text-xs sm:text-sm md:text-base text-purple-300 bg-purple-800/5 text-center">
-                  Try adjusting your search terms or clearing the search input.
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-purple-800 dark:text-purple-200 mb-2 sm:mb-4 text-center">
+                  No Questions Found
+                </h2>
+                <div className="text-sm sm:text-base md:text-lg text-purple-600 dark:text-purple-300 text-center max-w-md mb-4 sm:mb-6">
+                  It seems we couldn{"'"}t find what you{"'"}re looking for. Try
+                  adjusting your search terms.
                 </div>
                 <button
                   onClick={handleClear}
-                  className="mt-6 px-4 py-2 rounded-md bg-purple-900/10 text-white hover:bg-purple-900/5 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                  className="group flex items-center justify-center px-3 py-1.5 sm:px-4 sm:py-2 rounded-md bg-white dark:bg-gray-800 text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-700 hover:bg-purple-50 dark:hover:bg-purple-900/30 hover:text-purple-800 dark:hover:text-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-300 dark:focus:ring-purple-700 transition-all duration-300 text-sm sm:text-base"
                 >
-                  Clear Search
+                  <X className="mr-1.5 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4 group-hover:rotate-90 transition-transform duration-300" />
+                  <div>Clear Search</div>
                 </button>
               </div>
             )}
-            {filteredData.map((dataObj: DataItem, index: number) => {
+
+            {/* {filteredData.map((dataObj: DataItem, index: number) => {
               const questionNo = index + 1;
               const { question1, question2, options, correctAnswer } = dataObj;
               return (
@@ -257,7 +201,17 @@ const JsonPage = ({ data }: { data: DataItem[] }) => {
                   </h4>
                 </div>
               );
-            })}
+            })} */}
+
+            {filteredData.map((dataObj, index) => (
+              <QuestionCard
+                key={index}
+                questionNo={index + 1}
+                data={dataObj}
+                searchQuery={searchQuery}
+                highlightHTML={highlightHTML}
+              />
+            ))}
           </div>
         </div>
       </div>
@@ -265,6 +219,112 @@ const JsonPage = ({ data }: { data: DataItem[] }) => {
   );
 };
 export default JsonPage;
+
+interface QuestionCardProps {
+  questionNo: number;
+  data: DataItem;
+  searchQuery: string;
+  highlightHTML: (text: string, query: string) => string;
+}
+
+function QuestionCard({
+  questionNo,
+  data,
+  searchQuery,
+  highlightHTML,
+}: QuestionCardProps) {
+  const { question1, question2, options, correctAnswer } = data;
+
+  return (
+    <div className="bg-purple-50 dark:bg-purple-900/5 rounded-lg shadow-sm border border-purple-200 dark:border-gray-500 overflow-hidden transition-colors duration-200 question-block">
+      <div className="bg-purple-200 dark:bg-purple-800/15 text-purple-800 dark:text-foreground px-4 py-2 !text-lg font-semibold">
+        Question {questionNo}
+      </div>
+      <div className="p-4 space-y-3">
+        <QuestionText
+          text={question1 || ""}
+          searchQuery={searchQuery}
+          highlightHTML={highlightHTML}
+        />
+        {question2 && (
+          <QuestionText
+            text={question2}
+            searchQuery={searchQuery}
+            highlightHTML={highlightHTML}
+          />
+        )}
+        <div className="text-sm mt-3 font-medium text-purple-600 dark:text-foreground">
+          Options:
+        </div>
+        <ul className="space-y-2 text-sm">
+          {Object.entries(options).map(
+            ([optionKey, option]) =>
+              option && (
+                <OptionItem
+                  key={optionKey}
+                  optionKey={optionKey}
+                  option={option}
+                  isCorrect={optionKey.toUpperCase() === correctAnswer}
+                  searchQuery={searchQuery}
+                  highlightHTML={highlightHTML}
+                />
+              )
+          )}
+        </ul>
+        <div className="mt-3 inline-block bg-purple-100 dark:bg-purple-800/15 text-purple-800 dark:text-foreground text-sm font-medium px-2 py-1 rounded border border-purple-300 dark:border-gray-500">
+          Correct Answer: {correctAnswer}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function QuestionText({
+  text,
+  searchQuery,
+  highlightHTML,
+}: {
+  text: string;
+  searchQuery: string;
+  highlightHTML: (text: string, query: string) => string;
+}) {
+  return (
+    <div
+      className="text-purple-700 dark:text-foreground"
+      dangerouslySetInnerHTML={{ __html: highlightHTML(text, searchQuery) }}
+    />
+  );
+}
+
+function OptionItem({
+  optionKey,
+  option,
+  isCorrect,
+  searchQuery,
+  highlightHTML,
+}: {
+  optionKey: string;
+  option: string;
+  isCorrect: boolean;
+  searchQuery: string;
+  highlightHTML: (text: string, query: string) => string;
+}) {
+  return (
+    <li
+      className={`flex items-start space-x-2 ${
+        isCorrect ? "bg-purple-100 dark:bg-purple-700/15 rounded-md p-2" : ""
+      }`}
+    >
+      <span className="font-medium text-purple-700 dark:text-foreground">
+        {optionKey.toUpperCase()}:
+      </span>
+      <span
+        className="text-purple-600 dark:text-foreground"
+        dangerouslySetInnerHTML={{ __html: highlightHTML(option, searchQuery) }}
+      />
+    </li>
+  );
+}
 
 // "use client";
 // import { useEffect, useState } from "react";
