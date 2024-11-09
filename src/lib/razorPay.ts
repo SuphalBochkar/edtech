@@ -84,7 +84,10 @@ export async function getRazorPayOptions(
   let orderId: string;
   try {
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/razorpay/createOrder`
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/razorpay/createOrder`,
+      {
+        userId: sessionData.user.id,
+      }
     );
 
     if (response.status === 200) {
@@ -101,7 +104,7 @@ export async function getRazorPayOptions(
     }
   } catch (error) {
     setPaymentFlow("error");
-    setMyError("Error in creating the order-2 catch block error: ");
+    setMyError("Error in creating the order-2 catch block error: " + error);
     setIsProcessing(false);
     console.error("Failed to create Razorpay order", error);
     throw new Error("Order creation failed. Please try again.");
@@ -153,7 +156,7 @@ export async function getRazorPayOptions(
       contact: "9876543210",
     },
     theme: {
-      color: "#3399cc",
+      color: "#6d28d9",
     },
   };
 

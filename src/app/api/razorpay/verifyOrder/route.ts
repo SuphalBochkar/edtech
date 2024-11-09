@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { prisma } from "@/lib/prisma";
 import { Course } from "@/lib/types";
-import { getServerSession } from "next-auth";
+// import { getServerSession } from "next-auth";
 // import buyCourseMail from "@/actions/buyCourseMail";
 
 const generatedSignature = (
@@ -19,14 +19,17 @@ const generatedSignature = (
 };
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession();
-
-  if (!session || !session.user?.email) {
-    return NextResponse.json({ error: "Not Authorized" }, { status: 401 });
-  }
+  //   const session = await getServerSession();
+  //   if (!session || !session.user?.email) {
+  //     return NextResponse.json({ error: "Not Authorized" }, { status: 401 });
+  //   }
 
   const { userId, razorpay_order_id, razorpay_payment_id, razorpay_signature } =
     await req.json();
+
+  if (!userId) {
+    return NextResponse.json({ error: "Not Authorized" }, { status: 401 });
+  }
 
   if (
     !userId ||
