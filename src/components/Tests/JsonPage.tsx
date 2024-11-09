@@ -102,7 +102,7 @@ const JsonPage = ({ data }: { data: DataItem[] }) => {
         <h1 className="px-2 text-xl lg:text-4xl font-semibold my-4">
           {testName}
         </h1>
-        <div className="w-full md:max-w-4xl p-2 md:p-4 md:rounded-lg bg-purple-800/5 font-jetbrains">
+        <div className="w-full md:max-w-4xl p-2 md:p-4 md:rounded-lg font-jetbrains">
           <div className="sticky top-0 w-full mx-auto px-2 py-4 bg-black/95 z-10">
             <div className="relative flex items-center gap-3">
               <input
