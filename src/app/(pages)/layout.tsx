@@ -28,6 +28,7 @@ export default async function RootLayout({
       <link rel="icon" href="./icon.svg" type="image/svg+xml" />
       <body className={`${lato.className} bg-background text-foreground`}>
         <Providers>{children}</Providers>
+        {/* <Providers>Under Maintenance</Providers> */}
         <Analytics />
       </body>
       {/* <Script src="https://checkout.razorpay.com/v1/checkout.js" /> */}

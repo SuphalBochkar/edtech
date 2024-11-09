@@ -1,6 +1,6 @@
 import { Status, tempTestData, TestData } from "@/lib/types";
 
-export const Course1_Hit_Amount = 59;
+export const Course1_Hit_Amount = 10;
 
 export const aeTests = [
   //   { id: 1, name: "Test 1", type: "Aptitude & Verbal", date: "19/04/2024" },

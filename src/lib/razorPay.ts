@@ -158,6 +158,16 @@ export async function getRazorPayOptions(
     theme: {
       color: "#6d28d9",
     },
+    options: {
+      checkout: {
+        method: {
+          upi: 1,
+          netbanking: 1,
+          card: 1,
+          wallet: 0,
+        },
+      },
+    },
   };
 
   return options;
