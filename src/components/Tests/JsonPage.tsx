@@ -103,18 +103,18 @@ const JsonPage = ({ data }: { data: DataItem[] }) => {
           {testName}
         </h1>
         <div className="w-full md:max-w-4xl p-2 md:p-4 md:rounded-lg bg-purple-800/5 font-jetbrains">
-          <div className="sticky top-0 z-5 bg-purple-800/5 mb-2 md:mb-4">
-            <div className="flex items-center gap-2 md:gap-4">
+          <div className="sticky top-0 w-full mx-auto px-2 py-4 bg-black/95 z-10">
+            <div className="relative flex items-center gap-3">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={handleSearchChange}
                 placeholder="Search question or options..."
-                className="w-full p-2 rounded-md text-[14px] md:text-lg text-white search-input focus:outline-none focus:ring-1 focus:ring-white border border-gray-700 dark:border-gray-400"
+                className="w-full pl-2 py-2.5 rounded-md text-white placeholder-gray-500 border border-gray-800 hover:border-gray-700 focus:border-white focus:outline-none transition-all search-input"
               />
               <button
                 onClick={handleClear}
-                className="px-4 py-2 text-[14px] md:text-lg rounded-md bg-background text-foreground active:bg-purple-900 focus:outline-none border border-gray-700 dark:border-gray-400"
+                className="px-4 py-2.5 rounded-md bg-white text-black hover:bg-gray-100 active:bg-gray-200 focus:outline-none transition-all"
               >
                 Clear
               </button>
@@ -273,7 +273,7 @@ function QuestionCard({
               )
           )}
         </ul>
-        <div className="mt-3 inline-block dark:bg-green-900 dark:text-foreground text-sm font-medium px-2 py-1 rounded border dark:border-gray-500">
+        <div className="mt-3 inline-block dark:bg-green-950/60 dark:text-foreground text-sm font-medium px-2 py-2 rounded border dark:border-gray-500">
           Correct Answer: {correctAnswer}
         </div>
       </div>
