@@ -52,7 +52,7 @@ export const tempData: tempTestData = {
   //   },
 };
 
-export const levelTests = [1];
+export const levelTests = [1, 2];
 
 export const data: TestData = {
   //   "1": {
@@ -92,22 +92,27 @@ export const data: TestData = {
       //   "5": "66ab87e24dd68a6f814b070c",
     },
   },
-  //   "2": {
-  //     aptitude: {
-  //       "1": "66ab88334dd68a6f814b0710",
-  //       "2": "66ab888d4dd68a6f814b0716",
-  //       "3": "66ab891a4dd68a6f814b071c",
-  //       "4": "66ab8d60e04467ed7475d137",
-  //       "5": "66ab8e1214aaa9794f658041",
-  //     },
-  //     programming: {
-  //       "1": "66ac7e0375f8f0f60e488760-66ddf91b1f4d66c1554135d9",
-  //       "2": "66ac802575f8f0f60e488768-66ddfb8b1f4d66c1554135df",
-  //       "3": "66ac84ae6bbf127536468a9f-66ddfd1ff50289be26dad64e",
-  //       "4": "66ac87fc78ca1cf6044202c3-66ddfd5cf50289be26dad650",
-  //       "5": "66ac89859045c37a41e17392-66ddfdd99ea4875622150361",
-  //     },
-  //   },
+  "2": {
+    aptitude: {
+      "1": "66ab88334dd68a6f814b0710",
+      "2": "66ab888d4dd68a6f814b0716",
+      "3": Status.Updating,
+      "4": Status.Updating,
+      "5": Status.Updating,
+    },
+    programming: {
+      "1": Status.Updating,
+      "2": Status.Updating,
+      "3": Status.Updating,
+      "4": Status.Updating,
+      "5": Status.Updating,
+      //   "1": "66ac7e0375f8f0f60e488760-66ddf91b1f4d66c1554135d9",
+      //   "2": "66ac802575f8f0f60e488768-66ddfb8b1f4d66c1554135df",
+      //   "3": "66ac84ae6bbf127536468a9f-66ddfd1ff50289be26dad64e",
+      //   "4": "66ac87fc78ca1cf6044202c3-66ddfd5cf50289be26dad650",
+      //   "5": "66ac89859045c37a41e17392-66ddfdd99ea4875622150361",
+    },
+  },
   //   "3": {
   //     aptitude: {
   //       "1": "66ac8d3d33ecd006ab359ed7",
