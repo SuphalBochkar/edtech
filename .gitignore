@@ -39,7 +39,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# My - files
+# My files
 .env
 .vscode/
 *.csv

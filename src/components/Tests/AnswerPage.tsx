@@ -8,14 +8,16 @@ import { useRouter } from "next/navigation";
 
 const AnswerPage = ({ data }: { data: DataItem[] }) => {
   const router = useRouter();
-  const { data: sessionData, status } = useSession();
+  const { data: sessionData, status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push("/");
+    },
+  });
   const userData = sessionData?.user;
 
   useEffect(() => {
     if (status === "loading") return;
-    if (!userData) {
-      router.push("/");
-    }
   }, [status, userData, router]);
 
   return <>{userData && <JsonPage data={data} />}</>;

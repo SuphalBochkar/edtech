@@ -21,6 +21,7 @@ const Content = () => {
     setLoading(true);
     await signIn("google");
     setLoading(false);
+    // router.push("/test");
   };
 
   return (

@@ -17,24 +17,20 @@ export async function GET(
   {
     params,
   }: {
-    params: {
-      id: string;
-    };
+    params: { id: string };
   }
 ) {
   const { id: testId } = params;
 
-  // Uncomment and implement authentication logic if needed
-  // const session = await getServerSession(req, AUTH_PROVIDERS);
-  // if (!session || !session.user?.userId) {
-  //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  // }
+  //   if (!session || !session.user?.id) {
+  //     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  //   }
 
-  // const userId = session.user?.userId;
-  // const isAuthorized = await getUserPaymentStatus(userId);
-  // if (!isAuthorized) {
-  //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  // }
+  //   const userId = session.user.id;
+  //   const isAuthorized = await getUserPaymentStatus(userId);
+  //   if (!isAuthorized) {
+  //     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  //   }
 
   if (testId) {
     const test = await prisma.hitbullseye.findUnique({
