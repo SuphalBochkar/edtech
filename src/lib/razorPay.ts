@@ -78,7 +78,8 @@ export async function getRazorPayOptions(
   sessionData: Session,
   update: UpdateSession,
   setPaymentFlow: (value: SetStateAction<FlowTypes>) => void,
-  setIsProcessing: (value: SetStateAction<boolean>) => void
+  setIsProcessing: (value: SetStateAction<boolean>) => void,
+  setMyError: (value: SetStateAction<string>) => void
 ) {
   let orderId: string;
   try {
@@ -92,11 +93,15 @@ export async function getRazorPayOptions(
     } else {
       console.error(`Error: Received status code ${response.status}`);
       setPaymentFlow("error");
+      setMyError(
+        "Error in creating the order: " + JSON.stringify(response.data)
+      );
       setIsProcessing(false);
       return;
     }
   } catch (error) {
     setPaymentFlow("error");
+    setMyError("Error in creating the order-2 catch block error: ");
     setIsProcessing(false);
     console.error("Failed to create Razorpay order", error);
     throw new Error("Order creation failed. Please try again.");
@@ -138,6 +143,7 @@ export async function getRazorPayOptions(
       } catch (error) {
         console.log("Error updating sessionData data after payment", error);
         setPaymentFlow("error");
+        setMyError("Error updating sessionData data after payment" + error);
         setIsProcessing(false);
       }
     },

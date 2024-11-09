@@ -122,6 +122,7 @@ export default function Page() {
   const amount = Course1_Hit_Amount;
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentFlow, setPaymentFlow] = useState<FlowTypes>("idle");
+  const [myError, setMyError] = useState<string>("No error");
 
   useEffect(() => {
     if (status === "loading") return;
@@ -148,7 +149,8 @@ export default function Page() {
         sessionData,
         update,
         setPaymentFlow,
-        setIsProcessing
+        setIsProcessing,
+        setMyError
       );
 
       // @ts-expect-error Razorpay is not defined
@@ -159,6 +161,7 @@ export default function Page() {
             // if (confirm("Do you want to cancel the payment?")) {
             setIsProcessing(false);
             setPaymentFlow("error");
+            setMyError("Payment Cancelled by the user");
             //   console.log("Checkout form closed by the user");
             // } else {
             //   console.log("Complete the Payment");
@@ -183,6 +186,10 @@ export default function Page() {
           }
           setPaymentFlow("error");
           setIsProcessing(false);
+          setMyError(
+            "Error in the razor payment on failed: " +
+              response.error.description
+          );
           //   alert(response.error.code);
           //   alert(response.error.description);
           //   alert(response.error.source);
@@ -286,6 +293,7 @@ export default function Page() {
           transition={{ duration: 0.5 }}
           className="container mx-auto px-4 py-12 sm:py-16"
         >
+          <div className="text-foreground">My Error: {myError}</div>
           <div className="max-w-md mx-auto backdrop-blur-lg border border-violet-500/20 shadow-2xl rounded-3xl overflow-hidden">
             <div className="p-6 sm:p-8">
               <h3 className="text-violet-400 text-lg sm:text-xl font-semibold leading-7 flex items-center justify-center">
