@@ -124,6 +124,8 @@ export default function Page() {
   const [paymentFlow, setPaymentFlow] = useState<FlowTypes>("idle");
   const [myError, setMyError] = useState<string>("No error");
 
+  if (myError) {
+  }
   useEffect(() => {
     if (status === "loading") return;
     if (status === "authenticated" && sessionData?.user) {
@@ -293,7 +295,7 @@ export default function Page() {
           transition={{ duration: 0.5 }}
           className="container mx-auto px-4 py-12 sm:py-16"
         >
-          <div className="text-foreground">My Error: {myError}</div>
+          {/* <div className="text-foreground">My Error: {myError}</div> */}
           <div className="max-w-md mx-auto backdrop-blur-lg border border-violet-500/20 shadow-2xl rounded-3xl overflow-hidden">
             <div className="p-6 sm:p-8">
               <h3 className="text-violet-400 text-lg sm:text-xl font-semibold leading-7 flex items-center justify-center">
