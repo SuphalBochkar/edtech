@@ -1,5 +1,4 @@
 // import { JWTPayload } from "jose";
-import { DefaultUser, DefaultSession } from "next-auth";
 
 // export type CookieType = {
 //   id: number | string;
@@ -17,25 +16,34 @@ import { DefaultUser, DefaultSession } from "next-auth";
 
 // Auth Types
 
-export interface UserType extends DefaultUser {
-  id: string;
-  paid: boolean;
-}
+export const EXPIRE_DAYS = 15;
 
-export interface TokenType {
-  userId: string;
-  paid: boolean;
-}
-
-export interface SessionType extends DefaultSession {
-  user: UserType & { userId: string; paid: boolean };
-}
+// export interface UserType extends DefaultUser {
+//   id: string;
+//   paid: boolean;
+//   expireAt?: Date;
+//   courses?: Course[];
+// }
+// export interface TokenType {
+//   userId: string;
+//   paid: boolean;
+//   expireAt: Date;
+//   courses: Course[];
+// }
+// export interface SessionType extends DefaultSession {
+//   user: UserType & { userId: string; paid: boolean };
+// }
 
 export enum Status {
   Updating = "updating",
   NotAvailable = "na",
   Other = "other",
   Paid = "paid",
+}
+
+export enum Course {
+  Course1_Hit = "C1011",
+  Course2_MyPer = "C1012",
 }
 
 export interface DataItem {

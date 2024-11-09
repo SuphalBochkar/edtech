@@ -21,3 +21,19 @@ const Providers = ({ children }: Props) => {
 };
 
 export default Providers;
+
+// interface ProviderProps extends React.PropsWithChildren {
+//   session: Session | null;
+// }
+
+// const Providers = ({ children, session }: ProviderProps) => {
+//   return (
+//     <SessionProvider session={session}>
+//       <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+//         {children}
+//       </ThemeProvider>
+//     </SessionProvider>
+//   );
+// };
+
+// export default Providers;
