@@ -236,16 +236,18 @@ function QuestionCard({
   const { question1, question2, options, correctAnswer } = data;
 
   return (
-    <div className="bg-purple-50 dark:bg-purple-900/5 rounded-lg shadow-sm border border-purple-200 dark:border-gray-500 overflow-hidden transition-colors duration-200 question-block">
-      <div className="bg-purple-200 dark:bg-purple-800/15 text-purple-800 dark:text-foreground px-4 py-2 !text-lg font-semibold">
+    <div className="rounded-lg shadow-sm border border-purple-200 dark:border-gray-400 overflow-hidden transition-colors duration-200 question-block">
+      <div className="border-b dark:border-gray-500 text-foreground px-4 py-2 !text-lg font-semibold">
         Question {questionNo}
       </div>
       <div className="p-4 space-y-3">
-        <QuestionText
-          text={question1 || ""}
-          searchQuery={searchQuery}
-          highlightHTML={highlightHTML}
-        />
+        {question1 && (
+          <QuestionText
+            text={question1}
+            searchQuery={searchQuery}
+            highlightHTML={highlightHTML}
+          />
+        )}
         {question2 && (
           <QuestionText
             text={question2}
@@ -253,10 +255,10 @@ function QuestionCard({
             highlightHTML={highlightHTML}
           />
         )}
-        <div className="text-sm mt-3 font-medium text-purple-600 dark:text-foreground">
+        <div className="text-sm my-2 pb-1 font-medium text-purple-600 dark:text-foreground border-b dark:border-gray-400">
           Options:
         </div>
-        <ul className="space-y-2 text-sm">
+        <ul className="space-y-2 text-sm ">
           {Object.entries(options).map(
             ([optionKey, option]) =>
               option && (
@@ -271,7 +273,7 @@ function QuestionCard({
               )
           )}
         </ul>
-        <div className="mt-3 inline-block bg-purple-100 dark:bg-purple-800/15 text-purple-800 dark:text-foreground text-sm font-medium px-2 py-1 rounded border border-purple-300 dark:border-gray-500">
+        <div className="mt-3 inline-block dark:bg-green-900 dark:text-foreground text-sm font-medium px-2 py-1 rounded border dark:border-gray-500">
           Correct Answer: {correctAnswer}
         </div>
       </div>
@@ -312,7 +314,7 @@ function OptionItem({
   return (
     <li
       className={`flex items-start space-x-2 ${
-        isCorrect ? "bg-purple-100 dark:bg-purple-700/15 rounded-md p-2" : ""
+        isCorrect ? "rounded-md p-1 dark:bg-gray-800/60" : ""
       }`}
     >
       <span className="font-medium text-purple-700 dark:text-foreground">
