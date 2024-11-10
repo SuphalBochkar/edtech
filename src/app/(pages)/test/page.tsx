@@ -14,6 +14,7 @@ const DynamicAllTests = dynamic(() => import("@/components/Tests/AllTests"), {
 const DynamicWelcomeMsg = dynamic(() => import("@/components/WelcomeMsg"), {
   loading: () => <></>,
 });
+import Footer from "@/components/Footer";
 
 const Page = () => {
   const { data: session, status } = useSession();
@@ -23,21 +24,27 @@ const Page = () => {
   }
 
   return (
-    <div className="flex flex-col relative overflow-hidden">
-      <Blobs />
-      {session?.user && (
-        <div className="flex flex-col align-middle justify-center items-center content-center">
-          <Suspense fallback={<Loading />}>
-            <DynamicWelcomeMsg
-              name={session.user.name || "User"}
-              isPaid={session.user.paid || false}
-            />
-            <DynamicAllTests />
-          </Suspense>
-        </div>
-      )}
+    <>
+      <div className="flex flex-col relative overflow-hidden">
+        <Blobs />
+        {session?.user && (
+          <div className="flex flex-col align-middle justify-center items-center content-center">
+            <Suspense fallback={<Loading />}>
+              <DynamicWelcomeMsg
+                name={session.user.name || "User"}
+                isPaid={session.user.paid || false}
+              />
+              <DynamicAllTests />
+            </Suspense>
+          </div>
+        )}
+        <Notify />
+      </div>
       <Notify />
-    </div>
+      {session &&
+        session?.user &&
+        session?.user.email === process.env.NEXT_PUBLIC_MY_EMAIL! && <Footer />}
+    </>
   );
 };
 
