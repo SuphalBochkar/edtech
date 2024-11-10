@@ -1,6 +1,6 @@
 import { Status, tempTestData, TestData } from "@/lib/types";
 
-export const Course1_Hit_Amount = 10;
+export const Course1_Hit_Amount = 59;
 
 export const aeTests = [
   //   { id: 1, name: "Test 1", type: "Aptitude & Verbal", date: "19/04/2024" },
@@ -52,25 +52,9 @@ export const tempData: tempTestData = {
   //   },
 };
 
-export const levelTests = [1];
+export const levelTests = [1, 2];
 
 export const data: TestData = {
-  //   "1": {
-  //     aptitude: {
-  //       "1": "66ab84054dd68a6f814b06d7",
-  //       "2": Status.Updating,
-  //       "3": Status.Updating,
-  //       "4": Status.Updating,
-  //       "5": Status.Updating,
-  //     },
-  //     programming: {
-  //       "1": "66ab85854dd68a6f814b06fa",
-  //       "2": Status.Updating,
-  //       "3": Status.Updating,
-  //       "4": Status.Updating,
-  //       "5": Status.Updating,
-  //     },
-  //   },
   "1": {
     aptitude: {
       "1": "66ab84054dd68a6f814b06d7",
@@ -80,34 +64,39 @@ export const data: TestData = {
       "5": "66ab85634dd68a6f814b06f8",
     },
     programming: {
-      "1": "AAAAAAAAAAAAAAAAAAAAAAAA-672a5b0ac06e0c4f2e315cd4-66ab85854dd68a6f814b06fa-672e47941e19b9bbd9cfceb3-672a7747c06e0c4f2e315cde",
-      "2": "AAAAAAAAAAAAAAAAAAAAAAAA-672a5dc0c06e0c4f2e315cd6-66ab86104dd68a6f814b06fe-672e47ad1e19b9bbd9cfceb5-672a78b0c06e0c4f2e315ce0",
-      "3": "AAAAAAAAAAAAAAAAAAAAAAAA-672a6b44c06e0c4f2e315cd8-66ab86554dd68a6f814b0702-672e47da1e19b9bbd9cfceb7-672a7effc06e0c4f2e315ce2",
-      "4": "AAAAAAAAAAAAAAAAAAAAAAAA-672a6f5dc06e0c4f2e315cda-66ab86f34dd68a6f814b0708-672e481c1e19b9bbd9cfceb9-672a806fc06e0c4f2e315ce4",
-      "5": "AAAAAAAAAAAAAAAAAAAAAAAA-672a71cbc06e0c4f2e315cdc-66ab87e24dd68a6f814b070c-672e4ce41e19b9bbd9cfcebb-672a8a6bc06e0c4f2e315ce6",
-      //   "1": "66ab85854dd68a6f814b06fa",
-      //   "2": "66ab86104dd68a6f814b06fe",
-      //   "3": "66ab86554dd68a6f814b0702",
-      //   "4": "66ab86f34dd68a6f814b0708",
-      //   "5": "66ab87e24dd68a6f814b070c",
+      "1": "673096190a3479d85832d7e7-672a5b0ac06e0c4f2e315cd4-66ab85854dd68a6f814b06fa-672e47941e19b9bbd9cfceb3-672a7747c06e0c4f2e315cde",
+      "2": "673096890a3479d85832d7e9-672a5dc0c06e0c4f2e315cd6-66ab86104dd68a6f814b06fe-672e47ad1e19b9bbd9cfceb5-672a78b0c06e0c4f2e315ce0",
+      "3": "673096a00a3479d85832d7eb-672a6b44c06e0c4f2e315cd8-66ab86554dd68a6f814b0702-672e47da1e19b9bbd9cfceb7-672a7effc06e0c4f2e315ce2",
+      "4": "673096b40a3479d85832d7ed-672a6f5dc06e0c4f2e315cda-66ab86f34dd68a6f814b0708-672e481c1e19b9bbd9cfceb9-672a806fc06e0c4f2e315ce4",
+      "5": "673096c50a3479d85832d7ef-672a71cbc06e0c4f2e315cdc-66ab87e24dd68a6f814b070c-672e4ce41e19b9bbd9cfcebb-672a8a6bc06e0c4f2e315ce6",
     },
   },
-  //   "2": {
-  //     aptitude: {
-  //       "1": "66ab88334dd68a6f814b0710",
-  //       "2": "66ab888d4dd68a6f814b0716",
-  //       "3": "66ab891a4dd68a6f814b071c",
-  //       "4": "66ab8d60e04467ed7475d137",
-  //       "5": "66ab8e1214aaa9794f658041",
-  //     },
-  //     programming: {
-  //       "1": "66ac7e0375f8f0f60e488760-66ddf91b1f4d66c1554135d9",
-  //       "2": "66ac802575f8f0f60e488768-66ddfb8b1f4d66c1554135df",
-  //       "3": "66ac84ae6bbf127536468a9f-66ddfd1ff50289be26dad64e",
-  //       "4": "66ac87fc78ca1cf6044202c3-66ddfd5cf50289be26dad650",
-  //       "5": "66ac89859045c37a41e17392-66ddfdd99ea4875622150361",
-  //     },
-  //   },
+  "2": {
+    aptitude: {
+      "1": "66ab88334dd68a6f814b0710",
+      "2": Status.Updating,
+      "3": Status.Updating,
+      "4": Status.Updating,
+      "5": Status.Updating,
+      //   "1": "66ab88334dd68a6f814b0710",
+      //   "2": "66ab888d4dd68a6f814b0716",
+      //   "3": "66ab891a4dd68a6f814b071c",
+      //   "4": "66ab8d60e04467ed7475d137",
+      //   "5": "66ab8e1214aaa9794f658041",
+    },
+    programming: {
+      "1": Status.Updating,
+      "2": Status.Updating,
+      "3": Status.Updating,
+      "4": Status.Updating,
+      "5": Status.Updating,
+      //   "1": "66ac7e0375f8f0f60e488760-66ddf91b1f4d66c1554135d9",
+      //   "2": "66ac802575f8f0f60e488768-66ddfb8b1f4d66c1554135df",
+      //   "3": "66ac84ae6bbf127536468a9f-66ddfd1ff50289be26dad64e",
+      //   "4": "66ac87fc78ca1cf6044202c3-66ddfd5cf50289be26dad650",
+      //   "5": "66ac89859045c37a41e17392-66ddfdd99ea4875622150361",
+    },
+  },
   //   "3": {
   //     aptitude: {
   //       "1": "66ac8d3d33ecd006ab359ed7",
