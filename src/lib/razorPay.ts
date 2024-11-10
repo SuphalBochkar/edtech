@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Session } from "next-auth";
 import { Course } from "./types";
-import { FlowTypes } from "@/app/(pages)/pay/page";
+import { FlowTypes } from "@/app/(pages)/_pay/page";
 import { SetStateAction } from "react";
 
 // type UpdateSession = (data: Partial<Session>) => void;

@@ -1,6 +1,6 @@
 import { Status, tempTestData, TestData } from "@/lib/types";
 
-export const Course1_Hit_Amount = 10;
+export const Course1_Hit_Amount = 59;
 
 export const aeTests = [
   //   { id: 1, name: "Test 1", type: "Aptitude & Verbal", date: "19/04/2024" },
@@ -55,22 +55,6 @@ export const tempData: tempTestData = {
 export const levelTests = [1, 2];
 
 export const data: TestData = {
-  //   "1": {
-  //     aptitude: {
-  //       "1": "66ab84054dd68a6f814b06d7",
-  //       "2": Status.Updating,
-  //       "3": Status.Updating,
-  //       "4": Status.Updating,
-  //       "5": Status.Updating,
-  //     },
-  //     programming: {
-  //       "1": "66ab85854dd68a6f814b06fa",
-  //       "2": Status.Updating,
-  //       "3": Status.Updating,
-  //       "4": Status.Updating,
-  //       "5": Status.Updating,
-  //     },
-  //   },
   "1": {
     aptitude: {
       "1": "66ab84054dd68a6f814b06d7",
@@ -85,20 +69,20 @@ export const data: TestData = {
       "3": "AAAAAAAAAAAAAAAAAAAAAAAA-672a6b44c06e0c4f2e315cd8-66ab86554dd68a6f814b0702-672e47da1e19b9bbd9cfceb7-672a7effc06e0c4f2e315ce2",
       "4": "AAAAAAAAAAAAAAAAAAAAAAAA-672a6f5dc06e0c4f2e315cda-66ab86f34dd68a6f814b0708-672e481c1e19b9bbd9cfceb9-672a806fc06e0c4f2e315ce4",
       "5": "AAAAAAAAAAAAAAAAAAAAAAAA-672a71cbc06e0c4f2e315cdc-66ab87e24dd68a6f814b070c-672e4ce41e19b9bbd9cfcebb-672a8a6bc06e0c4f2e315ce6",
-      //   "1": "66ab85854dd68a6f814b06fa",
-      //   "2": "66ab86104dd68a6f814b06fe",
-      //   "3": "66ab86554dd68a6f814b0702",
-      //   "4": "66ab86f34dd68a6f814b0708",
-      //   "5": "66ab87e24dd68a6f814b070c",
     },
   },
   "2": {
     aptitude: {
       "1": "66ab88334dd68a6f814b0710",
-      "2": "66ab888d4dd68a6f814b0716",
+      "2": Status.Updating,
       "3": Status.Updating,
       "4": Status.Updating,
       "5": Status.Updating,
+      //   "1": "66ab88334dd68a6f814b0710",
+      //   "2": "66ab888d4dd68a6f814b0716",
+      //   "3": "66ab891a4dd68a6f814b071c",
+      //   "4": "66ab8d60e04467ed7475d137",
+      //   "5": "66ab8e1214aaa9794f658041",
     },
     programming: {
       "1": Status.Updating,

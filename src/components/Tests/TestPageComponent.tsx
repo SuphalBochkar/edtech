@@ -1,13 +1,14 @@
 // src/components/Tests/TestPageComponent.tsx
 
 import React, { Suspense } from "react";
-import { Course, Status } from "@/lib/types";
 import ErrorPage from "@/components/Pricing/ErrorPage";
 import AnswerPage from "@/components/Tests/AnswerPage";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import JsonLoading from "./JsonLoading";
-import { prisma } from "@/lib/prisma";
+import { Status } from "@/lib/types";
+// import { Course, Status } from "@/lib/types";
+// import { prisma } from "@/lib/prisma";
 
 interface TestPageProps {
   fetchData: () => string | null | undefined | Status;
@@ -21,25 +22,25 @@ export default async function TestPageComponent({ fetchData }: TestPageProps) {
     redirect("/");
   }
 
-  if (testId === Status.Paid) {
-    redirect("/pricing");
-  }
+  //   if (testId === Status.Paid) {
+  //     redirect("/pricing");
+  //   }
 
-  const userCourses = await prisma.user.findFirst({
-    where: {
-      email: session.user.email,
-    },
-    select: {
-      courses: true,
-    },
-  });
+  //   const userCourses = await prisma.user.findFirst({
+  //     where: {
+  //       email: session.user.email,
+  //     },
+  //     select: {
+  //       courses: true,
+  //     },
+  //   });
 
-  const isAuthorized = userCourses?.courses.includes(Course.Course1_Hit);
+  //   const isAuthorized = userCourses?.courses.includes(Course.Course1_Hit);
 
-  if (!isAuthorized) {
-    redirect("/pricing");
-    return;
-  }
+  //   if (!isAuthorized) {
+  //     redirect("/pricing");
+  //     return;
+  //   }
 
   if (
     testId === undefined ||
@@ -48,7 +49,7 @@ export default async function TestPageComponent({ fetchData }: TestPageProps) {
   ) {
     return (
       <div className="text-foreground">
-        <ErrorPage text="We couldn't find the data you're looking for. Please try again later." />
+        <ErrorPage text="We couldn't find the data. Please try again later." />
       </div>
     );
   }
@@ -56,10 +57,7 @@ export default async function TestPageComponent({ fetchData }: TestPageProps) {
   if (testId === Status.Updating) {
     return (
       <div className="text-foreground">
-        <ErrorPage
-          status={Status.Updating}
-          text="We're currently updating the data. Please check back in a few moments."
-        />
+        <ErrorPage status={Status.Updating} text="Will be updating soon." />
       </div>
     );
   }
@@ -73,7 +71,8 @@ export default async function TestPageComponent({ fetchData }: TestPageProps) {
   return (
     <Suspense fallback={<JsonLoading />}>
       <div className="text-foreground">
-        {isAuthorized && <AnswerPage data={combinedData} />}
+        {/* {isAuthorized && <AnswerPage data={combinedData} />} */}
+        {<AnswerPage data={combinedData} />}
       </div>
     </Suspense>
   );

@@ -52,7 +52,7 @@ const WelcomeMsg = ({ name, isPaid }: { name: string; isPaid: boolean }) => {
         ) : (
           <Star className="w-3 h-3" />
         )}
-        <span>{isPaid ? "Premium User" : "Free User"}</span>
+        {/* <span>{isPaid ? "Premium User" : "Free User"}</span> */}
       </motion.div>
     </motion.div>
   );
