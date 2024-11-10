@@ -16,6 +16,14 @@ const Page = () => {
         <WelcomeMsg name={user?.name || "User"} isPaid={user?.paid || false} />
         <AllTests />
       </div>
+
+      {user && user?.email === process.env.NEXT_PUBLIC_MY_EMAIL! && (
+        <div className="w-full">
+          <p className="text-3xl text-center">
+            Business Name: {process.env.NEXT_PUBLIC_MY_NAME!}
+          </p>
+        </div>
+      )}
     </div>
   );
 };
