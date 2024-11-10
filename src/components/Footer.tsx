@@ -5,7 +5,7 @@ export default function Footer() {
   const businessName = process.env.NEXT_PUBLIC_MY_NAME || "Your Business Name";
 
   return (
-    <footer className="mt-auto bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+    <footer className="absolute left-0 bottom-0 w-full mt-auto bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
       <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">

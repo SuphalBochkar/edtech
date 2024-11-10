@@ -11,18 +11,19 @@ const Page = () => {
   const user = data?.user;
 
   return (
-    <div className="flex flex-col relative overflow-hidden justify-between max-h-screen">
-      <Blobs />
-      <div className="flex flex-col align-middle justify-center items-center content-center">
-        <WelcomeMsg name={user?.name || "User"} isPaid={user?.paid || false} />
-        <AllTests />
+    <>
+      <div className="flex flex-col">
+        <Blobs />
+        <main className="flex-grow flex flex-col items-center z-10 relative">
+          <WelcomeMsg
+            name={user?.name || "User"}
+            isPaid={user?.paid || false}
+          />
+          <AllTests />
+        </main>
       </div>
-      <div>
-        {user && user?.email === process.env.NEXT_PUBLIC_MY_EMAIL! && (
-          <Footer />
-        )}
-      </div>
-    </div>
+      {user && user.email === process.env.NEXT_PUBLIC_MY_EMAIL! && <Footer />}
+    </>
   );
 };
 
