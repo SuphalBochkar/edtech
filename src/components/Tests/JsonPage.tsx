@@ -314,7 +314,7 @@ function OptionItem({
   return (
     <li
       className={`flex items-start space-x-2 ${
-        isCorrect ? "rounded-md p-1 dark:bg-gray-800/60" : ""
+        isCorrect ? "rounded-md p-1 dark:bg-gray-800" : ""
       }`}
     >
       <span className="font-medium text-purple-700 dark:text-foreground">
