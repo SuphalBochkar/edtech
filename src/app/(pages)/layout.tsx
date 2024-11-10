@@ -5,6 +5,7 @@ import "./globals.css";
 import Providers from "@/providers/providers";
 import { Lato } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+// import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Finish66 EdTech",
@@ -17,7 +18,7 @@ const lato = Lato({
   weight: ["100", "300", "400", "700", "900"],
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -27,8 +28,10 @@ export default function RootLayout({
       <link rel="icon" href="./icon.svg" type="image/svg+xml" />
       <body className={`${lato.className} bg-background text-foreground`}>
         <Providers>{children}</Providers>
+        {/* <Providers>Under Maintenance</Providers> */}
         <Analytics />
       </body>
+      {/* <Script src="https://checkout.razorpay.com/v1/checkout.js" /> */}
     </html>
   );
 }

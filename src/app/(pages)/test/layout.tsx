@@ -1,11 +1,21 @@
+"use client";
+
 import NavBar from "@/components/NavBar";
+import { NotistackProvider } from "@/components/Notifications/NotifyClientProvider";
+import { StyledMaterialDesignContent } from "@/components/Notifications/Notistack";
 
 const TestLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="max-h-screen">
-      <NavBar />
-      {children}
-    </div>
+    <NotistackProvider
+      maxSnack={3}
+      preventDuplicate
+      Components={{ default: StyledMaterialDesignContent }}
+    >
+      <div className="max-h-screen">
+        <NavBar />
+        {children}
+      </div>
+    </NotistackProvider>
   );
 };
 

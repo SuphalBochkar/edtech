@@ -1,17 +1,12 @@
+import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
-export function GET(req: NextRequest) {
-  const { searchParams } = req.nextUrl;
-  const level = searchParams.get("level");
-  const type = searchParams.get("type");
-  const testNumber = searchParams.get("testNumber");
+export async function GET(req: NextRequest) {
+  const getSessionData = await getToken({ req });
 
-  const data = {
-    level,
-    type,
-    testNumber,
-    description: `This is a description for level ${level}, type ${type}, test number ${testNumber}.`,
-  };
+  if (!getSessionData) {
+    return NextResponse.json({ error: "Not Authorized" }, { status: 401 });
+  }
 
-  return NextResponse.json(data);
+  return NextResponse.json({ message: "GET request received" });
 }

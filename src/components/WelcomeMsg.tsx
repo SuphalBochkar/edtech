@@ -1,15 +1,13 @@
 "use client";
 
 import React from "react";
-// import { Sparkles, Star } from "lucide-react";
 import { motion } from "framer-motion";
+import { Sparkles, Star } from "lucide-react";
+// import { ExternalLink, Sparkles, Star } from "lucide-react";
 // import { ExternalLink } from "lucide-react";
 
-const WelcomeMsg = ({ name = "User", isPaid = false }) => {
+const WelcomeMsg = ({ name, isPaid }: { name: string; isPaid: boolean }) => {
   const firstName = name.split(" ")[0];
-
-  if (!isPaid) {
-  }
 
   return (
     <motion.div
@@ -18,12 +16,13 @@ const WelcomeMsg = ({ name = "User", isPaid = false }) => {
       transition={{ duration: 0.2 }}
       className="p-3 rounded-md text-center"
     >
-      <h1 className="text-2xl md:text-3xl font-semibold text-gray-800 dark:text-gray-200 mb-1">
+      <h1 className="text-2xl md:text-3xl font-semibold text-gray-800 dark:text-gray-200 mb-3">
         Welcome,{" "}
         <span className="font-bold bg-gradient-to-b from-violet-300 to-violet-800 bg-clip-text text-transparent">
           {firstName}
         </span>
       </h1>
+
       {/* <div>
         Join
         <a
@@ -35,14 +34,17 @@ const WelcomeMsg = ({ name = "User", isPaid = false }) => {
           <ExternalLink className="ml-1 h-4 w-4" />
         </a>{" "}
         group
+      </div>
+      <motion.div
       </div> */}
-      {/* <motion.div
+
+      <motion.div
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.97 }}
-        className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-white text-xs font-medium ${
+        className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium shadow-md ${
           isPaid
-            ? "bg-gradient-to-r from-purple-500 to-purple-600"
-            : "bg-gradient-to-r from-gray-600 to-gray-700"
+            ? "bg-gradient-to-r from-purple-400 to-purple-700 text-white"
+            : "bg-gradient-to-r from-gray-100 to-gray-300 text-gray-800 border border-gray-400"
         }`}
       >
         {isPaid ? (
@@ -50,8 +52,8 @@ const WelcomeMsg = ({ name = "User", isPaid = false }) => {
         ) : (
           <Star className="w-3 h-3" />
         )}
-        <span>{isPaid ? "Premium User" : "Free User"}</span>
-      </motion.div> */}
+        {/* <span>{isPaid ? "Premium User" : "Free User"}</span> */}
+      </motion.div>
     </motion.div>
   );
 };

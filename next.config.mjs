@@ -6,6 +6,7 @@ const nextConfig = {
       "avatars.githubusercontent.com",
       "media.giphy.com",
     ],
+    unoptimized: true,
   },
 };
 
