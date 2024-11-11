@@ -5,6 +5,7 @@ import "./globals.css";
 import Providers from "@/providers/providers";
 import { Lato } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import Maintenance from "@/components/Maintenance";
 // import Script from "next/script";
 
 export const metadata: Metadata = {
@@ -18,17 +19,20 @@ const lato = Lato({
   weight: ["100", "300", "400", "700", "900"],
 });
 
-export default async function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default async function RootLayout() {
+  //   {
+  //   children,
+  //   }: Readonly<{
+  //     children: React.ReactNode;
+  //   }>
   return (
     <html lang="en" suppressHydrationWarning>
       <link rel="icon" href="./icon.svg" type="image/svg+xml" />
       <body className={`${lato.className} bg-background text-foreground`}>
-        <Providers>{children}</Providers>
-        {/* <Providers>Under Maintenance</Providers> */}
+        {/* <Providers>{children}</Providers> */}
+        <Providers>
+          <Maintenance />
+        </Providers>
         <Analytics />
       </body>
       {/* <Script src="https://checkout.razorpay.com/v1/checkout.js" /> */}
