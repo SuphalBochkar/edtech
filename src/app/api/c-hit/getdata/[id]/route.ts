@@ -12,7 +12,7 @@ import { NextRequest, NextResponse } from "next/server";
 //   return user?.paid || false;
 // }
 
-export async function GET(
+export async function POST(
   req: NextRequest,
   {
     params,
