@@ -191,7 +191,7 @@ export const AUTH_PROVIDERS = {
           session.user.id = staticUser.id;
           session.user.name = staticUser.name;
           session.user.email = staticUser.email;
-          //   session.user.image = staticUser.image;
+          session.user.image = staticUser.image;
           session.user.paid = staticUser.paid;
           session.user.courses = staticUser.courses;
           return session;
