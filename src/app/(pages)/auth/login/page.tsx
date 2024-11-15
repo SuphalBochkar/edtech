@@ -36,7 +36,8 @@ const SignIn = () => {
       setError("An unexpected error occurred. Please try again.");
     } finally {
       setIsLoading(false);
-      setError("");
+      router.push("/test");
+      //   setError("");
     }
   };
 
