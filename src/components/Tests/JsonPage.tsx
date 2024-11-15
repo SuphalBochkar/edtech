@@ -273,9 +273,9 @@ function QuestionCard({
               )
           )}
         </ul>
-        <div className="mt-3 inline-block dark:bg-green-950/60 dark:text-foreground text-sm font-medium px-2 py-2 rounded border dark:border-gray-500">
+        {/* <div className="mt-3 inline-block dark:bg-green-950/60 dark:text-foreground text-sm font-medium px-2 py-2 rounded border dark:border-gray-500">
           Correct Answer: {correctAnswer}
-        </div>
+        </div> */}
       </div>
     </div>
   );
@@ -314,14 +314,14 @@ function OptionItem({
   return (
     <li
       className={`flex items-start space-x-2 ${
-        isCorrect ? "rounded-md p-1 dark:bg-gray-800" : ""
+        isCorrect ? "rounded-md p-1 border dark:border-gray-300" : ""
       }`}
     >
       <span className="font-medium text-purple-700 dark:text-foreground">
         {optionKey.toUpperCase()}:
       </span>
       <span
-        className="text-purple-600 dark:text-foreground"
+        className="text-purple-600 dark:text-foreground pl-2"
         dangerouslySetInnerHTML={{ __html: highlightHTML(option, searchQuery) }}
       />
     </li>

@@ -56,12 +56,19 @@ export const levelTests = [1, 2];
 
 export const data: TestData = {
   "1": {
+    // aptitude: {
+    //   "1": "66ab84054dd68a6f814b06d7",
+    //   "2": "66ab84a94dd68a6f814b06ea",
+    //   "3": "66ab84c44dd68a6f814b06ee",
+    //   "4": "66ab85224dd68a6f814b06f4",
+    //   "5": "66ab85634dd68a6f814b06f8",
+    // },
     aptitude: {
-      "1": "66ab84054dd68a6f814b06d7",
-      "2": "66ab84a94dd68a6f814b06ea",
-      "3": "66ab84c44dd68a6f814b06ee",
-      "4": "66ab85224dd68a6f814b06f4",
-      "5": "66ab85634dd68a6f814b06f8",
+      "1": "67378c04cb7cdd0298e25c59",
+      "2": "67378cdbcb7cdd0298e25c5b",
+      "3": "67378d01cb7cdd0298e25c5d",
+      "4": "67378d20cb7cdd0298e25c5f",
+      "5": "67378d44cb7cdd0298e25c61",
     },
     programming: {
       "1": "673096190a3479d85832d7e7-672a5b0ac06e0c4f2e315cd4-66ab85854dd68a6f814b06fa-672e47941e19b9bbd9cfceb3-672a7747c06e0c4f2e315cde",
