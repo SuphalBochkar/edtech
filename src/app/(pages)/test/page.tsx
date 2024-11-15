@@ -23,6 +23,8 @@ const Page = () => {
     return <Loading />;
   }
 
+  const emails = process.env.NEXT_PUBLIC_MY_EMAIL!.split("-");
+
   return (
     <>
       <div className="flex flex-col relative overflow-hidden">
@@ -43,7 +45,7 @@ const Page = () => {
       <Notify />
       {session &&
         session?.user &&
-        session?.user.email === process.env.NEXT_PUBLIC_MY_EMAIL! && <Footer />}
+        emails.includes(session?.user.email as string) && <Footer />}
     </>
   );
 };

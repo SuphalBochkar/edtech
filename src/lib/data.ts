@@ -17,12 +17,12 @@ export const aeTests = [
     type: "Aptitude & Verbal",
     date: "26/04/2024",
   },
-  //   {
-  //     id: 5,
-  //     name: "AE Practice Test (2026) 5",
-  //     type: "Aptitude & Verbal",
-  //     date: "-/-/2024",
-  //   },
+  {
+    id: 5,
+    name: "AE Practice Test (2026) 5",
+    type: "Aptitude & Verbal",
+    date: "17/11/2024",
+  },
 ];
 
 export const tempData: tempTestData = {
@@ -46,10 +46,10 @@ export const tempData: tempTestData = {
     analytical: "671dcee7c566b5e58242e99f",
     verbal: "671dd5017b4a2e1b689d30f9",
   },
-  //   "5": {
-  //     analytical: Status.Updating,
-  //     verbal: Status.Updating,
-  //   },
+  "5": {
+    analytical: Status.Updating,
+    verbal: Status.Updating,
+  },
 };
 
 export const levelTests = [1, 2];
