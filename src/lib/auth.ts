@@ -88,11 +88,13 @@
 // };
 
 import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
 import { User, SessionStrategy, Session, JWT } from "next-auth";
 import { EXPIRE_DAYS } from "./types";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import type { Adapter } from "next-auth/adapters";
+import bcrypt from "bcryptjs";
 
 export const AUTH_PROVIDERS = {
   adapter: PrismaAdapter(prisma) as Adapter,
@@ -104,6 +106,46 @@ export const AUTH_PROVIDERS = {
         params: {
           prompt: "select_account",
         },
+      },
+    }),
+    CredentialsProvider({
+      name: "Static Credentials",
+      credentials: {
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        console.log("Received Credentials:", credentials);
+
+        if (!credentials?.email || !credentials?.password) {
+          console.log("Email or Password is missing");
+          return null;
+        }
+
+        try {
+          const email = credentials.email.toLowerCase();
+          const staticUser = await prisma.staticUser.findUnique({
+            where: { email: email },
+          });
+          console.log("Fetched StaticUser:", staticUser);
+          if (
+            staticUser &&
+            bcrypt.compareSync(credentials.password, staticUser.password)
+          ) {
+            return {
+              id: staticUser.id,
+              name: staticUser.email,
+              paid: staticUser.paid,
+              expireAt: staticUser.expireAt,
+              courses: staticUser.courses,
+            } as User;
+          }
+          console.log("Invalid email or password");
+          return null;
+        } catch (error) {
+          console.error("Error fetching user:", error);
+          return null;
+        }
       },
     }),
   ],
@@ -125,22 +167,41 @@ export const AUTH_PROVIDERS = {
     },
 
     async session({ session, token }: { session: Session; token: JWT }) {
-      const user = await prisma.user.findUnique({
-        where: {
-          id: token?.sub,
-        },
-      });
+      if (token && token.sub) {
+        const user = await prisma.user.findUnique({
+          where: {
+            id: token.sub,
+          },
+        });
 
-      if (!user) {
+        if (user) {
+          session.user.id = user.id;
+          session.user.paid = user.paid;
+          session.user.courses = user.courses;
+          return session;
+        }
+
+        const staticUser = await prisma.staticUser.findUnique({
+          where: {
+            id: token.sub,
+          },
+        });
+
+        if (staticUser) {
+          session.user.id = staticUser.id;
+          session.user.name = staticUser.name;
+          session.user.email = staticUser.email;
+          //   session.user.image = staticUser.image;
+          session.user.paid = staticUser.paid;
+          session.user.courses = staticUser.courses;
+          return session;
+        }
+
         console.log("No user found. Logging out...");
         return null;
       }
 
-      session.user.id = user.id;
-      session.user.paid = user.paid;
-      session.user.courses = user.courses;
-
-      return session;
+      return null;
     },
   },
 };
