@@ -5,10 +5,7 @@ const CustomMessage = () => {
   return (
     <div className="text-sm md:text-xl flex flex-col gap-2">
       <div>
-        <span className="underline font-bold">
-          {" "}
-          Level 1 Aptitude and Programming
-        </span>{" "}
+        <span className="underline font-bold"> AE Practice Tests 5 (2026)</span>{" "}
         has been Updated.
       </div>
       {/* <div>
