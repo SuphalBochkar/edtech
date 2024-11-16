@@ -45,8 +45,8 @@ export const tempData: tempTestData = {
     verbal: "671dd5017b4a2e1b689d30f9",
   },
   "5": {
-    analytical: Status.Updating,
-    verbal: Status.Updating,
+    analytical: "5f6d2b9a2c7bfe8d1bfc5123",
+    verbal: "645b7a2d4b55f87d7a19e3c1",
   },
 };
 
