@@ -2,9 +2,12 @@ import Blobs from "@/components/Blobs";
 import { getLevelTypeData } from "@/actions/keyData";
 import LevelTypeCard from "./LevelTypeCard";
 import { Course, CourseNames } from "@/lib/data";
+// import { redirect } from "next/navigation";
 
 const TestTypes = ({ testType, path }: { testType: Course; path: string }) => {
   const data = getLevelTypeData(testType);
+
+  //   if (!data) return redirect("/c2");
 
   return (
     <div>
