@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { prisma } from "@/lib/prisma";
-import { Course } from "@/lib/types";
+import { Course } from "@/lib/data";
 // import { getServerSession } from "next-auth";
 // import buyCourseMail from "@/actions/buyCourseMail";
 
@@ -107,7 +107,7 @@ export async function POST(req: NextRequest) {
         where: { id: userId },
         data: {
           courses: {
-            push: Course.Course1_Hit,
+            push: Course.Course1AE,
           },
           paid: true,
         },

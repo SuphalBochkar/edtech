@@ -1,8 +1,8 @@
 import axios from "axios";
 import { Session } from "next-auth";
-import { Course } from "./types";
-import { FlowTypes } from "@/app/(pages)/(payment)/pay/page";
+import { FlowTypes } from "@/app/(pages)/(payment)/_pay/page";
 import { SetStateAction } from "react";
+import { Course } from "./data";
 
 // type UpdateSession = (data: Partial<Session>) => void;
 
@@ -138,7 +138,7 @@ export async function getRazorPayOptions(
           sessionData.user.paid = true;
           sessionData.user.courses = [
             ...(sessionData.user.courses || []),
-            Course.Course1_Hit,
+            Course.Course1Level,
           ];
           update(sessionData);
           setPaymentFlow("success");

@@ -4,7 +4,6 @@ import { getPracticeTests } from "@/actions/keyData";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import PracticeTestCard from "@/components/Courses/c1/PracticeTestCard";
-import CustomBreadcrumb from "@/components/Courses/CustomBreadcrumb";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 10 },
@@ -24,9 +23,6 @@ export default function Page({ params }: { params: { practice: string } }) {
   return (
     <div className="">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-8">
-          <CustomBreadcrumb />
-        </div>
         <motion.div
           initial="initial"
           animate="animate"

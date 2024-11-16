@@ -65,7 +65,6 @@ import { getLevelData } from "@/actions/keyData";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import LevelTestCard from "@/components/Courses/c1/LevelTestCard";
-import CustomBreadcrumb from "@/components/Courses/CustomBreadcrumb";
 import Blobs from "@/components/Blobs";
 
 export default function Page({ params }: { params: { level: string } }) {
@@ -86,9 +85,6 @@ export default function Page({ params }: { params: { level: string } }) {
     <div>
       <Blobs />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="my-8">
-          <CustomBreadcrumb size="lg" />
-        </div>
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white m-3 md:m-5">
           Level {params.level} Tests
         </h1>

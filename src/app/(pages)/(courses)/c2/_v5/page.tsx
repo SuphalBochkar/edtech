@@ -1,8 +1,8 @@
 import TestTypes from "@/components/Courses/c2/TestTypes";
-import { TestType } from "@/lib/data-c2";
+import { Course } from "@/lib/data";
 
 const page = () => {
-  return <TestTypes testType={TestType.V5} path="v5" />;
+  return <TestTypes testType={Course.Course2V5} path="v5" />;
 };
 
 export default page;

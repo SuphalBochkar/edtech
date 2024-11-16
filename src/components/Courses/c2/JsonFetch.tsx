@@ -2,7 +2,7 @@
 
 import React, { Suspense } from "react";
 import ErrorPage from "@/components/Courses/ErrorPage";
-import AnswerPage from "@/components/Courses/c1/AnswerPage";
+import AnswerPage from "@/components/Courses/c2/AnswerPage";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import JsonLoading from "./JsonLoading";

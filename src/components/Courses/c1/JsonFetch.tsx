@@ -27,6 +27,9 @@ export default async function JsonFetch({
     redirect("/");
   }
 
+  if (courseType) {
+  }
+
   //   const userCourses = await prisma.user.findFirst({
   //     where: {
   //       email: session.user.email,

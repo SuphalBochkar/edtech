@@ -1,6 +1,6 @@
 import { Course } from "@/lib/data";
 import { data, tempData } from "@/lib/data-c1";
-import { TestType, testTypeData } from "@/lib/data-c2";
+import { testTypeData } from "@/lib/data-c2";
 
 // c1
 

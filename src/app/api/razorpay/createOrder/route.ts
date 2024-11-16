@@ -1,6 +1,5 @@
-import { Course1_Hit_Amount } from "@/lib/data-c1";
+import { Course } from "@/lib/data";
 import { prisma } from "@/lib/prisma";
-import { Course } from "@/lib/types";
 import { NextRequest, NextResponse } from "next/server";
 import Razorpay from "razorpay";
 // import { getServerSession } from "next-auth";
@@ -28,13 +27,13 @@ export async function POST(req: NextRequest) {
   const userEmail = user.email;
 
   const options = {
-    amount: Course1_Hit_Amount * 100,
+    amount: 100 * 100,
     currency: "INR",
     receipt: "receipt#" + Math.random().toString(36).substring(7),
     notes: {
       paymentFor: "Edu Course",
       userEmail: userEmail || "",
-      productId: Course.Course1_Hit || "",
+      productId: Course.Course1AE || "",
     },
   };
 

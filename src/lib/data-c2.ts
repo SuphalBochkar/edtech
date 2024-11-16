@@ -1,4 +1,5 @@
 import { Course } from "./data";
+import { Status } from "./types";
 
 export const testTypes: Array<{ name: Course; path: string }> = [
   { name: Course.Course2N2NCPP, path: "/n2ncpp" },
@@ -12,24 +13,24 @@ export type TestTypeData = {
 
 export const testTypeData: Partial<TestTypeData> = {
   [Course.Course2N2NCPP]: {
-    "1": "111111111111111111111111",
-    "2": "111111111111111111111111",
-    "3": "111111111111111111111111",
-    "4": "111111111111111111111111",
-    "5": "111111111111111111111111",
+    "1": Status.Updating,
+    "2": Status.Updating,
+    "3": Status.Updating,
+    "4": Status.Updating,
+    "5": Status.Updating,
   },
   [Course.Course2Place]: {
-    "1": "111111111111111111111111",
-    "2": "111111111111111111111111",
-    "3": "111111111111111111111111",
-    "4": "111111111111111111111111",
-    "5": "111111111111111111111111",
+    "1": Status.Updating,
+    "2": Status.Updating,
+    "3": Status.Updating,
+    "4": Status.Updating,
+    "5": Status.Updating,
   },
   [Course.Course2V5]: {
-    "1": "111111111111111111111111",
-    "2": "111111111111111111111111",
-    "3": "111111111111111111111111",
-    "4": "111111111111111111111111",
-    "5": "111111111111111111111111",
+    "1": Status.Updating,
+    "2": Status.Updating,
+    "3": Status.Updating,
+    "4": Status.Updating,
+    "5": Status.Updating,
   },
 };
