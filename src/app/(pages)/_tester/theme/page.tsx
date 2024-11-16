@@ -1,5 +1,5 @@
 // /src/app/(pages)/page.tsx
-import LevelComponent from "@/components/Tests/LevelComponent";
+import LevelComponent from "@/components/old-other/LevelComponent";
 import ThemeSwitch from "@/components/ThemeSwitch";
 
 export default function Home() {

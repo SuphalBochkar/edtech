@@ -24,9 +24,17 @@ model Hitbullseye {
     data Json
 }
 
+model Perfectice {
+    id   String @id @default(auto()) @map("_id") @db.ObjectId
+    data Json
+}
+
 enum Course {
-    C1011
-    C1012
+    C1001
+    C1002
+    C2001
+    C2002
+    C2003
 }
 
 enum PaymentStatus {

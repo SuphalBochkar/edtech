@@ -23,7 +23,7 @@ const NavBar = () => {
     setLoading(true);
     await signIn("google");
     setLoading(false);
-    // router.push("/test");
+    // router.push("/home");
   };
 
   useEffect(() => {
@@ -35,13 +35,13 @@ const NavBar = () => {
     if (pathname.includes("/pricing")) return;
   }, [user, status, router]);
 
-  const relativeRoutes = ["/test/level/", "/test/practice/"];
+  const relativeRoutes = ["/c1/level/", "/c1/practice/"];
   const isRelativeRoute = relativeRoutes.some((route) =>
     pathname.startsWith(route)
   );
 
   //   useEffect(() => {
-  //     if (status === "authenticated" && session?.user) router.push("/test");
+  //     if (status === "authenticated" && session?.user) router.push("/c1");
   //   }, [status, session, router]);
 
   return (

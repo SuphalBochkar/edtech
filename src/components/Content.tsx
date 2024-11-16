@@ -14,14 +14,14 @@ const Content = () => {
 
   useEffect(() => {
     if (status === "loading") return;
-    if (status === "authenticated" && session?.user) router.push("/test");
+    if (status === "authenticated" && session?.user) router.push("/home");
   }, [status, session, router]);
 
   const handleSignIn = async () => {
     setLoading(true);
     await signIn("google");
     setLoading(false);
-    // router.push("/test");
+    // router.push("/home");
   };
 
   return (

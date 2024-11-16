@@ -1,4 +1,4 @@
-import { Course1_Hit_Amount } from "@/lib/data";
+import { Course1_Hit_Amount } from "@/lib/data-c1";
 import { prisma } from "@/lib/prisma";
 import { Course } from "@/lib/types";
 import { NextRequest, NextResponse } from "next/server";

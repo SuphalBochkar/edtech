@@ -28,7 +28,7 @@ const SignIn = () => {
       if (result?.error) {
         setError("Invalid email or password. Please try again.");
       } else if (result?.ok) {
-        router.push("/test");
+        router.push("/home");
       }
     } catch (error) {
       console.log(error);
@@ -36,7 +36,7 @@ const SignIn = () => {
       setError("An unexpected error occurred. Please try again.");
     } finally {
       setIsLoading(false);
-      //   router.push("/test");
+      //   router.push("/home");
       //   setError("");
     }
   };

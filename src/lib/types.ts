@@ -41,11 +41,6 @@ export enum Status {
   Paid = "paid",
 }
 
-export enum Course {
-  Course1_Hit = "C1011",
-  Course2_MyPer = "C1012",
-}
-
 export interface DataItem {
   question1?: string;
   question2?: string;
