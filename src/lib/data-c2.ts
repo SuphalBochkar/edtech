@@ -13,24 +13,24 @@ export type TestTypeData = {
 
 export const testTypeData: Partial<TestTypeData> = {
   [Course.Course2N2NCPP]: {
-    "1": Status.Updating,
+    // "1": Status.Updating,
     "2": Status.Updating,
-    "3": Status.Updating,
-    "4": Status.Updating,
-    "5": Status.Updating,
+    // "3": Status.Updating,
+    // "4": Status.Updating,
+    // "5": Status.Updating,
   },
   [Course.Course2Place]: {
-    "1": Status.Updating,
+    // "1": Status.Updating,
     "2": Status.Updating,
-    "3": Status.Updating,
-    "4": Status.Updating,
-    "5": Status.Updating,
+    // "3": Status.Updating,
+    // "4": Status.Updating,
+    // "5": Status.Updating,
   },
   [Course.Course2V5]: {
-    "1": Status.Updating,
+    // "1": Status.Updating,
     "2": Status.Updating,
-    "3": Status.Updating,
-    "4": Status.Updating,
-    "5": Status.Updating,
+    // "3": Status.Updating,
+    // "4": Status.Updating,
+    // "5": Status.Updating,
   },
 };
