@@ -1,5 +1,6 @@
-import { Course } from "@/lib/data";
+import { CourseNames } from "@/lib/data";
 import { prisma } from "@/lib/prisma";
+import { decodeData } from "@/lib/utils";
 import { NextRequest, NextResponse } from "next/server";
 import Razorpay from "razorpay";
 // import { getServerSession } from "next-auth";
@@ -10,18 +11,28 @@ const razorPayInstance = new Razorpay({
 });
 
 export async function POST(req: NextRequest) {
-  // const session = await getServerSession(req);
-  // if (!session || !session.user?.email) return NextResponse.json({ error: "Not Authorized" }, { status: 401 });
-  // const userEmail = session.user?.email;
+  //   if (!session || !session.user?.email)
+  //     return NextResponse.json({ error: "Not Authorized" }, { status: 401 });
+  //   const userEmail = session.user?.email;
 
   const data = await req.json();
   const user = await prisma.user.findUnique({
     where: { id: data.userId },
-    select: { email: true },
+    select: { email: true, courses: true },
   });
+
+  const courseId = decodeData(data.buyId).courseType;
 
   if (!user) {
     return NextResponse.json({ error: "Not Authorized" }, { status: 401 });
+  }
+
+  if (!courseId) {
+    return NextResponse.json({ error: "Invalid Course" }, { status: 400 });
+  }
+
+  if (user.courses.includes(courseId)) {
+    return NextResponse.json({ error: "Already Enrolled" }, { status: 400 });
   }
 
   const userEmail = user.email;
@@ -31,9 +42,10 @@ export async function POST(req: NextRequest) {
     currency: "INR",
     receipt: "receipt#" + Math.random().toString(36).substring(7),
     notes: {
-      paymentFor: "Edu Course",
-      userEmail: userEmail || "",
-      productId: Course.Course1AE || "",
+      "Payment Purpose": "Payment for Learning Course",
+      "User Email": userEmail || "",
+      "Product Id": courseId || "",
+      "Course Name": CourseNames[courseId] || "",
     },
   };
 
@@ -42,7 +54,6 @@ export async function POST(req: NextRequest) {
     //   where: { email: userEmail },
     //   select: { id: true },
     // });
-
     // if (!user) {
     //   return NextResponse.json({ error: "User not found" }, { status: 404 });
     // }

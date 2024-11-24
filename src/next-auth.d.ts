@@ -1,4 +1,3 @@
-// next-auth.d.ts
 import "next-auth";
 
 declare module "next-auth" {
@@ -17,12 +16,13 @@ declare module "next-auth" {
       image?: string | null;
       paid?: boolean;
       courses?: Course[];
+      expireAt?: Date;
     };
     expires: string;
   }
 
   interface JWT {
-    sub: string;
+    sub?: string;
     id: string;
     paid: boolean;
     expireAt: Date;

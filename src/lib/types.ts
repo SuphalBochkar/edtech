@@ -41,6 +41,13 @@ export enum Status {
   Paid = "paid",
 }
 
+export type FlowTypes =
+  | "idle"
+  | "processing"
+  | "verifying"
+  | "success"
+  | "error";
+
 export interface DataItem {
   question1?: string;
   question2?: string;

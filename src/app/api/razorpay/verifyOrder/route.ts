@@ -63,6 +63,21 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const existingPayment = await prisma.payment.findFirst({
+      where: {
+        razorpay_order_id,
+        razorpay_payment_id,
+        status: "SUCCESS",
+      },
+    });
+
+    if (existingPayment) {
+      return NextResponse.json(
+        { message: "Payment already verified", isOk: true },
+        { status: 200 }
+      );
+    }
+
     await prisma.$transaction(async (tx) => {
       //   const payment = await tx.payment.create({
       //     data: {
@@ -72,7 +87,6 @@ export async function POST(req: NextRequest) {
       //       razorpay_signature: razorpay_signature,
       //     },
       //   });
-
       //   await tx.user.update({
       //     where: { id: userId },
       //     data: {

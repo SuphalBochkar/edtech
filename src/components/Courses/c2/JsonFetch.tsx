@@ -8,6 +8,7 @@ import { getServerSession } from "next-auth";
 import JsonLoading from "./JsonLoading";
 import { Status } from "@/lib/types";
 import { Course } from "@/lib/data";
+import { encodeData } from "@/lib/utils";
 // import { Course, Status } from "@/lib/types";
 // import { prisma } from "@/lib/prisma";
 
@@ -31,8 +32,6 @@ export default async function JsonFetch({
     redirect("/c2");
   }
 
-  console.log(courseType);
-
   //   const userCourses = await prisma.user.findFirst({
   //     where: {
   //       email: session.user.email,
@@ -45,8 +44,9 @@ export default async function JsonFetch({
   //   const isAuthorized = userCourses?.courses.includes(Course.Course1_Hit);
 
   //   if (!isAuthorized) {
-  //     redirect("/pricing");
-  //     return;
+  const encodedData = encodeData(courseType);
+  redirect(`/pricing/${encodedData}`);
+  return;
   //   }
 
   if (
@@ -56,7 +56,7 @@ export default async function JsonFetch({
   ) {
     return (
       <div className="text-foreground">
-        <ErrorPage text="We couldn't find the data. Please try again later." />
+        <ErrorPage text="No test Available!!" />
       </div>
     );
   }
@@ -69,11 +69,19 @@ export default async function JsonFetch({
     );
   }
 
-  const testIds = testId.split("-");
+  const testIds = testId?.split("-") || [];
   const allDataArrays = await Promise.all(
     testIds.map((id) => fetchTestData(id))
   );
-  const combinedData = allDataArrays.flat();
+  const combinedData = allDataArrays?.flat();
+
+  if (!combinedData) {
+    return (
+      <div className="text-foreground">
+        <ErrorPage text="We couldn't find the data. Please try again later." />
+      </div>
+    );
+  }
 
   return (
     <Suspense fallback={<JsonLoading />}>

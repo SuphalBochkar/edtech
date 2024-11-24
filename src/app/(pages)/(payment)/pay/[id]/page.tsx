@@ -9,20 +9,16 @@ import NavBar from "@/components/NavBar";
 import Razorpay from "razorpay";
 import { AlertCircle, CheckCircle, CreditCard, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
-import { Course } from "@/lib/data";
+import { Course, CourseNames, CoursePrices } from "@/lib/data";
+import { LoadingSpinner } from "@/components/Pricing/LoadingSpinner";
+import { decodeData } from "@/lib/utils";
+import { FlowTypes } from "@/lib/types";
 
 declare global {
   interface Window {
     Razorpay: Razorpay;
   }
 }
-
-export type FlowTypes =
-  | "idle"
-  | "processing"
-  | "verifying"
-  | "success"
-  | "error";
 
 const renderFlowStatus = (paymentFlow: FlowTypes) => {
   const baseClasses =
@@ -64,7 +60,13 @@ const renderFlowStatus = (paymentFlow: FlowTypes) => {
   }
 };
 
-export default function Page() {
+export default function Page({
+  params,
+}: {
+  params: {
+    id: string;
+  };
+}) {
   const router = useRouter();
   const {
     data: sessionData,
@@ -77,36 +79,47 @@ export default function Page() {
     },
   });
 
-  const amount = 1;
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentFlow, setPaymentFlow] = useState<FlowTypes>("idle");
   const [myError, setMyError] = useState<string>("No error");
+  const [courseId, setCourseId] = useState<Course | null>(null);
 
-  if (myError) {
-  }
   useEffect(() => {
     if (status === "loading") return;
     if (status === "authenticated" && sessionData?.user) {
-      if (
-        sessionData.user.courses &&
-        sessionData.user.courses.includes(Course.Course1Level)
-      ) {
+      try {
+        const idObj = decodeData(params.id);
+        setCourseId(idObj.courseType);
+        if (!Object.values(Course).includes(idObj.courseType)) {
+          router.push("/home");
+        }
+        if (
+          sessionData.user.courses &&
+          sessionData.user.courses.includes(idObj.courseType)
+        ) {
+          router.push("/home");
+        }
+      } catch (err) {
+        console.error("Error parsing course ID:", err);
         router.push("/home");
-        return;
       }
     }
-  }, [status, router, sessionData]);
+  }, [status, router, sessionData, params.id]);
+
+  const amount = courseId ? CoursePrices[courseId] : 0;
 
   const handlePayment = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!sessionData) return;
-
+    e.preventDefault();
+    if (!sessionData || !courseId) return;
     setPaymentFlow("processing");
     setIsProcessing(true);
+    setMyError("No error");
 
     try {
       const options = await getRazorPayOptions(
         amount,
         sessionData,
+        params.id,
         update,
         setPaymentFlow,
         setIsProcessing,
@@ -118,14 +131,14 @@ export default function Page() {
         ...options,
         modal: {
           ondismiss: function () {
-            // if (confirm("Do you want to cancel the payment?")) {
-            setIsProcessing(false);
-            setPaymentFlow("error");
-            setMyError("Payment Cancelled by the user");
-            //   console.log("Checkout form closed by the user");
-            // } else {
-            //   console.log("Complete the Payment");
-            // }
+            if (confirm("Do you want to cancel the payment?")) {
+              setIsProcessing(false);
+              setPaymentFlow("error");
+              setMyError("Payment Cancelled by the user");
+              console.log("Checkout form closed by the user");
+            } else {
+              console.log("Complete the Payment");
+            }
           },
         },
       });
@@ -150,13 +163,6 @@ export default function Page() {
             "Error in the razor payment on failed: " +
               response.error.description
           );
-          //   alert(response.error.code);
-          //   alert(response.error.description);
-          //   alert(response.error.source);
-          //   alert(response.error.step);
-          //   alert(response.error.reason);
-          //   alert(response.error.metadata.order_id);
-          //   alert(response.error.metadata.payment_id);
         }
       );
       rzp.open();
@@ -166,84 +172,17 @@ export default function Page() {
     }
   };
 
-  //   return (
-  //     sessionData?.user && (
-  //       <div>
-  //         <NavBar />
-  //         <div className="flex flex-col items-center justify-center h-full text-background">
-  //           <Script src="https://checkout.razorpay.com/v1/checkout.js" />
-  //           <div className="p-6 bg-purple-400/30 dark:bg-purple-950/20 rounded-lg text-foreground">
-  //             <h1 className="text-2xl font-bold mb-4">Payment Page</h1>
-  //             <p className="mb-4">Amount to pay: {amount}</p>
-  //             {renderFlowStatus(paymentFlow)}
-  //             <button
-  //               onClick={handlePayment}
-  //               disabled={isProcessing}
-  //               className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400"
-  //             >
-  //               {isProcessing ? "Processing..." : "Pay Now"}
-  //             </button>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     )
-  //   );
+  if (status === "loading" || !courseId) {
+    return <LoadingSpinner />;
+  }
 
-  //   return (
-  //     sessionData?.user && (
-  //       <div>
-  //         <NavBar />
-  //         <Script src="https://checkout.razorpay.com/v1/checkout.js" />
-  //         <div className="container mx-auto px-4 py-8 sm:py-16">
-  //           <div className="max-w-sm sm:max-w-md mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
-  //             <div className="p-6 sm:p-8">
-  //               <div className="uppercase tracking-wide text-xs sm:text-sm text-indigo-500 font-semibold">
-  //                 Secure Payment
-  //               </div>
-  //               <h1 className="mt-2 text-2xl sm:text-3xl leading-8 font-extrabold tracking-tight text-gray-900 dark:text-white">
-  //                 Complete Your Payment
-  //               </h1>
-  //               <p className="mt-2 sm:mt-4 max-w-2xl text-base sm:text-xl text-gray-500 dark:text-gray-300">
-  //                 Powered by Razorpay
-  //               </p>
-  //             </div>
-  //             <div className="border-t border-gray-200 dark:border-gray-700 px-6 sm:px-8 py-6 sm:py-8">
-  //               <div className="flex items-center justify-between mb-4 sm:mb-6">
-  //                 <span className="text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400">
-  //                   Amount to pay:
-  //                 </span>
-  //                 <span className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
-  //                   ₹{amount}
-  //                 </span>
-  //               </div>
-  //               {renderFlowStatus(paymentFlow)}
-  //               <button
-  //                 onClick={handlePayment}
-  //                 disabled={isProcessing}
-  //                 className={`w-full flex justify-center py-2 sm:py-3 px-4 border border-transparent rounded-md shadow-sm text-xs sm:text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${
-  //                   isProcessing ? "opacity-75 cursor-not-allowed" : ""
-  //                 }`}
-  //               >
-  //                 {isProcessing ? (
-  //                   <>
-  //                     <Loader2 className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 animate-spin" />
-  //                     Processing...
-  //                   </>
-  //                 ) : (
-  //                   <>
-  //                     <CreditCard className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5" />
-  //                     Pay Now
-  //                   </>
-  //                 )}
-  //               </button>
-  //             </div>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     )
-  //   );
+  if (myError) {
+  }
+
   return (
-    sessionData?.user && (
+    sessionData &&
+    sessionData?.user &&
+    courseId && (
       <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-background">
         <NavBar />
         <Script src="https://checkout.razorpay.com/v1/checkout.js" />
@@ -273,6 +212,22 @@ export default function Page() {
                 </span>
                 <span className="text-2xl sm:text-3xl font-bold text-violet-300">
                   ₹{amount}
+                </span>
+              </div>
+              <div className="flex items-center justify-between mb-4 sm:mb-6">
+                <span className="text-sm sm:text-base font-medium text-gray-300">
+                  Course Name:
+                </span>
+                <span className="text-2xl sm:text-3xl font-bold text-violet-300">
+                  {CourseNames[courseId]}
+                </span>
+              </div>
+              <div className="flex items-center justify-between mb-4 sm:mb-6">
+                <span className="text-sm sm:text-base font-medium text-gray-300">
+                  Get Access:
+                </span>
+                <span className="text-2xl sm:text-3xl font-bold text-violet-300">
+                  All levels (1 - 5)
                 </span>
               </div>
               {renderFlowStatus(paymentFlow)}

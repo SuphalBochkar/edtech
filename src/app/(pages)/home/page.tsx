@@ -8,6 +8,7 @@ import Loading from "./loading";
 
 import React from "react";
 import Footer from "@/components/Footer";
+import ContactUsButton from "@/components/Contact/ContactUsButton";
 
 const DynamicAllCourses = dynamic(
   () => import("@/components/Courses/AllCourses"),
@@ -47,6 +48,7 @@ const Page = () => {
       {session &&
         session?.user &&
         emails.includes(session?.user.email as string) && <Footer />}
+      <ContactUsButton />
     </>
   );
 };
