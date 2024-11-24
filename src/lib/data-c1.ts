@@ -56,7 +56,7 @@ export const tempData: tempTestData = {
   //   },
   "6": {
     analytical: "63a1c15b9b0b5198d7d70db9",
-    verbal: Status.Updating,
+    verbal: "63a1c1609b0b5198d7d70dba",
   },
 };
 
