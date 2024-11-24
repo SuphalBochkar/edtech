@@ -23,6 +23,18 @@ export default function Page({ params }: { params: { practice: string } }) {
   return (
     <div className="">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="mb-8 p-6 bg-blue-50 border-l-2 border-blue-400 text-blue-800 rounded-md shadow-md">
+          <h2 className="text-xl font-semibold mb-2">
+            Updated AE Analytical Test
+          </h2>
+          <p className="text-base">
+            Updating the verbal answers. It will be updated soon, as it{"'"}s
+            getting difficult to gather answers for practice tests. We{"'"}re
+            trying our best to get the answers for the practice tests. Thank you
+            for your patience!
+          </p>
+        </div>
+
         <motion.div
           initial="initial"
           animate="animate"

@@ -15,11 +15,17 @@ export const aeTests = [
   //     type: "Aptitude & Verbal",
   //     date: "26/04/2024",
   //   },
+  //   {
+  //     id: 5,
+  //     name: "AE Practice Test (2026) 5",
+  //     type: "Aptitude & Verbal",
+  //     date: "17/11/2024",
+  //   },
   {
-    id: 5,
-    name: "AE Practice Test (2026) 5",
+    id: 6,
+    name: "AE Practice Test (2026) 6",
     type: "Aptitude & Verbal",
-    date: "17/11/2024",
+    date: "24/11/2024",
   },
 ];
 
@@ -40,13 +46,17 @@ export const tempData: tempTestData = {
   //     analytical: "6713b94fbba9ac82bf84be8a",
   //     verbal: "6713bce84e5ee3e89d4dbee4",
   //   },
-  "4": {
-    analytical: "671dcee7c566b5e58242e99f",
-    verbal: "671dd5017b4a2e1b689d30f9",
-  },
-  "5": {
-    analytical: "5f6d2b9a2c7bfe8d1bfc5123",
-    verbal: "645b7a2d4b55f87d7a19e3c1",
+  //   "4": {
+  //     analytical: "671dcee7c566b5e58242e99f",
+  //     verbal: "671dd5017b4a2e1b689d30f9",
+  //   },
+  //   "5": {
+  //     analytical: "5f6d2b9a2c7bfe8d1bfc5123",
+  //     verbal: "645b7a2d4b55f87d7a19e3c1",
+  //   },
+  "6": {
+    analytical: "63a1c15b9b0b5198d7d70db9",
+    verbal: Status.Updating,
   },
 };
 
