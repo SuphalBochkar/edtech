@@ -5,9 +5,11 @@ const CustomMessage = () => {
   return (
     <div className="text-sm md:text-xl flex flex-col gap-2">
       <div>
-        <span className="underline font-bold"> AE Practice Tests 6 (2026)</span>{" "}
-        will be updated very soon! Do not worry
+        <span className="font-semibold">
+          Analytical is updated, and the verbal will update soon. Do not worry
+        </span>
       </div>
+
       {/* <div>
         Join our{" "}
         <a
