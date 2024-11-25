@@ -68,10 +68,11 @@ model Perfectice {
 enum Course {
     C1001
     C1002
+    C1003
     C2001
     C2002
     C2003
-    C1011
+    C2004
 }
 
 model Payment {
@@ -79,6 +80,7 @@ model Payment {
     razorpay_payment_id String?
     razorpay_signature  String?
     razorpay_order_id   String
+    course              Course
     status              PaymentStatus @default(PENDING)
     userId              String        @map("user_id") @db.ObjectId
     user                User          @relation("UserPayments", fields: [userId], references: [id])

@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { prisma } from "@/lib/prisma";
-import { Course } from "@/lib/data";
-// import { getServerSession } from "next-auth";
-// import buyCourseMail from "@/actions/buyCourseMail";
 
 const generatedSignature = (
   razorpayOrderId: string,
@@ -27,10 +24,6 @@ export async function POST(req: NextRequest) {
   const { userId, razorpay_order_id, razorpay_payment_id, razorpay_signature } =
     await req.json();
 
-  if (!userId) {
-    return NextResponse.json({ error: "Not Authorized" }, { status: 401 });
-  }
-
   if (
     !userId ||
     !razorpay_order_id ||
@@ -38,7 +31,7 @@ export async function POST(req: NextRequest) {
     !razorpay_signature
   ) {
     return NextResponse.json(
-      { message: "Please provide all the required fields" },
+      { error: "Invalid request. Missing required fields." },
       { status: 400 }
     );
   }
@@ -66,45 +59,20 @@ export async function POST(req: NextRequest) {
     const existingPayment = await prisma.payment.findFirst({
       where: {
         razorpay_order_id,
-        razorpay_payment_id,
-        status: "SUCCESS",
+      },
+      select: {
+        course: true,
       },
     });
 
-    if (existingPayment) {
+    if (!existingPayment) {
       return NextResponse.json(
-        { message: "Payment already verified", isOk: true },
-        { status: 200 }
+        { message: "No payment record found", isOk: false },
+        { status: 404 }
       );
     }
 
     await prisma.$transaction(async (tx) => {
-      //   const payment = await tx.payment.create({
-      //     data: {
-      //       userId: userId,
-      //       razorpay_payment_id: razorpay_payment_id,
-      //       razorpay_order_id: razorpay_order_id,
-      //       razorpay_signature: razorpay_signature,
-      //     },
-      //   });
-      //   await tx.user.update({
-      //     where: { id: userId },
-      //     data: {
-      //       courses: {
-      //         push: Course.Course1_Hit,
-      //       },
-      //       paid: true,
-      //       payments: {
-      //         connect: {
-      //           id: payment.id,
-      //         },
-      //       },
-      //     },
-      //     include: {
-      //       payments: true,
-      //     },
-      //   });
-
       await tx.payment.updateMany({
         where: {
           razorpay_order_id,
@@ -121,26 +89,49 @@ export async function POST(req: NextRequest) {
         where: { id: userId },
         data: {
           courses: {
-            push: Course.Course1AE,
+            push: existingPayment.course,
           },
           paid: true,
         },
       });
     });
 
-    // await buyCourseMail({
-    //   name: session.user?.name || "Learner",
-    //   email: session.user?.email,
-    // });
-
     return NextResponse.json(
-      { message: "Payment Done successfully" },
+      { message: "Payment verified successfully." },
       { status: 200 }
     );
+
+    // await prisma.$transaction(async (tx) => {
+    //   const payment = await tx.payment.create({
+    //     data: {
+    //       userId: userId,
+    //       razorpay_payment_id: razorpay_payment_id,
+    //       razorpay_order_id: razorpay_order_id,
+    //       razorpay_signature: razorpay_signature,
+    //     },
+    //   });
+    //   await tx.user.update({
+    //     where: { id: userId },
+    //     data: {
+    //       courses: {
+    //         push: Course.Course1_Hit,
+    //       },
+    //       paid: true,
+    //       payments: {
+    //         connect: {
+    //           id: payment.id,
+    //         },
+    //       },
+    //     },
+    //     include: {
+    //       payments: true,
+    //     },
+    //   });
+    // });
   } catch (error) {
-    console.error("Error updating user data after payment:", error);
+    console.error("Error verifying payment:", error);
     return NextResponse.json(
-      { error: "Failed to update user data." },
+      { error: "Failed to verify payment." },
       { status: 500 }
     );
   }
