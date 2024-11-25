@@ -8,10 +8,8 @@ import { getServerSession } from "next-auth";
 import JsonLoading from "./JsonLoading";
 import { Status } from "@/lib/types";
 import { Course } from "@/lib/data";
-import { prisma } from "@/lib/prisma";
-import { encodeData } from "@/lib/utils";
-// import { Course, Status } from "@/lib/types";
 // import { prisma } from "@/lib/prisma";
+// import { encodeData } from "@/lib/utils";
 
 interface TestPageProps {
   fetchData: () => string | null | undefined | Status;
@@ -33,26 +31,29 @@ export default async function JsonFetch({
     redirect("/c1");
   }
 
-  const userCourses = await prisma.user.findFirst({
-    where: {
-      email: session.user.email,
-    },
-    select: {
-      courses: true,
-    },
-  });
-
-  const courseEnrollment = Course.Course1Hitbulls;
-  const isAuthorized =
-    userCourses?.courses.includes(courseType) ||
-    userCourses?.courses.includes(courseEnrollment) ||
-    false;
-
-  if (!isAuthorized) {
-    const encodedData = encodeData(courseEnrollment);
-    redirect(`/pricing/${encodedData}`);
-    return;
+  if (courseType) {
   }
+
+  //   const userCourses = await prisma.user.findFirst({
+  //     where: {
+  //       email: session.user.email,
+  //     },
+  //     select: {
+  //       courses: true,
+  //     },
+  //   });
+
+  //   const courseEnrollment = Course.Course1Hitbulls;
+  //   const isAuthorized =
+  //     userCourses?.courses.includes(courseType) ||
+  //     userCourses?.courses.includes(courseEnrollment) ||
+  //     false;
+
+  //   if (!isAuthorized) {
+  //     const encodedData = encodeData(courseEnrollment);
+  //     redirect(`/pricing/${encodedData}`);
+  //     return;
+  //   }
 
   if (
     testId === undefined ||
@@ -83,8 +84,8 @@ export default async function JsonFetch({
   return (
     <Suspense fallback={<JsonLoading />}>
       <div className="text-foreground">
-        {isAuthorized && <AnswerPage data={combinedData} />}
-        {/* {<AnswerPage data={combinedData} />} */}
+        {/* {isAuthorized && <AnswerPage data={combinedData} />} */}
+        {<AnswerPage data={combinedData} />}
       </div>
     </Suspense>
   );
