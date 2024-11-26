@@ -31,7 +31,7 @@ export const CoursePrices: Record<Course, number> = {
   [Course.Course1AE]: 18,
   [Course.Course1Level]: 49,
   [Course.Course2Perfect]: 49,
-  [Course.Course2V5]: 39,
+  [Course.Course2V5]: 10,
   [Course.Course2Place]: 29,
   [Course.Course2N2NCPP]: 29,
 };

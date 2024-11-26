@@ -8,8 +8,8 @@ import { getServerSession } from "next-auth";
 import JsonLoading from "./JsonLoading";
 import { Status } from "@/lib/types";
 import { Course } from "@/lib/data";
-// import { prisma } from "@/lib/prisma";
-// import { encodeData } from "@/lib/utils";
+import { prisma } from "@/lib/prisma";
+import { encodeData } from "@/lib/utils";
 
 interface TestPageProps {
   fetchData: () => string | null | undefined | Status;
@@ -34,26 +34,26 @@ export default async function JsonFetch({
   if (courseType) {
   }
 
-  //   const userCourses = await prisma.user.findFirst({
-  //     where: {
-  //       email: session.user.email,
-  //     },
-  //     select: {
-  //       courses: true,
-  //     },
-  //   });
+  const userCourses = await prisma.user.findFirst({
+    where: {
+      email: session.user.email,
+    },
+    select: {
+      courses: true,
+    },
+  });
 
-  //   const courseEnrollment = Course.Course1Hitbulls;
-  //   const isAuthorized =
-  //     userCourses?.courses.includes(courseType) ||
-  //     userCourses?.courses.includes(courseEnrollment) ||
-  //     false;
+  const courseEnrollment = Course.Course1Hitbulls;
+  const isAuthorized =
+    userCourses?.courses.includes(courseType) ||
+    userCourses?.courses.includes(courseEnrollment) ||
+    false;
 
-  //   if (!isAuthorized) {
-  //     const encodedData = encodeData(courseEnrollment);
-  //     redirect(`/pricing/${encodedData}`);
-  //     return;
-  //   }
+  if (!isAuthorized) {
+    const encodedData = encodeData(courseEnrollment);
+    redirect(`/pricing/${encodedData}`);
+    return;
+  }
 
   if (
     testId === undefined ||
