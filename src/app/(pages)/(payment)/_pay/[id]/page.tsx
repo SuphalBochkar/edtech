@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { getRazorPayOptions } from "@/lib/razorPay";
 import Script from "next/script";
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/Navbar/NavBar";
 import Razorpay from "razorpay";
 import { AlertCircle, CheckCircle, CreditCard, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";

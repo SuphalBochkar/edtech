@@ -1,4 +1,4 @@
-import Blobs from "@/components/Blobs";
+import Blobs from "@/components/Main/Blobs";
 import { getLevelTypeData } from "@/actions/keyData";
 import LevelTypeCard from "./LevelTypeCard";
 import { Course, CourseNames } from "@/lib/data";

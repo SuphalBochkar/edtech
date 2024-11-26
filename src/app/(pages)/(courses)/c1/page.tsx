@@ -3,7 +3,7 @@
 import { Suspense } from "react";
 import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
-import Blobs from "@/components/Blobs";
+import Blobs from "@/components/Main/Blobs";
 import Loading from "./loading";
 import Notify from "@/components/Notifications/Notify";
 

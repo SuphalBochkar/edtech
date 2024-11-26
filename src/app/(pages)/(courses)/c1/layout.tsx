@@ -1,7 +1,7 @@
 "use client";
 
 import CustomBreadcrumb from "@/components/Courses/CustomBreadcrumb";
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/Navbar/NavBar";
 import { NotistackProvider } from "@/components/Notifications/NotifyClientProvider";
 import { StyledMaterialDesignContent } from "@/components/Notifications/Notistack";
 

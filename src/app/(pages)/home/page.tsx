@@ -1,14 +1,15 @@
 "use client";
 
-import Blobs from "@/components/Blobs";
+import Blobs from "@/components/Main/Blobs";
 import { Suspense } from "react";
 import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 import Loading from "./loading";
 
 import React from "react";
-import Footer from "@/components/Footer";
-import ContactUsButton from "@/components/Contact/ContactUsButton";
+import Footer from "@/components/Main/Footer";
+import PricingButton from "@/components/Pricing/PricingButton";
+// import ContactUsButton from "@/components/Contact/ContactUsButton";
 
 const DynamicAllCourses = dynamic(
   () => import("@/components/Courses/AllCourses"),
@@ -16,7 +17,7 @@ const DynamicAllCourses = dynamic(
     loading: () => <></>,
   }
 );
-const DynamicWelcomeMsg = dynamic(() => import("@/components/WelcomeMsg"), {
+const DynamicWelcomeMsg = dynamic(() => import("@/components/Main/WelcomeMsg"), {
   loading: () => <></>,
 });
 
@@ -40,6 +41,11 @@ const Page = () => {
                 name={session.user.name || "User"}
                 isPaid={session.user.paid || false}
               />
+              {session &&
+                session?.user &&
+                emails.includes(session?.user.email as string) && (
+                  <PricingButton />
+                )}
               <DynamicAllCourses />
             </Suspense>
           </div>
@@ -48,7 +54,7 @@ const Page = () => {
       {session &&
         session?.user &&
         emails.includes(session?.user.email as string) && <Footer />}
-      <ContactUsButton />
+      {/* <ContactUsButton /> */}
     </>
   );
 };

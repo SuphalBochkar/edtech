@@ -1,8 +1,7 @@
 "use client";
 
-import ContactUsButton from "@/components/Contact/ContactUsButton";
 import CustomBreadcrumb from "@/components/Courses/CustomBreadcrumb";
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/Navbar/NavBar";
 import { NotistackProvider } from "@/components/Notifications/NotifyClientProvider";
 import { StyledMaterialDesignContent } from "@/components/Notifications/Notistack";
 
@@ -24,7 +23,6 @@ export default function TestLayout({
         </div>
         {children}
       </div>
-      <ContactUsButton />
     </NotistackProvider>
   );
 }

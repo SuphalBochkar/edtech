@@ -1,6 +1,6 @@
 "use client";
 
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/Navbar/NavBar";
 import { LoadingSpinner } from "@/components/Pricing/LoadingSpinner";
 import Pricing from "@/components/Pricing/Pricing";
 import WhyPricing from "@/components/Pricing/WhyPricing";

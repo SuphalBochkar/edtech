@@ -1,4 +1,4 @@
-import Blobs from "@/components/Blobs";
+import Blobs from "@/components/Main/Blobs";
 
 const Page = () => {
   return (

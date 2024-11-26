@@ -78,7 +78,6 @@ export default function ContactUsButton() {
         <MessageCircle size={20} className="flex-shrink-0" />
         <span className="sr-only">Contact Us</span>
       </motion.button>
-
       <AnimatePresence>
         {isOpen && (
           <motion.div

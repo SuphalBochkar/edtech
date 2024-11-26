@@ -65,7 +65,7 @@ import { getLevelData } from "@/actions/keyData";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import LevelTestCard from "@/components/Courses/c1/LevelTestCard";
-import Blobs from "@/components/Blobs";
+import Blobs from "@/components/Main/Blobs";
 
 export default function Page({ params }: { params: { level: string } }) {
   const router = useRouter();
