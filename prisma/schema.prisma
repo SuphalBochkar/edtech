@@ -73,6 +73,7 @@ enum Course {
     C2002
     C2003
     C2004
+    C2005
 }
 
 model Payment {

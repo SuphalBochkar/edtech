@@ -9,11 +9,16 @@ export default function Page({
 }: {
   params: {
     testType: string;
+    type: "mcq" | "code";
     level: string;
   };
 }) {
   const fetchData = () =>
-    getTypeTestId(CourseIds[params?.testType], params.level as string);
+    getTypeTestId(
+      CourseIds[params?.testType],
+      params.type,
+      params.level as string
+    );
 
   return (
     <JsonFetch fetchData={fetchData} courseType={CourseIds[params?.testType]} />

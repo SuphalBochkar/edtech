@@ -19,7 +19,6 @@ const Page = ({
     router.push("/c2");
     return null;
   }
-
   return <TestTypes testType={currentCourse} path={testType} />;
 };
 

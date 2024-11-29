@@ -2,11 +2,11 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Zap, Code, Database } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Zap, Code, Database } from "lucide-react";
 import { testTypes } from "@/lib/data-c2";
 import { Course, CourseNames } from "@/lib/data";
+import { useSession } from "next-auth/react";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -18,18 +18,29 @@ const iconMap: Partial<Record<Course, JSX.Element>> = {
   [Course.Course2Place]: <Zap className="w-6 h-6" />,
   [Course.Course2V5]: <Code className="w-6 h-6" />,
   [Course.Course2N2NCPP]: <Database className="w-6 h-6" />,
+  [Course.Course2N2NJAVA]: <Database className="w-6 h-6" />,
 };
 
 export default function AllTests() {
   const router = useRouter();
+  const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return <LoadingSpinner />;
+  }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 lg:px-8 py-4 md:py-8">
-      <div className="flex flex-col items-center mb-12">
-        <h1 className="text-4xl font-bold text-center">Available Tests</h1>
-      </div>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <motion.h1
+        className="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-12"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        Available Tests
+      </motion.h1>
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
         initial="initial"
         animate="animate"
         variants={{
@@ -45,6 +56,7 @@ export default function AllTests() {
             key={type.name}
             testName={type.name}
             onClick={() => router.push(`/c2${type.path}`)}
+            courses={session?.user.courses}
           />
         ))}
       </motion.div>
@@ -55,9 +67,14 @@ export default function AllTests() {
 type TestTypeComponentProps = {
   testName: Course;
   onClick: () => void;
+  courses: Course[] | undefined;
 };
 
-function TestTypeComponent({ testName, onClick }: TestTypeComponentProps) {
+function TestTypeComponent({
+  testName,
+  onClick,
+  courses,
+}: TestTypeComponentProps) {
   return (
     <motion.div
       variants={fadeInUp}
@@ -66,16 +83,19 @@ function TestTypeComponent({ testName, onClick }: TestTypeComponentProps) {
       className="group cursor-pointer"
       onClick={onClick}
     >
-      <div className="bg-white/10 backdrop-blur-md rounded-xl overflow-hidden transition-all duration-300 dark:bg-purple-800/10 group-hover:bg-purple-800/40 group-hover:shadow-lg">
-        <div className="p-6">
+      <div className="bg-white/10 backdrop-blur-md rounded-xl overflow-hidden transition-all duration-300 dark:bg-purple-800/10 group-hover:bg-purple-800/40 group-hover:shadow-lg h-full">
+        <div className="p-6 flex flex-col h-full">
           <div className="flex items-center justify-between mb-4">
-            {iconMap[testName]}
-            <span className="text-xs font-semibold bg-purple-500/20 text-purple-300 px-2 py-1 rounded-full">
-              5 Levels
-            </span>
+            <div className="p-2 bg-purple-500/20 rounded-full">
+              {iconMap[testName]}
+            </div>
+            <div className="flex gap-2">
+              <StatusBadge courses={courses} testName={testName} />
+              <Badge>5 Levels</Badge>
+            </div>
           </div>
           <h3 className="text-xl font-bold mb-2">{CourseNames[testName]}</h3>
-          <p className="text-sm text-gray-300 mb-4">
+          <p className="text-sm text-gray-300 mb-4 flex-grow">
             Master your skills in {CourseNames[testName]} tests
           </p>
           <div className="flex items-center text-purple-400 group-hover:text-purple-300 transition-colors duration-200">
@@ -85,6 +105,56 @@ function TestTypeComponent({ testName, onClick }: TestTypeComponentProps) {
         </div>
       </div>
     </motion.div>
+  );
+}
+
+function StatusBadge({
+  courses,
+  testName,
+}: {
+  courses: Course[] | undefined;
+  testName: Course;
+}) {
+  if (!courses) {
+    return <Badge className="bg-gray-500/20 text-gray-300">Loading...</Badge>;
+  }
+
+  const isPaid = courses.includes(testName);
+  return (
+    <Badge
+      className={
+        isPaid ? "bg-green-500/20 text-green-300" : "bg-red-500/20 text-red-300"
+      }
+    >
+      <span
+        className={`inline-block w-2 h-2 rounded-full mr-1 ${isPaid ? "bg-green-400" : "bg-red-400"}`}
+      />
+      {isPaid ? "Subscribed" : "Not Subscribed"}
+    </Badge>
+  );
+}
+
+function Badge({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <span
+      className={`text-xs font-semibold px-2 py-1 rounded-full ${className}`}
+    >
+      {children}
+    </span>
+  );
+}
+
+function LoadingSpinner() {
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
+    </div>
   );
 }
 
