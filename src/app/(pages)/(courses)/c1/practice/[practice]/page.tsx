@@ -4,7 +4,7 @@ import { getPracticeTests } from "@/actions/keyData";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import PracticeTestCard from "@/components/Courses/c1/PracticeTestCard";
-import { AlertTriangle } from "lucide-react";
+// import { AlertTriangle } from "lucide-react";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 10 },
@@ -24,7 +24,7 @@ export default function Page({ params }: { params: { practice: string } }) {
   return (
     <div className="">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
@@ -45,7 +45,7 @@ export default function Page({ params }: { params: { practice: string } }) {
               this time.
             </p>
           </div>
-        </motion.div>
+        </motion.div> */}
 
         <motion.div
           initial="initial"
