@@ -13,6 +13,7 @@ import { Course, CourseNames, CoursePrices } from "@/lib/data";
 import { LoadingSpinner } from "@/components/Pricing/LoadingSpinner";
 import { decodeData } from "@/lib/utils";
 import { FlowTypes } from "@/lib/types";
+import ContactUsButton from "@/components/Contact/ContactUsButton";
 
 declare global {
   interface Window {
@@ -255,6 +256,7 @@ export default function Page({
             </div>
           </div>
         </motion.div>
+        <ContactUsButton />
       </div>
     )
   );

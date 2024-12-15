@@ -3,24 +3,24 @@ import { Status, tempTestData, TestData } from "@/lib/types";
 export const aeTests = [
   //   { id: 1, name: "Test 1", type: "Aptitude & Verbal", date: "19/04/2024" },
   //   { id: 2, name: "Test 2", type: "Aptitude & Verbal", date: "20/04/2024" },
-  //   {
-  //     id: 3,
-  //     name: "AE Practice Test (2026) 3",
-  //     type: "Aptitude & Verbal",
-  //     date: "19/04/2024",
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "AE Practice Test (2026) 4",
-  //     type: "Aptitude & Verbal",
-  //     date: "26/04/2024",
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "AE Practice Test (2026) 5",
-  //     type: "Aptitude & Verbal",
-  //     date: "17/11/2024",
-  //   },
+  {
+    id: 3,
+    name: "AE Practice Test (2026) 3",
+    type: "Aptitude & Verbal",
+    date: "19/04/2024",
+  },
+  {
+    id: 4,
+    name: "AE Practice Test (2026) 4",
+    type: "Aptitude & Verbal",
+    date: "26/04/2024",
+  },
+  {
+    id: 5,
+    name: "AE Practice Test (2026) 5",
+    type: "Aptitude & Verbal",
+    date: "17/11/2024",
+  },
   {
     id: 6,
     name: "AE Practice Test (2026) 6",

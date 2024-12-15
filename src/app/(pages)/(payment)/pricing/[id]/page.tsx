@@ -10,6 +10,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import ContactUsButton from "@/components/Contact/ContactUsButton";
 
 export default function Page({
   params,
@@ -103,6 +104,7 @@ export default function Page({
           </div>
         </div>
       )}
+      <ContactUsButton />
     </div>
   );
 }

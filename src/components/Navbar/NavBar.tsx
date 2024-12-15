@@ -35,7 +35,7 @@ const NavBar = () => {
     if (pathname.includes("/pricing")) return;
   }, [user, status, router]);
 
-  const relativeRoutes = ["/c1/level/", "/c1/practice/"];
+  const relativeRoutes = ["/c1/level/", "/c1/practice/", "/c2/"];
   const isRelativeRoute = relativeRoutes.some((route) =>
     pathname.startsWith(route)
   );
@@ -48,7 +48,7 @@ const NavBar = () => {
     <nav
       className={`${
         isRelativeRoute ? "relative" : "sticky"
-      }  wrapper top-0 z-50 flex items-center justify-center gap-2 py-6 w-full text-[#f9fafb]`}
+      }  wrapper top-0 z-50 flex items-center justify-center gap-2 py-3 md:py-6 w-full text-[#f9fafb]`}
     >
       <motion.div
         initial={{ y: -20, opacity: 0 }}

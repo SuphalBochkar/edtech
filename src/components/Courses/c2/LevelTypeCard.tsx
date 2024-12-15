@@ -105,3 +105,37 @@ export default function LevelTypeCard({
     </motion.div>
   );
 }
+
+// export default function LevelTypeCard({
+//   tests,
+//   type,
+//   path,
+// }: LevelTypeCardProps) {
+//   return (
+//     <div className="w-full border rounded-lg p-4">
+//       <div className="flex items-center mb-4 border-b pb-2">
+//         {type === "mcq" ? (
+//           <FileQuestion className="w-5 h-5 text-gray-600 mr-2" />
+//         ) : (
+//           <Code className="w-5 h-5 text-gray-600 mr-2" />
+//         )}
+//         <h2 className="text-xl font-semibold">
+//           {type === "mcq" ? "Multiple Choice (MCQ)" : "Coding"}
+//         </h2>
+//       </div>
+//       <ul className="space-y-2">
+//         {Object.entries(tests).map(([testNumber, testId]: [string, string]) => (
+//           <li key={testId}>
+//             <Link
+//               href={`/c2/${path}/${type}/${testNumber}`}
+//               className="flex items-center justify-between p-2 rounded-md hover:bg-gray-100 hover:text-background transition-colors duration-150 ease-in-out"
+//             >
+//               <span className="font-medium">Level {testNumber}</span>
+//               <ArrowRight className="h-4 w-4 text-gray-600" />
+//             </Link>
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// }

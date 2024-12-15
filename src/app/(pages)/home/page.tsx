@@ -9,7 +9,6 @@ import Loading from "./loading";
 import React from "react";
 import Footer from "@/components/Main/Footer";
 import PricingButton from "@/components/Pricing/PricingButton";
-// import ContactUsButton from "@/components/Contact/ContactUsButton";
 
 const DynamicAllCourses = dynamic(
   () => import("@/components/Courses/AllCourses"),
@@ -17,9 +16,13 @@ const DynamicAllCourses = dynamic(
     loading: () => <></>,
   }
 );
-const DynamicWelcomeMsg = dynamic(() => import("@/components/Main/WelcomeMsg"), {
-  loading: () => <></>,
-});
+
+const DynamicWelcomeMsg = dynamic(
+  () => import("@/components/Main/WelcomeMsg"),
+  {
+    loading: () => <></>,
+  }
+);
 
 const Page = () => {
   const { data: session, status } = useSession();
@@ -54,7 +57,6 @@ const Page = () => {
       {session &&
         session?.user &&
         emails.includes(session?.user.email as string) && <Footer />}
-      {/* <ContactUsButton /> */}
     </>
   );
 };

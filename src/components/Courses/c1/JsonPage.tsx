@@ -313,7 +313,7 @@ function OptionItem({
 }) {
   return (
     <li
-      className={`flex items-start space-x-2 ${
+      className={`flex items-center space-x-2 ${
         isCorrect ? "rounded-md p-1 border dark:border-gray-300" : ""
       }`}
     >

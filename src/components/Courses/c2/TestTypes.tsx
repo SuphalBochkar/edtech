@@ -51,7 +51,13 @@ const TestTypes = ({ testType, path }: { testType: Course; path: string }) => {
         {CourseNames[testType]}
       </motion.h1>
       {data && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div
+          className={`grid ${
+            data.mcq && data.code
+              ? "grid-cols-1 md:grid-cols-2 gap-8"
+              : "grid-cols-1 justify-items-center"
+          } max-w-4xl mx-auto`}
+        >
           {data.mcq && (
             <motion.div
               initial={{ opacity: 0, x: -20 }}
