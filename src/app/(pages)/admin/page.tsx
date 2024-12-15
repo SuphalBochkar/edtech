@@ -1,157 +1,8 @@
-// "use client";
-
-// import { useState, useEffect } from "react";
-
-// type User = {
-//   id: string;
-//   name: string;
-// };
-
-// type Query = {
-//   id: string;
-//   question: string;
-//   status: "open" | "in-progress" | "resolved";
-// };
-
-// export default function AdminDashboard() {
-//   const [users, setUsers] = useState<User[]>([]);
-//   const [selectedUser, setSelectedUser] = useState<string | null>(null);
-//   const [userQueries, setUserQueries] = useState<Query[]>([]);
-//   const [loading, setLoading] = useState<boolean>(false);
-//   const [error, setError] = useState<string | null>(null);
-
-//   const fetchUsers = async () => {
-//     setLoading(true);
-//     try {
-//       const response = await fetch("/api/query/admin/users");
-//       if (!response.ok) {
-//         throw new Error("Failed to fetch users");
-//       }
-//       const data: { users: User[] } = await response.json();
-//       setUsers(data.users);
-//     } catch (err) {
-//       setError((err as Error).message);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   const fetchUserQueries = async (userId: string) => {
-//     setLoading(true);
-//     try {
-//       const response = await fetch(`/api/admin/queries?userId=${userId}`);
-//       if (!response.ok) {
-//         throw new Error("Failed to fetch queries");
-//       }
-//       const data: { queries: Query[] } = await response.json();
-//       setUserQueries(data.queries);
-//     } catch (err) {
-//       setError((err as Error).message);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   const updateQueryStatus = async (
-//     queryId: string,
-//     status: Query["status"]
-//   ) => {
-//     setLoading(true);
-//     try {
-//       const response = await fetch("/api/admin/queries/update", {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({ queryId, status }),
-//       });
-//       if (!response.ok) {
-//         throw new Error("Failed to update query");
-//       }
-//       if (selectedUser) {
-//         fetchUserQueries(selectedUser);
-//       }
-//     } catch (err) {
-//       setError((err as Error).message);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   useEffect(() => {
-//     fetchUsers();
-//   }, []);
-
-//   return (
-//     <div className="p-6">
-//       <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
-
-//       {loading && <p>Loading...</p>}
-//       {error && <p className="text-red-500">{error}</p>}
-
-//       <div className="grid grid-cols-3 gap-4">
-//         <div>
-//           <h2 className="text-xl font-semibold mb-2">Users</h2>
-//           <ul className="border rounded-md divide-y">
-//             {users.map((user) => (
-//               <li
-//                 key={user.id}
-//                 className={`p-2 cursor-pointer ${
-//                   selectedUser === user.id ? "bg-gray-200" : ""
-//                 }`}
-//                 onClick={() => {
-//                   setSelectedUser(user.id);
-//                   fetchUserQueries(user.id);
-//                 }}
-//               >
-//                 {user.name}
-//               </li>
-//             ))}
-//           </ul>
-//         </div>
-
-//         <div className="col-span-2">
-//           <h2 className="text-xl font-semibold mb-2">User Queries</h2>
-//           {selectedUser ? (
-//             <ul className="border rounded-md divide-y">
-//               {userQueries.map((query) => (
-//                 <li
-//                   key={query.id}
-//                   className="p-2 flex justify-between items-center"
-//                 >
-//                   <div>
-//                     <p className="font-semibold">{query.question}</p>
-//                     <p className="text-sm text-gray-500">
-//                       Status: {query.status}
-//                     </p>
-//                   </div>
-//                   <select
-//                     className="border p-1 rounded"
-//                     value={query.status}
-//                     onChange={(e) =>
-//                       updateQueryStatus(
-//                         query.id,
-//                         e.target.value as Query["status"]
-//                       )
-//                     }
-//                   >
-//                     <option value="open">Open</option>
-//                     <option value="in-progress">In Progress</option>
-//                     <option value="resolved">Resolved</option>
-//                   </select>
-//                 </li>
-//               ))}
-//             </ul>
-//           ) : (
-//             <p>Select a user to view their queries</p>
-//           )}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
+import { Search, Filter, RefreshCw, AlertCircle } from "lucide-react";
+import { useSession } from "next-auth/react";
 import {
   Table,
   TableBody,
@@ -167,43 +18,104 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/ui/shad/select";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/ui/shad/card";
+import { Input } from "@/ui/shad/input";
+import { Badge } from "@/ui/shad/badge";
+import { Button } from "@/ui/shad/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/ui/shad/dropdown";
+import Loading from "./loading";
 
+// Types
 type Query = {
   id: string;
   user?: { name: string };
   message: string;
-  status: string;
-  createdAt: string; // Changed to string for easier sorting
+  status: "PENDING" | "RESOLVED" | "ERROR";
+  createdAt: string;
 };
 
-type SortField = "status" | "createdAt";
+type SortField = "status" | "createdAt" | "user";
+type FilterStatus = "ALL" | "PENDING" | "RESOLVED" | "ERROR";
+
+// Utility functions
+const formatDate = (date: string) => {
+  return new Date(date).toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
+
+const getStatusColor = (status: Query["status"]) => {
+  const colors = {
+    PENDING: "bg-yellow-100 text-yellow-800 hover:bg-yellow-200",
+    RESOLVED: "bg-green-100 text-green-800 hover:bg-green-200",
+    ERROR: "bg-red-100 text-red-800 hover:bg-red-200",
+  };
+  return colors[status];
+};
 
 export default function AdminQueries() {
+  // State
+  const { data: session, status: authStatus } = useSession();
   const [queries, setQueries] = useState<Query[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [sortField, setSortField] = useState<SortField>("createdAt");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState<FilterStatus>("ALL");
+  const [refreshing, setRefreshing] = useState(false);
 
+  const adminEmails = useMemo(() => {
+    return process.env.NEXT_PUBLIC_ADMIN_EMAIL?.split("-") || [];
+  }, []);
+
+  // Data fetching
   const fetchQueries = async () => {
+    setError(null);
+    setLoading(true);
     try {
       const response = await fetch("/api/admin/queries");
       const data = await response.json();
-      if (response.ok) {
-        setQueries(
-          data.queries.map((q: Query) => ({
-            ...q,
-            createdAt: new Date(q.createdAt).toISOString(), // Ensure consistent date format
-          }))
-        );
-      }
-    } catch (error) {
-      console.error("Error fetching queries:", error);
+      if (!response.ok)
+        throw new Error(data.message || "Failed to fetch queries");
+
+      setQueries(
+        data.queries.map((q: Query) => ({
+          ...q,
+          createdAt: new Date(q.createdAt).toISOString(),
+        }))
+      );
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred");
+      console.error("Error fetching queries:", err);
     } finally {
       setLoading(false);
     }
   };
 
-  const updateStatus = async (id: string, status: string) => {
+  const refreshQueries = async () => {
+    setRefreshing(true);
+    await fetchQueries();
+    setRefreshing(false);
+  };
+
+  const updateStatus = async (id: string, status: Query["status"]) => {
+    setError(null);
     try {
       const response = await fetch("/api/admin/queries", {
         method: "PATCH",
@@ -212,110 +124,243 @@ export default function AdminQueries() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to update query");
+        throw new Error("Failed to update query status");
       }
 
-      fetchQueries();
-    } catch (error) {
-      console.error("Error updating query:", error);
+      await fetchQueries();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to update status");
+      console.error("Error updating query:", err);
     }
   };
 
+  // Effects
   useEffect(() => {
-    fetchQueries();
-  }, []);
-
-  const sortedQueries = [...queries].sort((a, b) => {
-    if (sortField === "status") {
-      return sortOrder === "asc"
-        ? a.status.localeCompare(b.status)
-        : b.status.localeCompare(a.status);
+    if (session && adminEmails.includes(session.user?.email as string)) {
+      fetchQueries();
     } else {
-      return sortOrder === "asc"
-        ? a.createdAt.localeCompare(b.createdAt)
-        : b.createdAt.localeCompare(a.createdAt);
+      setLoading(false);
     }
-  });
+  }, [session, adminEmails]);
 
-  const toggleSort = (field: SortField) => {
-    if (sortField === field) {
-      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-    } else {
-      setSortField(field);
-      setSortOrder("asc");
-    }
-  };
+  // Computed values
+  const filteredAndSortedQueries = useMemo(() => {
+    return [...queries]
+      .filter((query) => {
+        const matchesSearch =
+          query.message.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          query.user?.name?.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesStatus =
+          statusFilter === "ALL" || query.status === statusFilter;
+        return matchesSearch && matchesStatus;
+      })
+      .sort((a, b) => {
+        const modifier = sortOrder === "asc" ? 1 : -1;
+        if (sortField === "user") {
+          return (
+            modifier * (a.user?.name || "").localeCompare(b.user?.name || "")
+          );
+        }
+        if (sortField === "status") {
+          return modifier * a.status.localeCompare(b.status);
+        }
+        return modifier * a.createdAt.localeCompare(b.createdAt);
+      });
+  }, [queries, searchTerm, statusFilter, sortField, sortOrder]);
 
-  if (loading) return <p className="text-center p-4">Loading queries...</p>;
+  if (authStatus === "loading" || loading) {
+    return <Loading />;
+  }
+
+  if (!session || !adminEmails.includes(session.user?.email as string)) {
+    return (
+      <div className="flex items-center justify-center min-h-[50vh]">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <CardTitle className="text-2xl font-bold text-red-600">
+              Access Denied
+            </CardTitle>
+            <CardDescription>
+              You must be an administrator to view this page.
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+    );
+  }
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6">User Queries</h1>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>User</TableHead>
-            <TableHead>Message</TableHead>
-            <TableHead
-              onClick={() => toggleSort("status")}
-              className="cursor-pointer"
+    <Card className="container mx-auto p-4">
+      <CardHeader>
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <CardTitle className="text-2xl font-bold">
+              Admin Dashboard
+            </CardTitle>
+            <CardDescription>
+              Manage and track user support requests
+            </CardDescription>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-2">
+            <div className="relative">
+              <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search queries..."
+                className="pl-8 w-full sm:w-64"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="flex items-center gap-2">
+                  <Filter className="h-4 w-4" />
+                  <span>Filter: {statusFilter}</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-white text-background shadow-lg border">
+                <DropdownMenuItem onClick={() => setStatusFilter("ALL")}>
+                  All Queries
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setStatusFilter("PENDING")}>
+                  Pending Only
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setStatusFilter("RESOLVED")}>
+                  Resolved Only
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setStatusFilter("ERROR")}>
+                  Error Only
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <Button
+              variant="outline"
+              onClick={refreshQueries}
+              disabled={refreshing}
+              className="w-full sm:w-auto"
             >
-              Status{" "}
-              {sortField === "status" && (sortOrder === "asc" ? "↑" : "↓")}
-            </TableHead>
-            <TableHead
-              onClick={() => toggleSort("createdAt")}
-              className="cursor-pointer"
-            >
-              Date Created{" "}
-              {sortField === "createdAt" && (sortOrder === "asc" ? "↑" : "↓")}
-            </TableHead>
-            <TableHead>Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {sortedQueries.map((query) => (
-            <TableRow key={query.id}>
-              <TableCell>{query.user?.name || "Anonymous"}</TableCell>
-              <TableCell>{query.message}</TableCell>
-              <TableCell>
-                <span
-                  className={`px-2 py-1 rounded-full text-xs font-semibold
-                  ${
-                    query.status === "PENDING"
-                      ? "bg-yellow-200 text-yellow-800"
-                      : query.status === "RESOLVED"
-                        ? "bg-green-200 text-green-800"
-                        : "bg-red-200 text-red-800"
-                  }`}
-                >
-                  {query.status}
-                </span>
-              </TableCell>
-              <TableCell>
-                {new Date(query.createdAt).toLocaleString()}
-              </TableCell>
-              <TableCell>
-                <div className="flex items-center space-x-2">
-                  <Select
-                    value={query.status}
-                    onValueChange={(value) => updateStatus(query.id, value)}
+              <RefreshCw
+                className={`h-4 w-4 mr-2 ${refreshing ? "animate-spin" : ""}`}
+              />
+              Refresh
+            </Button>
+          </div>
+        </div>
+      </CardHeader>
+
+      <CardContent>
+        {error && (
+          <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md flex items-center gap-2 text-red-700">
+            <AlertCircle className="h-4 w-4" />
+            <span>{error}</span>
+          </div>
+        )}
+
+        <div className="rounded-md border">
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead
+                    onClick={() => {
+                      setSortField("user");
+                      setSortOrder(
+                        sortField === "user" && sortOrder === "asc"
+                          ? "desc"
+                          : "asc"
+                      );
+                    }}
+                    className="cursor-pointer"
                   >
-                    <SelectTrigger className="w-[120px]">
-                      <SelectValue placeholder="Change status" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-foreground text-background">
-                      <SelectItem value="PENDING">Pending</SelectItem>
-                      <SelectItem value="RESOLVED">Resolved</SelectItem>
-                      <SelectItem value="ERROR">Error</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
+                    User{" "}
+                    {sortField === "user" && (sortOrder === "asc" ? "↑" : "↓")}
+                  </TableHead>
+                  <TableHead className="min-w-[300px] max-w-[500px]">
+                    Message
+                  </TableHead>
+                  <TableHead
+                    onClick={() => {
+                      setSortField("status");
+                      setSortOrder(
+                        sortField === "status" && sortOrder === "asc"
+                          ? "desc"
+                          : "asc"
+                      );
+                    }}
+                    className="cursor-pointer"
+                  >
+                    Status{" "}
+                    {sortField === "status" &&
+                      (sortOrder === "asc" ? "↑" : "↓")}
+                  </TableHead>
+                  <TableHead
+                    onClick={() => {
+                      setSortField("createdAt");
+                      setSortOrder(
+                        sortField === "createdAt" && sortOrder === "asc"
+                          ? "desc"
+                          : "asc"
+                      );
+                    }}
+                    className="cursor-pointer"
+                  >
+                    Date{" "}
+                    {sortField === "createdAt" &&
+                      (sortOrder === "asc" ? "↑" : "↓")}
+                  </TableHead>
+                  <TableHead>Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filteredAndSortedQueries.length === 0 ? (
+                  <TableRow>
+                    <TableCell
+                      colSpan={5}
+                      className="h-24 text-center text-muted-foreground"
+                    >
+                      No queries found matching your criteria.
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  filteredAndSortedQueries.map((query) => (
+                    <TableRow key={query.id} className="hover:bg-muted/50">
+                      <TableCell className="font-medium">
+                        {query.user?.name || "Anonymous"}
+                      </TableCell>
+                      <TableCell className="max-w-[500px] break-words whitespace-normal">
+                        {query.message}
+                      </TableCell>
+                      <TableCell>
+                        <Badge className={getStatusColor(query.status)}>
+                          {query.status}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>{formatDate(query.createdAt)}</TableCell>
+                      <TableCell>
+                        <Select
+                          value={query.status}
+                          onValueChange={(value) =>
+                            updateStatus(query.id, value as Query["status"])
+                          }
+                        >
+                          <SelectTrigger className="w-[130px]">
+                            <SelectValue placeholder="Change status" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white text-background shadow-lg border">
+                            <SelectItem value="PENDING">Pending</SelectItem>
+                            <SelectItem value="RESOLVED">Resolved</SelectItem>
+                            <SelectItem value="ERROR">Error</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
+              </TableBody>
+            </Table>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
