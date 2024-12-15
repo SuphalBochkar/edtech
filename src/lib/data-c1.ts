@@ -4,28 +4,40 @@ export const aeTests = [
   //   { id: 1, name: "Test 1", type: "Aptitude & Verbal", date: "19/04/2024" },
   //   { id: 2, name: "Test 2", type: "Aptitude & Verbal", date: "20/04/2024" },
   {
+    id: 1,
+    name: "AE Practice Test (2026) 1",
+    type: "Aptitude & Verbal",
+    date: "31/08/2024",
+  },
+  {
+    id: 2,
+    name: "AE Practice Test (2026) 2",
+    type: "Aptitude & Verbal",
+    date: "14/09/2024",
+  },
+  {
     id: 3,
     name: "AE Practice Test (2026) 3",
     type: "Aptitude & Verbal",
-    date: "19/04/2024",
+    date: "19/10/2024",
   },
   {
     id: 4,
     name: "AE Practice Test (2026) 4",
     type: "Aptitude & Verbal",
-    date: "26/04/2024",
+    date: "26/10/2024",
   },
   {
     id: 5,
     name: "AE Practice Test (2026) 5",
     type: "Aptitude & Verbal",
-    date: "17/11/2024",
+    date: "16/11/2024",
   },
   {
     id: 6,
     name: "AE Practice Test (2026) 6",
     type: "Aptitude & Verbal",
-    date: "24/11/2024",
+    date: "23/11/2024",
   },
 ];
 
@@ -42,18 +54,26 @@ export const tempData: tempTestData = {
   //     "AE Analytical Practice Test 3 (2026)": "670057f68ed2eabc8a0d3384",
   //     "AE Verbal Practice Test 3 (2026)": "6702c577dde09469b5249c92",
   //   },
-  //   "3": {
-  //     analytical: "6713b94fbba9ac82bf84be8a",
-  //     verbal: "6713bce84e5ee3e89d4dbee4",
-  //   },
-  //   "4": {
-  //     analytical: "671dcee7c566b5e58242e99f",
-  //     verbal: "671dd5017b4a2e1b689d30f9",
-  //   },
-  //   "5": {
-  //     analytical: "5f6d2b9a2c7bfe8d1bfc5123",
-  //     verbal: "645b7a2d4b55f87d7a19e3c1",
-  //   },
+  "1": {
+    analytical: "66d4131ff1bec501c0e348b1",
+    verbal: "66d4148bf1bec501c0e348b6",
+  },
+  "2": {
+    analytical: "66e5618e8f7a84fcbb0c0045",
+    verbal: "66e562f242935e17190f2e6a",
+  },
+  "3": {
+    analytical: "6713b94fbba9ac82bf84be8a",
+    verbal: "6713bce84e5ee3e89d4dbee4",
+  },
+  "4": {
+    analytical: "671dcee7c566b5e58242e99f",
+    verbal: "671dd5017b4a2e1b689d30f9",
+  },
+  "5": {
+    analytical: "5f6d2b9a2c7bfe8d1bfc5123",
+    verbal: "645b7a2d4b55f87d7a19e3c1",
+  },
   "6": {
     analytical: "63a1c15b9b0b5198d7d70db9",
     verbal: "63a1c1609b0b5198d7d70dba",
