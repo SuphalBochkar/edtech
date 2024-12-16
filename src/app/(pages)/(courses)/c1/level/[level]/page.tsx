@@ -65,7 +65,7 @@ import { getLevelData } from "@/actions/keyData";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import LevelTestCard from "@/components/Courses/c1/LevelTestCard";
-import Blobs from "@/components/Main/Blobs";
+// import Blobs from "@/components/Main/Blobs";
 
 export default function Page({ params }: { params: { level: string } }) {
   const router = useRouter();
@@ -83,7 +83,7 @@ export default function Page({ params }: { params: { level: string } }) {
 
   return (
     <div>
-      <Blobs />
+      {/* <Blobs /> */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white m-3 md:m-5">
           Level {params.level} Tests

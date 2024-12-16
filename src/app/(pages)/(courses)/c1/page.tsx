@@ -3,7 +3,7 @@
 import { Suspense } from "react";
 import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
-import Blobs from "@/components/Main/Blobs";
+// import Blobs from "@/components/Main/Blobs";
 import Loading from "./loading";
 import Notify from "@/components/Notifications/Notify";
 
@@ -22,7 +22,7 @@ const Page = () => {
   return (
     <>
       <div className="flex flex-col relative overflow-hidden">
-        <Blobs />
+        {/* <Blobs /> */}
         {session?.user && (
           <div className="flex flex-col align-middle justify-center items-center content-center">
             <Suspense fallback={<Loading />}>
