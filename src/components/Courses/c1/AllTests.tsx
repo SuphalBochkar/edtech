@@ -16,7 +16,7 @@ export default function AllTests() {
       <div className="space-y-8 sm:space-y-12">
         <section>
           <h2 className="text-lg md:text-2xl font-semibold mb-4">AE Tests</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
             {aeTests.map((test) => (
               <PracticeComponent
                 key={test.id}
@@ -54,7 +54,7 @@ function LevelComponent({
 }) {
   return (
     <div
-      className="cursor-pointer border rounded-lg transition-colors duration-200 hover:border-purple-500"
+      className="cursor-pointer border border-gray-500 rounded-lg transition-colors duration-200 hover:border-gray-200"
       onClick={onClick}
     >
       <div className="p-3 sm:p-4">
@@ -97,7 +97,7 @@ function PracticeComponent({
 }) {
   return (
     <div
-      className="cursor-pointer border rounded-lg transition-colors duration-200 hover:border-purple-500"
+      className="cursor-pointer border border-gray-500 rounded-lg transition-colors duration-200 hover:border-gray-200"
       onClick={onClick}
     >
       <div className="p-3 sm:p-4">

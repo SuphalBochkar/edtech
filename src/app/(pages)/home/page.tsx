@@ -1,10 +1,10 @@
 "use client";
 
-import Blobs from "@/components/Main/Blobs";
 import { Suspense } from "react";
 import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 import Loading from "./loading";
+// import Blobs from "@/components/Main/Blobs";
 
 import React from "react";
 import Footer from "@/components/Main/Footer";
@@ -36,7 +36,7 @@ const Page = () => {
   return (
     <>
       <div className="flex flex-col relative overflow-hidden">
-        <Blobs />
+        {/* <Blobs /> */}
         {session?.user && (
           <div className="flex flex-col align-middle justify-center items-center content-center">
             <Suspense fallback={<Loading />}>

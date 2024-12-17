@@ -1,4 +1,4 @@
-export default function Loading() {
+export default function QueriesSkeleton() {
   return (
     <div className="container mx-auto p-4 animate-pulse">
       <div className="overflow-hidden border border-gray-200 rounded-md">
