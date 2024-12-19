@@ -16,7 +16,7 @@ export function NotifyC1() {
     } else {
       enqueueSnackbar({
         variant: "default",
-        autoHideDuration: 3500,
+        autoHideDuration: 2500,
         anchorOrigin: {
           vertical: "top",
           horizontal: "center",
@@ -62,7 +62,7 @@ export function NotifyC2() {
     } else {
       enqueueSnackbar({
         variant: "default",
-        autoHideDuration: 3500,
+        autoHideDuration: 2500,
         anchorOrigin: {
           vertical: "top",
           horizontal: "center",
