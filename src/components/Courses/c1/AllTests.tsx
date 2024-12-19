@@ -4,15 +4,39 @@ import React from "react";
 import { CalendarIcon, BookOpen, ChevronRight } from "lucide-react";
 import { aeTests, levelTests } from "@/lib/data-c1";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { Course } from "@/lib/data";
 
 export default function AllTests() {
   const router = useRouter();
+  const { data: session } = useSession();
+
+  const isEnrolled = session?.user?.courses?.includes(Course.Course1Hitbulls);
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 py-4 sm:py-8 md:py-10">
-      <h1 className="text-lg md:text-2xl font-bold text-center">
-        Available Tests
-      </h1>
+    <div className="w-full max-w-7xl mx-auto px-4 py-4 md:py-10">
+      <div className="flex flex-row items-center justify-center gap-2 md:gap-4 rounded-lg backdrop-blur-sm mb-5">
+        <h1 className="text-xl flex items-center md:text-2xl font-bold bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent">
+          Available Tests
+        </h1>
+        <Badge
+          className={`
+            ${
+              isEnrolled
+                ? "bg-green-500/10 text-green-300 hover:bg-green-500/20"
+                : "bg-red-500/10 text-red-300 hover:bg-red-500/20"
+            }
+            transition-colors duration-200 cursor-pointer px-3 py-1.5
+          `}
+        >
+          <span
+            className={`inline-block w-1.5 h-1.5 rounded-full mr-1.5 ${
+              isEnrolled ? "bg-green-400" : "bg-red-400"
+            }`}
+          />
+          {isEnrolled ? "Enrolled" : "Enroll Now"}
+        </Badge>
+      </div>
       <div className="space-y-8 sm:space-y-12">
         <section>
           <h2 className="text-lg md:text-2xl font-semibold mb-4">AE Tests</h2>
@@ -43,6 +67,22 @@ export default function AllTests() {
         </section>
       </div>
     </div>
+  );
+}
+
+function Badge({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <span
+      className={`text-[10px] sm:text-xs font-semibold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full ${className}`}
+    >
+      {children}
+    </span>
   );
 }
 
