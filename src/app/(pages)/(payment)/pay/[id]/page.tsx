@@ -7,7 +7,14 @@ import { getRazorPayOptions } from "@/lib/razorPay";
 import Script from "next/script";
 import NavBar from "@/components/Navbar/NavBar";
 import Razorpay from "razorpay";
-import { AlertCircle, CheckCircle, CreditCard, Loader2 } from "lucide-react";
+import {
+  AlertCircle,
+  Check,
+  CheckCircle,
+  CreditCard,
+  Loader2,
+  Sparkles,
+} from "lucide-react";
 import { motion } from "framer-motion";
 import { Course, CourseNames, CoursePrices } from "@/lib/data";
 import { LoadingSpinner } from "@/components/Pricing/LoadingSpinner";
@@ -193,66 +200,139 @@ export default function Page({
           transition={{ duration: 0.5 }}
           className="container mx-auto px-4 py-12 sm:py-16"
         >
-          {/* <div className="text-foreground">My Error: {myError}</div> */}
-          <div className="max-w-md mx-auto backdrop-blur-lg border border-violet-500/20 shadow-2xl rounded-3xl overflow-hidden">
-            <div className="p-6 sm:p-8">
-              <h3 className="text-violet-400 text-lg sm:text-xl font-semibold leading-7 flex items-center justify-center">
-                Secure Payment
-              </h3>
-              <h1 className="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight text-center text-white">
-                Complete Your Payment
-              </h1>
-              <p className="mt-2 sm:mt-4 text-base sm:text-lg text-center text-gray-300">
-                Powered by Razorpay
-              </p>
-            </div>
-            <div className="border-t border-violet-500/20 px-6 sm:px-8 py-6 sm:py-8">
-              <div className="flex items-center justify-between mb-4 sm:mb-6">
-                <span className="text-sm sm:text-base font-medium text-gray-300">
-                  Amount to pay:
-                </span>
-                <span className="text-2xl sm:text-3xl font-bold text-violet-300">
-                  ₹{amount}
-                </span>
-              </div>
-              <div className="flex items-center justify-between mb-4 sm:mb-6">
-                <span className="text-sm sm:text-base font-medium text-gray-300">
-                  Course Name:
-                </span>
-                <span className="text-2xl sm:text-3xl font-bold text-violet-300">
-                  {CourseNames[courseId]}
-                </span>
-              </div>
-              <div className="flex items-center justify-between mb-4 sm:mb-6">
-                <span className="text-sm sm:text-base font-medium text-gray-300">
-                  Get Access:
-                </span>
-                <span className="text-2xl sm:text-3xl font-bold text-violet-300">
-                  All levels (1 - 5)
-                </span>
-              </div>
-              {renderFlowStatus(paymentFlow)}
-              <motion.button
-                onClick={handlePayment}
-                disabled={isProcessing}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-full shadow-sm text-sm sm:text-base font-semibold text-white bg-violet-600 hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500 transition-colors duration-200 ${
-                  isProcessing ? "opacity-75 cursor-not-allowed" : ""
-                }`}
+          <div className="max-w-4xl mx-auto">
+            <motion.h1
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-2xl md:text-4xl font-extrabold text-center mb-4 md:mb-8 bg-gradient-to-r from-violet-200 to-violet-400 bg-clip-text text-transparent"
+            >
+              Complete Your Purchase
+            </motion.h1>
+
+            <div className="grid md:grid-cols-2 gap-4 md:gap-8">
+              {/* Course Details Card */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 }}
+                className="backdrop-blur-lg border border-violet-500/20 shadow-2xl rounded-2xl md:rounded-3xl overflow-hidden"
               >
-                {isProcessing ? (
-                  <>
-                    <Loader2 className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 animate-spin" />
-                    Processing...
-                  </>
-                ) : (
-                  <>
-                    <CreditCard className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5" />
-                    Pay Now
-                  </>
-                )}
-              </motion.button>
+                <div className="p-4 sm:p-6 md:p-8 bg-violet-900/20">
+                  <div className="flex items-center justify-center gap-2 md:gap-3 mb-4 md:mb-6">
+                    <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-violet-400" />
+                    <h2 className="text-lg md:text-xl font-bold text-violet-300">
+                      Course Details
+                    </h2>
+                  </div>
+
+                  <div className="space-y-4 md:space-y-6">
+                    <div className="flex flex-col gap-1 md:gap-2">
+                      <span className="text-xs md:text-sm text-gray-400">
+                        Selected Course
+                      </span>
+                      <span className="text-lg md:text-xl font-bold text-violet-200">
+                        {CourseNames[courseId]}
+                      </span>
+                    </div>
+
+                    <div className="flex flex-col gap-1 md:gap-2">
+                      <span className="text-xs md:text-sm text-gray-400">
+                        Access Level
+                      </span>
+                      <span className="text-base md:text-lg font-semibold text-violet-200">
+                        Complete Access (All Levels 1-5)
+                      </span>
+                    </div>
+
+                    <div className="flex flex-col gap-1 md:gap-2">
+                      <span className="text-xs md:text-sm text-gray-400">
+                        Features Included
+                      </span>
+                      <ul className="space-y-1.5 md:space-y-2 text-xs md:text-sm text-violet-200">
+                        <li className="flex items-center gap-1.5 md:gap-2">
+                          <Check className="w-3.5 h-3.5 md:w-4 md:h-4 text-violet-400" />
+                          Instant Access to Current Level Tests
+                        </li>
+                        <li className="flex items-center gap-1.5 md:gap-2">
+                          <Check className="w-3.5 h-3.5 md:w-4 md:h-4 text-violet-400" />
+                          Full Access & Regular Updates
+                        </li>
+                        <li className="flex items-center gap-1.5 md:gap-2">
+                          <Check className="w-3.5 h-3.5 md:w-4 md:h-4 text-violet-400" />
+                          24/7 Support Access
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Payment Card */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4 }}
+                className="backdrop-blur-lg border border-violet-500/20 shadow-2xl rounded-2xl md:rounded-3xl overflow-hidden"
+              >
+                <div className="p-4 sm:p-6 md:p-8">
+                  <div className="flex items-center justify-center gap-2 md:gap-3 mb-4 md:mb-6">
+                    <CreditCard className="w-5 h-5 md:w-6 md:h-6 text-violet-400" />
+                    <h2 className="text-lg md:text-xl font-bold text-violet-300">
+                      Secure Payment
+                    </h2>
+                  </div>
+
+                  <div className="text-center text-xs md:text-sm text-gray-400 mb-4 md:mb-6">
+                    <p>Secured by Razorpay 🔒</p>
+                    <p>Supports UPI, Cards & Net Banking</p>
+                  </div>
+
+                  <div className="mb-6 md:mb-8">
+                    <div className="flex items-center justify-between p-3 md:p-4 bg-violet-900/20 rounded-xl md:rounded-2xl mb-3 md:mb-4">
+                      <span className="text-sm md:text-base text-gray-300">
+                        Total Amount:
+                      </span>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-xl md:text-2xl font-bold text-violet-300">
+                          ₹{amount}
+                        </span>
+                        <span className="text-xs md:text-sm text-gray-400 line-through">
+                          ₹59
+                        </span>
+                      </div>
+                    </div>
+
+                    {renderFlowStatus(paymentFlow)}
+
+                    <motion.button
+                      onClick={handlePayment}
+                      disabled={isProcessing}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className={`w-full flex justify-center items-center py-3 md:py-4 px-4 md:px-6 rounded-lg md:rounded-xl text-sm md:text-base font-semibold text-white
+                        ${
+                          isProcessing
+                            ? "bg-violet-700/50 cursor-not-allowed"
+                            : "bg-gradient-to-r from-violet-600 to-violet-500 hover:from-violet-500 hover:to-violet-600"
+                        }
+                        shadow-lg transition-all duration-200 ease-out`}
+                    >
+                      {isProcessing ? (
+                        <>
+                          <Loader2 className="mr-2 md:mr-3 h-4 w-4 md:h-5 md:w-5 animate-spin" />
+                          Processing Payment...
+                        </>
+                      ) : (
+                        <>
+                          <CreditCard className="mr-2 md:mr-3 h-4 w-4 md:h-5 md:w-5" />
+                          Complete Payment
+                        </>
+                      )}
+                    </motion.button>
+                  </div>
+                </div>
+              </motion.div>
             </div>
           </div>
         </motion.div>

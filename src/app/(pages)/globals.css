@@ -58,3 +58,20 @@
     font-size: medium !important;
   }
 }
+
+@keyframes border-rotate {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-border-rotate {
+  background-size: 200% auto;
+  animation: border-rotate 3s linear infinite;
+}
