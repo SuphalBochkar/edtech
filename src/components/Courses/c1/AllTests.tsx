@@ -16,7 +16,7 @@ export default function AllTests() {
       <div className="space-y-8 sm:space-y-12">
         <section>
           <h2 className="text-lg md:text-2xl font-semibold mb-4">AE Tests</h2>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {aeTests.map((test) => (
               <PracticeComponent
                 key={test.id}
@@ -31,11 +31,12 @@ export default function AllTests() {
             Level Tests
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {levelTests.map((level) => (
+            {levelTests.map((obj) => (
               <LevelComponent
-                key={level}
-                level={level}
-                onClick={() => router.push("/c1/level/" + level)}
+                key={obj.level}
+                level={obj.level}
+                isNew={obj.isNew}
+                onClick={() => router.push("/c1/level/" + obj.level)}
               />
             ))}
           </div>
@@ -47,35 +48,44 @@ export default function AllTests() {
 
 function LevelComponent({
   level,
+  isNew,
   onClick,
 }: {
   level: number;
+  isNew: boolean;
   onClick: () => void;
 }) {
   return (
     <div
-      className="cursor-pointer border border-gray-500 rounded-lg transition-colors duration-200 hover:border-gray-200"
+      className="relative cursor-pointer border border-gray-500 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:border-gray-300 group bg-gray-900/50 backdrop-blur-sm"
       onClick={onClick}
     >
-      <div className="p-3 sm:p-4">
-        <div className="flex items-center justify-between">
+      {isNew && (
+        <div className="absolute -top-3 -right-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-lg animate-pulse">
+          NEW
+        </div>
+      )}
+      <div className="p-4 sm:p-6">
+        <div className="flex items-center justify-between mb-3 sm:mb-4">
           <div>
-            <h3 className="text-base md:text-xl font-bold mb-1">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent tracking-tight">
               Level {level}
             </h3>
-            <p className="text-xs md:text-sm text-gray-500">
+            <p className="text-xs sm:text-sm text-gray-400 mt-1 sm:mt-1.5 font-medium">
               Aptitude & Programming
             </p>
           </div>
-          <ChevronRight className="text-gray-400 w-5 h-5" />
+          <div className="p-2 sm:p-2.5 rounded-full border border-gray-600 group-hover:border-gray-400 transition-colors bg-gray-800/50">
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 group-hover:text-white transition-colors" />
+          </div>
         </div>
-        <div className="flex flex-wrap gap-2 mt-3">
+        <div className="flex flex-wrap gap-2 sm:gap-2.5">
           {["A", "B", "C", "D", "E"].map((set) => (
             <span
               key={set}
-              className="px-2 py-1 text-xs font-semibold rounded-full border"
+              className="px-2.5 sm:px-3.5 py-1 sm:py-1.5 text-xs font-semibold rounded-lg border border-gray-600 text-gray-300 hover:border-gray-400 hover:text-white hover:bg-gray-800/50 transition-all duration-200"
             >
-              {set}
+              Set {set}
             </span>
           ))}
         </div>

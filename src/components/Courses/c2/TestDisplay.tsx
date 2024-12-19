@@ -124,20 +124,20 @@ const TestDisplay: React.FC<{ testItem: TestItem }> = ({ testItem }) => {
         <CardTitle className="text-lg sm:text-3xl font-bold mb-4">
           Level {testItem.Level} - {testItem.testType}
         </CardTitle>
-        <div className="flex items-center w-full space-x-2">
+        <div className="flex items-center w-full gap-3">
           <div className="flex-grow relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
             <Input
               type="search"
-              placeholder="Search questions..."
+              placeholder="Search questions or options..."
               value={searchQuery}
               onChange={handleSearchChange}
-              className="pl-8 pr-4 py-2 w-full border-2 border-gray-300 rounded-md"
+              className="pl-8 w-full bg-background/95 border border-input/50 hover:border-input/80 focus:border-input transition-colors rounded-md"
             />
           </div>
           <button
             onClick={handleClear}
-            className="px-4 py-2 text-sm sm:text-base border border-gray-300 rounded-md transition"
+            className="px-4 py-2 text-sm sm:text-base bg-background/95 border border-input/50 hover:border-input/80 hover:bg-accent/50 rounded-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-ring/50"
           >
             Clear
           </button>
@@ -162,28 +162,28 @@ const TestDisplay: React.FC<{ testItem: TestItem }> = ({ testItem }) => {
                 key={level.testId}
               >
                 <AccordionItem value={level.testId}>
-                  <AccordionTrigger className="w-full px-4 py-3 hover:bg-gray-800 rounded-lg transition-colors duration-200 !no-underline group">
+                  <AccordionTrigger className="w-full px-6 py-4 hover:bg-gray-100/5 rounded-lg transition-all duration-300 !no-underline group border border-gray-800/50">
                     <div className="flex items-center w-full min-w-0">
-                      <div className="flex items-center flex-shrink-0 mr-3">
+                      <div className="flex items-center flex-shrink-0 mr-4">
                         {level.openAccordions.includes(level.testId) ? (
-                          <FaChevronUp className="text-foreground w-4 h-4" />
+                          <FaChevronUp className="text-gray-400 w-4 h-4 transition-transform duration-300 group-hover:text-gray-200" />
                         ) : (
-                          <FaChevronDown className="text-foreground w-4 h-4" />
+                          <FaChevronDown className="text-gray-400 w-4 h-4 transition-transform duration-300 group-hover:text-gray-200" />
                         )}
                       </div>
-                      <div className="flex text-left flex-grow justify-between items-center min-w-0">
-                        <span className="text-sm sm:text-base font-medium pr-4 break-words">
+                      <div className="flex text-left flex-grow justify-between items-center min-w-0 gap-4">
+                        <span className="text-sm sm:text-base font-medium break-words text-gray-200 group-hover:text-white transition-colors duration-300">
                           Test {level.testNumber}: {level.testTitle}
                         </span>
                         <a
                           href={`https://lpu.myperfectice.com/student/instruction/${level.testId}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex-shrink-0 px-3 py-2 bg-purple-950/80 text-white rounded-lg text-xs sm:text-sm font-medium hover:bg-purple-700 transition-transform duration-200 ease-in-out hover:scale-105 shadow-md flex items-center gap-2 whitespace-nowrap"
+                          className="flex-shrink-0 px-4 py-2.5 bg-gradient-to-r from-purple-600 to-purple-800 text-white rounded-xl text-xs sm:text-sm font-semibold hover:from-purple-700 hover:to-purple-900 transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg hover:shadow-purple-500/30 transform active:scale-95 flex items-center gap-3 whitespace-nowrap border border-purple-400/30 backdrop-blur-sm"
                           onClick={(e) => e.stopPropagation()}
                         >
-                          <span>Test Link</span>
-                          <LucideExternalLink className="w-4 h-4" />
+                          <span className="relative">Start Test</span>
+                          <LucideExternalLink className="w-4 h-4 animate-bounce" />
                         </a>
                       </div>
                     </div>

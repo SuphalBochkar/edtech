@@ -80,17 +80,14 @@ export const tempData: tempTestData = {
   },
 };
 
-export const levelTests = [1, 2];
+export const levelTests = [
+  { level: 1, isNew: false },
+  { level: 2, isNew: true },
+  { level: 3, isNew: true },
+];
 
 export const data: TestData = {
   "1": {
-    // aptitude: {
-    //   "1": "66ab84054dd68a6f814b06d7",
-    //   "2": "66ab84a94dd68a6f814b06ea",
-    //   "3": "66ab84c44dd68a6f814b06ee",
-    //   "4": "66ab85224dd68a6f814b06f4",
-    //   "5": "66ab85634dd68a6f814b06f8",
-    // },
     aptitude: {
       "1": "67378c04cb7cdd0298e25c59",
       "2": "67378cdbcb7cdd0298e25c5b",
@@ -108,11 +105,6 @@ export const data: TestData = {
   },
   "2": {
     aptitude: {
-      //   "1": "66ab88334dd68a6f814b0710",
-      //   "2": Status.Updating,
-      //   "3": Status.Updating,
-      //   "4": Status.Updating,
-      //   "5": Status.Updating,
       "1": "66ab88334dd68a6f814b0710",
       "2": "66ab888d4dd68a6f814b0716",
       "3": "66ab891a4dd68a6f814b071c",
@@ -120,11 +112,6 @@ export const data: TestData = {
       "5": "66ab8e1214aaa9794f658041",
     },
     programming: {
-      //   "1": "66ddf91b1f4d66c1554135d9",
-      //   "2": "66ddfb8b1f4d66c1554135df",
-      //   "3": Status.Updating,
-      //   "4": Status.Updating,
-      //   "5": Status.Updating,
       "1": "6761327423a49e46d0dd8b16-66ac7e0375f8f0f60e488760-67615ace23a49e46d0dd8b20-66ddf91b1f4d66c1554135d9-6761bf6b23a49e46d0dd8b2a",
       "2": "6761332b23a49e46d0dd8b18-66ac802575f8f0f60e488768-6761b62723a49e46d0dd8b22-66ddfb8b1f4d66c1554135df-6761bfad23a49e46d0dd8b2c",
       "3": "6761334023a49e46d0dd8b1a-66ac84ae6bbf127536468a9f-6761b65823a49e46d0dd8b24-66ddfd1ff50289be26dad64e-6761bfb523a49e46d0dd8b2e",
@@ -132,22 +119,22 @@ export const data: TestData = {
       "5": "6761338723a49e46d0dd8b1e-66ac89859045c37a41e17392-6761b66e23a49e46d0dd8b28-66ddfdd99ea4875622150361-6761bfcb23a49e46d0dd8b32",
     },
   },
-  //   "3": {
-  //     aptitude: {
-  //       "1": "66ac8d3d33ecd006ab359ed7",
-  //       "2": "66ac94f5a0564bb445ed9f1b",
-  //       "3": "66cce3426beabac6e2f958ca",
-  //       "4": "66d31ccddb2801e99cada95c",
-  //       "5": "66dd469dcc80a03015d78af5",
-  //     },
-  //     programming: {
-  //       "1": "66bfb0f5c44dc209859b00ec-66df5fea1cf66d1871b06fa9",
-  //       "2": "66c04ec09bc4b00bb23e1e66-66df60211cf66d1871b06fab",
-  //       "3": "66c050621ea8cc0124018ea1-66df603c1cf66d1871b06fad",
-  //       "4": "66c05235ce7f81fd696d4e0a-66df605e1cf66d1871b06faf",
-  //       "5": "66c0ece55281c0d2cd1f4c18-66df60811cf66d1871b06fb1",
-  //     },
-  //   },
+  "3": {
+    aptitude: {
+      "1": "66ac8d3d33ecd006ab359ed7",
+      "2": "66ac94f5a0564bb445ed9f1b",
+      "3": "66cce3426beabac6e2f958ca",
+      "4": "66d31ccddb2801e99cada95c",
+      "5": "66dd469dcc80a03015d78af5",
+    },
+    programming: {
+      "1": "66bfb0f5c44dc209859b00ec-66df5fea1cf66d1871b06fa9",
+      "2": "66c04ec09bc4b00bb23e1e66-66df60211cf66d1871b06fab",
+      "3": "66c050621ea8cc0124018ea1-66df603c1cf66d1871b06fad",
+      "4": "66c05235ce7f81fd696d4e0a-66df605e1cf66d1871b06faf",
+      "5": "66c0ece55281c0d2cd1f4c18-66df60811cf66d1871b06fb1",
+    },
+  },
   //   "4": {
   //     aptitude: {
   //       "1": "66df62791cf66d1871b06fb8",

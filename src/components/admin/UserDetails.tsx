@@ -555,7 +555,7 @@ type User = {
 };
 
 export default function UserDetails() {
-  const [searchTerm, setSearchTerm] = useState("finish");
+  const [searchTerm, setSearchTerm] = useState("");
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

@@ -103,18 +103,18 @@ const JsonPage = ({ data }: { data: DataItem[] }) => {
           {testName}
         </h1>
         <div className="w-full md:max-w-4xl p-2 md:p-4 md:rounded-lg font-jetbrains">
-          <div className="sticky top-0 w-full mx-auto px-2 py-4 bg-black/95 z-10">
+          <div className="sticky top-0 w-full mx-auto px-2 py-2 pb-3 z-10">
             <div className="relative flex items-center gap-3">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={handleSearchChange}
                 placeholder="Search question or options..."
-                className="w-full pl-2 py-2.5 rounded-md text-white placeholder-gray-500 border border-gray-800 hover:border-gray-700 focus:border-white focus:outline-none transition-all search-input"
+                className="w-full px-4 py-2 text-sm md:text-base rounded-md text-gray-800 dark:text-gray-200 placeholder-gray-500 border border-gray-300 dark:border-gray-700 focus:outline-none transition-all search-input"
               />
               <button
                 onClick={handleClear}
-                className="px-4 py-2.5 rounded-md bg-white text-black hover:bg-gray-100 active:bg-gray-200 focus:outline-none transition-all"
+                className="px-4 py-2 rounded-md text-foreground bg-background focus:outline-none transition-all border border-gray-400"
               >
                 Clear
               </button>
@@ -123,23 +123,21 @@ const JsonPage = ({ data }: { data: DataItem[] }) => {
 
           <div className="space-y-2 md:space-y-4">
             {isFiltered && filteredData && filteredData.length === 0 && (
-              <div className="flex flex-col items-center justify-center py-6 sm:py-8 px-4 sm:px-6 bg-gradient-to-b from-purple-50 to-white dark:from-purple-950 dark:to-gray-950 rounded-md shadow-lg border border-purple-100 dark:border-purple-800 transition-colors duration-300">
-                <div className="mb-4 p-2 sm:p-3 bg-purple-100 dark:bg-purple-900/50 rounded-full">
-                  <Search className="w-6 h-6 sm:w-8 sm:h-8 text-purple-500 dark:text-purple-300" />
-                </div>
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-purple-800 dark:text-purple-200 mb-2 sm:mb-4 text-center">
+              <div className="flex flex-col items-center justify-center py-8 px-4 border rounded-lg">
+                <Search className="w-12 h-12 text-gray-400 mb-4" />
+                <h2 className="text-2xl font-semibold mb-2 text-gray-800 dark:text-gray-200">
                   No Questions Found
                 </h2>
-                <div className="text-sm sm:text-base md:text-lg text-purple-600 dark:text-purple-300 text-center max-w-md mb-4 sm:mb-6">
+                <p className="text-gray-600 dark:text-gray-400 text-center mb-4">
                   It seems we couldn{"'"}t find what you{"'"}re looking for. Try
                   adjusting your search terms.
-                </div>
+                </p>
                 <button
                   onClick={handleClear}
-                  className="group flex items-center justify-center px-3 py-1.5 sm:px-4 sm:py-2 rounded-md bg-white dark:bg-gray-800 text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-700 hover:bg-purple-50 dark:hover:bg-purple-900/30 hover:text-purple-800 dark:hover:text-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-300 dark:focus:ring-purple-700 transition-all duration-300 text-sm sm:text-base"
+                  className="flex items-center px-4 py-2 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
                 >
-                  <X className="mr-1.5 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4 group-hover:rotate-90 transition-transform duration-300" />
-                  <div>Clear Search</div>
+                  <X className="mr-2 h-4 w-4" />
+                  <span>Clear Search</span>
                 </button>
               </div>
             )}
@@ -327,202 +325,3 @@ function OptionItem({
     </li>
   );
 }
-
-// "use client";
-// import { useEffect, useState } from "react";
-// import { usePathname } from "next/navigation";
-
-// interface DataItem {
-//   question1?: string;
-//   question2?: string;
-//   options: { [key: string]: string };
-//   correctAnswer: string;
-// }
-
-// export default function Component({ data }: { data: DataItem[] }) {
-//   const [searchQuery, setSearchQuery] = useState("");
-//   const [filteredData, setFilteredData] = useState<DataItem[]>([]);
-//   const [isFiltered, setIsFiltered] = useState(false);
-
-//   useEffect(() => {
-//     window.scrollTo(0, 0);
-//     const input = document.querySelector<HTMLInputElement>(".search-input");
-//     if (input) input.focus();
-//   }, []);
-
-//   function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
-//     const inputValue = e.target.value;
-//     const trimmedValue = inputValue.replace(/\s+/g, " ");
-//     setSearchQuery(trimmedValue);
-//   }
-
-//   function handleClear() {
-//     setSearchQuery("");
-//     setTimeout(() => {
-//       const input = document.querySelector<HTMLInputElement>(".search-input");
-//       if (input) input.focus();
-//     }, 250);
-//   }
-
-//   function highlightText(text: string, searchQuery: string): string {
-//     if (!searchQuery) return text;
-//     const escapedQuery = searchQuery.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
-//     const regex = new RegExp(`(${escapedQuery})`, "gi");
-//     return text.replace(regex, (match) => `<mark>${match}</mark>`);
-//   }
-
-//   function highlightHTML(html: string, searchQuery: string): string {
-//     const parser = new DOMParser();
-//     const doc = parser.parseFromString(html, "text/html");
-//     const walker = document.createTreeWalker(
-//       doc.body,
-//       NodeFilter.SHOW_TEXT,
-//       null
-//     );
-
-//     let node;
-//     while ((node = walker.nextNode())) {
-//       const parent = node.parentElement;
-//       const highlighted = highlightText(node.textContent || "", searchQuery);
-//       if (highlighted !== node.textContent) {
-//         const span = document.createElement("span");
-//         span.innerHTML = highlighted;
-//         parent?.replaceChild(span, node);
-//       }
-//     }
-
-//     return doc.body.innerHTML;
-//   }
-
-//   useEffect(() => {
-//     if (!data) return;
-
-//     const filteredResults = data?.filter((dataObj: DataItem) => {
-//       const questionText = `${dataObj.question1 || ""} ${
-//         dataObj.question2 || ""
-//       }`.toLowerCase();
-//       const optionText = Object.values(dataObj.options || {})
-//         .join(" ")
-//         .toLowerCase();
-//       return (
-//         questionText.includes(searchQuery.toLowerCase()) ||
-//         optionText.includes(searchQuery.toLowerCase())
-//       );
-//     });
-//     setFilteredData(filteredResults);
-//     setIsFiltered(true);
-//   }, [data, searchQuery]);
-
-//   function cap(word: string) {
-//     if (!word) return "";
-//     return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-//   }
-
-//   const pathname = usePathname().split("/");
-//   const testName = `${cap(pathname[2])} ${cap(pathname[3])}: ${cap(
-//     pathname[4]
-//   )} Test ${cap(pathname[5])}`;
-
-//   return (
-//     <div className="flex flex-col items-center md:p-4 min-h-screen question-block overflow-clip bg-gray-950">
-//       <h1 className="text-base px-2 sm:text-xl lg:text-4xl font-semibold my-4 text-primary">
-//         {testName}
-//       </h1>
-//       <div className="w-full md:max-w-4xl p-2 md:p-4 md:rounded-lg ">
-//         <div className="sticky top-0 z-5 p-2 rounded-lg">
-//           <div className="flex items-center gap-2 mb-2 md:gap-4 md:mb-4">
-//             <input
-//               type="text"
-//               value={searchQuery}
-//               onChange={handleSearchChange}
-//               placeholder="Search question or options..."
-//               className="w-full p-2 rounded-md bg-input text-[14px] md:text-lg text-foreground search-input focus:outline-none focus:ring-1 focus:ring-primary border border-border"
-//             />
-//             <button
-//               onClick={handleClear}
-//               className="px-4 py-2 text-[14px] md:text-lg rounded-md bg-secondary text-secondary-foreground active:bg-secondary/80 focus:outline-none border border-border bg-gray-950"
-//             >
-//               Clear
-//             </button>
-//           </div>
-//         </div>
-//         <div className="space-y-2 md:space-y-4">
-//           {isFiltered && filteredData && filteredData.length === 0 && (
-//             <div className="flex flex-col items-center justify-center py-10 rounded-md border border-border">
-//               <div className="text-lg md:text-2xl font-semibold text-muted-foreground mb-4 text-center">
-//                 No Questions Found 😕
-//               </div>
-//               <div className="text-xs sm:text-sm md:text-base text-foreground text-center">
-//                 Try adjusting your search terms or clearing the search input.
-//               </div>
-//               <button
-//                 onClick={handleClear}
-//                 className="mt-6 px-4 py-2 rounded-md bg-secondary text-secondary-foreground hover:bg-secondary/80 focus:outline-none focus:ring-2 focus:ring-primary border border-border"
-//               >
-//                 Clear Search
-//               </button>
-//             </div>
-//           )}
-//           {filteredData.map((dataObj: DataItem, index: number) => {
-//             const questionNo = index + 1;
-//             const { question1, question2, options, correctAnswer } = dataObj;
-//             return (
-//               <div
-//                 key={index}
-//                 className="p-2 md:p-4 rounded-md border border-border"
-//               >
-//                 <div className="text-lg md:text-2xl text-card-foreground mb-2 p-2 rounded-md">
-//                   Question {questionNo}:
-//                 </div>
-//                 {question1 && (
-//                   <div
-//                     className="text-xs md:text-base text-card-foreground p-2 rounded-md"
-//                     dangerouslySetInnerHTML={{
-//                       __html: highlightHTML(question1, searchQuery),
-//                     }}
-//                   />
-//                 )}
-//                 {question2 && (
-//                   <div
-//                     className="text-xs md:text-base text-card-foreground p-2 rounded-md mt-2"
-//                     dangerouslySetInnerHTML={{
-//                       __html: highlightHTML(question2, searchQuery),
-//                     }}
-//                   />
-//                 )}
-//                 <div className="text-xs md:text-lg text-card-foreground p-2 rounded-md">
-//                   Options:
-//                 </div>
-//                 <ul className="text-xs md:text-base text-card-foreground pl-4 rounded-md p-3">
-//                   {Object.entries(options).map(([optionKey, option]) =>
-//                     option ? (
-//                       <li
-//                         key={optionKey}
-//                         className={`mb-1 ${
-//                           optionKey.toUpperCase() === correctAnswer
-//                             ? "border md:border-2 border-primary px-2 rounded-md"
-//                             : ""
-//                         }`}
-//                       >
-//                         {optionKey.toUpperCase()}:{" "}
-//                         <span
-//                           className="ml-3 inline-block"
-//                           dangerouslySetInnerHTML={{
-//                             __html: highlightHTML(option, searchQuery),
-//                           }}
-//                         />
-//                       </li>
-//                     ) : null
-//                   )}
-//                 </ul>
-//                 <div className="text-base md:text-lg text-card-foreground p-2 rounded-md my-2 border border-border">
-//                   Correct Answer: {correctAnswer}
-//                 </div>
-//               </div>
-//             );
-//           })}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }

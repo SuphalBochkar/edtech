@@ -1,12 +1,12 @@
 import { Course } from "./data";
-import { TestItem, TestTypeData } from "./types";
+import { Status, TestItem, TestTypeData } from "./types";
 
 export const testTypes: Array<{ name: Course; path: string }> = [
   { name: Course.Course2N2NCPP, path: "/n2ncpp" },
   { name: Course.Course2N2NJAVA, path: "/n2njava" },
   { name: Course.Course2N2NPYTHON, path: "/n2npython" },
   { name: Course.Course2Place, path: "/place" },
-  { name: Course.Course2V5, path: "/v5" },
+  //   { name: Course.Course2V5, path: "/v5" },
 ];
 
 export const testTypeData: Partial<TestTypeData> = {
@@ -14,48 +14,55 @@ export const testTypeData: Partial<TestTypeData> = {
     mcq: {
       "1": "4c8d267fa9f6430b7e2b235f",
       "2": "2a9e746f9c7346bba9b18910",
-      "3": "5b1c5e4d9372452d6032a75a",
+      //   "3": "5b1c5e4d9372452d6032a75a",
     },
     code: {
       "1": "3f9a7f2d6b9832051c67456e",
       "2": "7d9b87e1d4c6241721b0535b",
-      "3": "1b3c846f1e563792b4a0183a",
+      //   "3": "1b3c846f1e563792b4a0183a",
     },
   },
   [Course.Course2N2NJAVA]: {
     mcq: {
       "1": "4e9a2c7836d85abf92b31870",
       "2": "0d2e7f7b423c1b59867183b1",
-      "3": "6c1a7d3f6b5f31a42d4732f5",
+      //   "3": "6c1a7d3f6b5f31a42d4732f5",
     },
     code: {
       "1": "6d7f544e2c7341a7a5f6203d",
       "2": "8f6c3b2f3a8e42334b5732c0",
-      "3": "9a3f8b736f8641187e295fd8",
+      //   "3": "9a3f8b736f8641187e295fd8",
     },
   },
   [Course.Course2N2NPYTHON]: {
     mcq: {
       "1": "3f8b1d9f4c6a2d01370f7b5e",
       "2": "7e4c2f5a9b3f45a72984d1d0",
-      "3": "9d0f7a4e8b27c391fd635b67",
+      //   "3": "9d0f7a4e8b27c391fd635b67",
     },
   },
   [Course.Course2Place]: {
     mcq: {
       "1": "1e6b845c4d325fa6b2f401b2",
       "2": "8c2f1a3b9e6d45b7c0a728d3",
-      "3": "2a6c7b9d4e83b190f624cb4d",
-      "4": "5e4d2b8f1a6c3f29237c8a0d",
+      //   "3": "2a6c7b9d4e83b190f624cb4d",
+      //   "4": "5e4d2b8f1a6c3f29237c8a0d",
     },
   },
   [Course.Course2V5]: {
+    // mcq: {
+    //   "1": "9f1c6d7a5e7344b3a7289b52-6d3f5b72e9c452f0b18a3c5d-4c7e2b81d9a6345f7e3c1b0e-3b8f5a9d2e63720c9d74182f-7c5b3a8e6d1f4e2a93b6f0d7",
+    //   "2": "6d3f5b72e9c452f0b18a3c5d",
+    //   "3": "4c7e2b81d9a6345f7e3c1b0e",
+    //   "4": "3b8f5a9d2e63720c9d74182f",
+    //   "5": "7c5b3a8e6d1f4e2a93b6f0d7",
+    // },
     mcq: {
-      "1": "9f1c6d7a5e7344b3a7289b52-6d3f5b72e9c452f0b18a3c5d-4c7e2b81d9a6345f7e3c1b0e-3b8f5a9d2e63720c9d74182f-7c5b3a8e6d1f4e2a93b6f0d7",
-      "2": "6d3f5b72e9c452f0b18a3c5d",
-      "3": "4c7e2b81d9a6345f7e3c1b0e",
-      "4": "3b8f5a9d2e63720c9d74182f",
-      "5": "7c5b3a8e6d1f4e2a93b6f0d7",
+      "1": Status.Updating,
+      "2": Status.Updating,
+      "3": Status.Updating,
+      "4": Status.Updating,
+      "5": Status.Updating,
     },
   },
 };
@@ -64,6 +71,89 @@ export const sampleTestData: TestItem = {
   Level: 1,
   testType: "Sample Test of Courses",
   levelData: [
+    // CODE C++
+    {
+      testNumber: 3,
+      testId: "5c01813cab9c275c04a52768",
+      testTitle: "Coding Learn C/C++: Classes and Objects",
+      attemptData: [
+        {
+          questionType: "mcq",
+          questionId: "5c01813cab9c274bb5a52769",
+          question:
+            '<p>In a procedural programming language like C, the entire code is written into one long procedure even though it might contain functions and subroutines. It is not manageable as both data and logic get mixed together. But when we talk about object-oriented programming, the program is split into self-contained objects or several mini-programs.</p>\n<p><meta charset="utf-8"/></p>\n<p dir="ltr">When working on complex programs in particular, objects are a way of organizing code in a program and breaking things down to make it easier to think about complex ideas. Object-oriented programming makes your code more readable, which in turn makes it more maintainable.</p>\n<p>C++ is an object-oriented programming language. One of the most important concepts in object-oriented programming is the distinction between classes and objects, which are defined as follows:</p>\n<p>Class --&gt; A blueprint created by a programmer for an object. This defines a set of properties that will characterize any object. We can think of class as a way to classify objects into groups.</p>\n<p dir="ltr">Object --&gt; An instance of a class. This is the realized version of the class, where the class is manifested in the program.</p>\n<p>For example: let’s think of humans as a class which posses a set of properties like name age etc. then we all are different instances that are objects of the class human with different properties like name and age.</p>\n<p>Question: _____ represents an entity in the real world with its identity and behaviour.</p>\n',
+          correctOptionId: "5c01813cab9c2703e6a5276c",
+          options: [
+            {
+              optionId: "5c01813cab9c2727fca5276d",
+              option: "<p>A method</p>\n",
+            },
+            {
+              optionId: "5c01813cab9c2703e6a5276c",
+              option: '<p dir="ltr">An object</p>\n',
+            },
+            {
+              optionId: "5c01813cab9c2713c4a5276b",
+              option: "<p>A class</p>\n",
+            },
+            {
+              optionId: "5c01813cab9c279d27a5276a",
+              option: "<p>An operator</p>\n",
+            },
+          ],
+        },
+        {
+          questionType: "code",
+          questionId: "5c01813cab9c27646ca5276f",
+          question:
+            '<p><u><strong>Methods and Attributes</strong></u></p>\n<p><span style="font-family:Courier New,Courier,monospace;">#include &lt;iostream&gt;</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">using namespace std;</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">class Lion{</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">public:<br/>\n    void walk(){<br/>\n        print("Lion is walking");</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">}</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">    void roar(){<br/>\n        print("Lion is roaring");</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">}</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">int main()</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">{</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">Lion jake;</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">}</span><br/>\n<span style="font-family:Arial,Helvetica,sans-serif;">In this example, we initialized the object jake as an instance of the class Lion. We have defined access as public so it can be accessed from outside the class.</span></p>\n<p><span style="font-family:Arial,Helvetica,sans-serif;">Let’s use the two methods with the Lion object jake:</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">Lion jake;<br/>\njake.walk();<br/>\njake.roar();</span><br/>\n<span style="font-family:Arial,Helvetica,sans-serif;">And the output would be like,</span><br/>\n<span style="font-family:Courier New,Courier,monospace;">Lion is walking<br/>\nLion is roaring</span></p>\n<p><span style="font-family:Arial,Helvetica,sans-serif;">The class Lion using the two methods, walk() and roar(). We called these using the dot operator (.) which is used to reference an attribute of the object. In this case, the attribute is a method and it’s called with parentheses.</span></p>\n<p> </p>\n<p><span style="font-family:Arial,Helvetica,sans-serif;"><strong>Question</strong>: Define a class Computer with two methods system_in() and system_out(). The method system_in() should ask for the user\'s first name as input and system_out() should display the string “Thank you ______” (User\'s name in place of blank)<br/>\nCreate an instance of the class and call the methods.</span></p>\n',
+          correctCode:
+            '#include <iostream>\nusing namespace std;\nclass Computer\n{\n  public:\n  string name;\n  void system_in()\n  {\n    cin>>name;\n  }\n  void system_out()\n  {\n    cout<<"Thank you "<<name;\n  }\n};\nint main()\n{\n  Computer sys1;\n  sys1.system_in();\n  sys1.system_out();\n  return 0;\n}',
+        },
+        {
+          questionType: "code",
+          questionId: "5c01813cab9c273c17a52774",
+          question:
+            '<p><u><strong>Constructor</strong></u></p>\n<p>The constructor is a member function used to initialize data. It is run as soon as an object of a class is  created. It is defined using the same name as of class.</p>\n<p><strong>There is no return type of constructor not even void.</strong></p>\n<p>For example:<br/>\n<span style="font-family:Courier New,Courier,monospace;">class Lion{<br/>\n      Lion(){<br/>\n             cout&lt;&lt;"This is the constructor method."&lt;&lt;endl;</span><br/>\n<span style="font-family:Courier New,Courier,monospace;">          }<br/>\n };</span></p>\n<p>If you added the above constructor to the Lion class in the previous example, the program would execute the print statement inside the constructor method, whenever you create a new object.</p>\n<p> </p>\n<p>Let’s create a constructor that passes parameters to assign variables to object.</p>\n<p><span style="font-family:Courier New,Courier,monospace;">#include &lt;iostream&gt;</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">using namespace std;</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">class Student{</span></p>\n<p><br/>\n<span style="font-family:Courier New,Courier,monospace;">public:<br/>\nstring first_name,last_name;<br/>\nint roll_no;</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">//constructor<br/>\n Student(string first, string last, int roll){<br/>\n first_name = first;<br/>\n last_name = last;<br/>\nroll_no = roll;<br/>\n}</span></p>\n<p><br/>\n<span style="font-family:Courier New,Courier,monospace;">void exam(){<br/>\n cout&lt;&lt;"Exam registration number is: "&lt;&lt;"2018"&lt;&lt;first_name&lt;&lt;last_name&lt;&lt;endl;<br/>\n}</span></p>\n<p><br/>\n<span style="font-family:Courier New,Courier,monospace;">};</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">int main()<br/>\n{<br/>\nStudent student1("Sophia", "John", 5);<br/>\ncout&lt;&lt;student1.first_name&lt;&lt;endl;<br/>\n student1.exam();</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;"> return 0;<br/>\n}</span><br/>\n </p>\n<p>The output would be,<br/>\n<span style="font-family:Courier New,Courier,monospace;">Sophia<br/>\nExam registration number is: 2018SophiaJohn</span></p>\n<p><br/>\nQuestion: Create a class <strong>Circle </strong>with a data member<strong> radius</strong>. <br/>\nDefine a method to find the area of the circle. <br/>\nDefine a method to find the circumference of the circle.<br/>\nAssume radius= 10 units</p>\n<p>The output should look like:-</p>\n<p>Area: 314</p>\n<p>Circumference: 62.8</p>\n',
+          correctCode:
+            '#include <iostream>\nusing namespace std;\nclass Circle\n{\n  public:\n  float radius;\n  Circle(float rad)\n  {\n    radius=rad;\n  }\n  void area()\n  {\n    cout<<"Area: "<<(3.14*radius*radius)<<endl;\n  }\n  void circumference()\n  {\n    cout<<"Circumference: "<<(2*3.14*radius)<<endl;\n  }\n};\nint main()\n{\n  Circle circle1(10.0);\n  circle1.area();\n  circle1.circumference();\n  return 0;\n}',
+        },
+        {
+          questionType: "code",
+          questionId: "5c01813cab9c27f1f7a52779",
+          question:
+            '<p><strong><u>Inheritance</u></strong><br/>\nIf a class is a part of another class, then it’s a child of that class, and the other class is its parent. Classes can be both children of and parents to other classes.</p>\n<p><span style="font-family:Courier New,Courier,monospace;">class subclass_name : access_mode base_class_name<br/>\n{<br/>\n  //body of subclass<br/>\n};</span></p>\n<p>Inheritance is when a class uses code constructed within another class. If we think of inheritance in terms of biology, we can think of a child inheriting certain traits from their parent. That is, a child can inherit a parent’s height or blood group. Children also may share the same last name with their parents. <br/>\nClasses called child classes or subclasses inherit methods and variables from parent classes or base classes. We can think of a parent class called Parent that has class variables for last_name, height and blood group that the child class Child will inherit from the Parent. Because the Child subclass is inheriting from the Parent base class, the Child class can reuse the code of Parent allowing the programmer to use fewer lines of code and decrease redundancy.</p>\n<p>For example: </p>\n<p><span style="font-family:Courier New,Courier,monospace;">#include &lt;iostream&gt; <br/>\nusing namespace std; <br/>\n  <br/>\nclass Fruits { <br/>\n  public: <br/>\n    Fruits() <br/>\n    { <br/>\n      cout &lt;&lt; "This is a Fruit" &lt;&lt; endl; <br/>\n    } <br/>\n}; <br/>\n  <br/>\nclass Apple: public Fruits{ <br/>\n  <br/>\n}; <br/>\n  <br/>\n<br/>\nint main() <br/>\n{    <br/>\n    // creating object of sub class will invoke the constructor of base classes <br/>\n    Apple obj; <br/>\n    return 0; <br/>\n}</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">Output:</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">This is a Fruit</span></p>\n<p>The private members in the base class cannot be directly accessed in the derived class while protected members can be directly accessed. For example, Classes B, C and D all contain the variables x, y and z in below example. It is just question of access.</p>\n<p><br/>\n<span style="font-family:Courier New,Courier,monospace;">class A  <br/>\n{ <br/>\npublic: <br/>\n    int a; <br/>\nprotected: <br/>\n    int b; <br/>\nprivate: <br/>\n    int c; <br/>\n}; <br/>\n  <br/>\nclass B : public A <br/>\n{ <br/>\n    // a is public <br/>\n    // b is protected <br/>\n    // c is not accessible from B <br/>\n}; <br/>\n  <br/>\nclass C : protected A <br/>\n{ <br/>\n    // a is protected <br/>\n    // b is protected <br/>\n    // c is not accessible from C <br/>\n}; <br/>\n  <br/>\nclass D : private A    // \'private\' is default for classes <br/>\n{ <br/>\n    // a is private <br/>\n    // b is private <br/>\n    // c is not accessible from D <br/>\n};</span></p>\n<p><strong><span style="font-family:Arial,Helvetica,sans-serif;">Types of inheritance in C++</span></strong></p>\n<p><span style="font-family:Arial,Helvetica,sans-serif;">A derived class with only one base class is called</span><strong><span style="font-family:Arial,Helvetica,sans-serif;"> single inheritance.</span></strong></p>\n<p><span style="font-family:Arial,Helvetica,sans-serif;">A derived class with one base class and that base class is a derived class of another is called</span><strong><span style="font-family:Arial,Helvetica,sans-serif;"> multilevel inheritance.</span></strong></p>\n<p><span style="font-family:Arial,Helvetica,sans-serif;">A derived class with multiple base class is called</span><strong><span style="font-family:Arial,Helvetica,sans-serif;"> multiple inheritance.</span></strong></p>\n<p><span style="font-family:Arial,Helvetica,sans-serif;">Multiple derived classes with same base class is called</span><strong><span style="font-family:Arial,Helvetica,sans-serif;"> hierarchical inheritance.</span></strong></p>\n<p><strong>Question</strong>:</p>\n<p>Create a class <strong>Person</strong> with <strong>name </strong>as its data member. It should have a parameterized constructor that assigns a value to name.</p>\n<p>Create another class <strong>Student </strong>which is a child class of Person. It should have <b>roll_no</b> and <strong>gender </strong>as its data members. Define a parameterized constructor that assigns values to name, roll_no and gender. Define a method <strong>display()</strong> to print the name, roll_no and gender respectively in separate lines.</p>\n<p>In main function, create an instance of Student and assign the values (Sam,15,Male) to it using the constructor. Then display the details of the object by calling the display() method.</p>\n',
+          correctCode:
+            '#include<iostream>\nusing namespace std;\nclass Person\n{\n  public:\n  string name;\n  Person(){}\n  Person(string s)\n  {\n    name = s;\n  }\n};\nclass Student : public Person\n{\n  public:\n  int roll_no;\n  string gender;\n  Student(string s, int roll, string g):Person(s)\n  {\n    roll_no = roll;\n    gender = g;\n  }\n  void display()\n  {\n    cout<<this->name<<endl;\n    cout<<this->roll_no<<endl;\n    cout<<this->gender<<endl;\n  }\n};\nint main()\n{\n  Student obj("Sam", 15, "Male");\n  obj.display();\n}',
+        },
+        {
+          questionType: "mcq",
+          questionId: "5c4abcf55be7921ca0d922e0",
+          question:
+            '<p style="margin:0cm 0cm 10pt"><span style="font-size:11pt"><span style="line-height:normal"><span style="font-family:Calibri,sans-serif"><b><u><span style="font-size:12.0pt"><span style=\'font-family:"Times New Roman","serif"\'>Defining classes and objects</span></span></u></b></span></span></span></p>\n<p>A class is the blueprint from which specific objects are created.</p>\n<p>A class is defined in C++ using keyword <strong>class</strong> followed by the name of class. The body of class is defined inside the curly brackets and terminated by a semicolon at the end.</p>\n<p>class class_name <br/>\n{ <br/>\n    //Access specifiers <br/>\n    //Data Members       <br/>\n    //Member functions<br/>\n};</p>\n<p style="margin:0cm 0cm 10pt"><strong><span style="font-size:11pt"><span style="line-height:normal"><span style="font-family:Calibri,sans-serif"><span style="font-size:12.0pt"><span style=\'font-family:"Times New Roman","serif"\'>Accessing Data Members</span></span></span></span></span></strong></p>\n<p>Accessing a data member depends solely on the access control of that data member.<br/>\nThis access control is given by Access modifiers in C++. There are three access modifiers : public, private and protected.</p>\n<p>Public - All the class members declared under public will be available to everyone. The data members and member functions declared public can be accessed by other classes too.</p>\n<p>Protected - Protected access modifier is similar to that of private access modifiers, the difference is that the class member declared as Protected are inaccessible outside the class but they can be accessed by any subclass(derived class) of that class.</p>\n<p>Private - The class members declared as private can be accessed only by the functions inside the class. They are not allowed to be accessed directly by any object or function outside the class</p>\n<p>ClassName ObjectName;</p>\n<p>Now creating a class is incomplete without some functionality. So functionalities can be defined by setting various attributes which acts as a container for data and functions related to those attributes.</p>\n<p>#include &lt;iostream&gt; <br/>\nusing namespace std; <br/>\nclass example<br/>\n{ <br/>\n    public:<br/>\n    void method1() <br/>\n    { <br/>\n       // Print something<br/>\n    } <br/>\n}; <br/>\n  <br/>\nint main() {<br/>\n   example object1;   <br/>\n   object.method1(); <br/>\n    return 0; <br/>\n} </p>\n<p>Here a class named example is defined and a method is defined in class called method1. object1 is an object of class and method1 is called using object of the class.</p>\n<p>Question: A class definition is given below, fill in the blanks with appropriate keywords</p>\n<p>#include &lt;iostream&gt; <br/>\nusing namespace std; <br/>\nclass lpu <br/>\n{ <br/>\n    public:<br/>\n    void printname() <br/>\n    { <br/>\n       cout &lt;&lt;"Inside the Class"&lt;&lt;endl; <br/>\n    } <br/>\n}; <br/>\n  <br/>\nint main() { <br/>\n  <br/>\n    ____ obj1;    // Blank 1<br/>\n    ____.printname();  //Blank 2<br/>\n    return 0; <br/>\n}</p>\n',
+          correctOptionId: "5c4abcf55be792bdbbd922e5",
+          options: [
+            {
+              optionId: "5c4abcf55be79262d4d922e7",
+              option: "<p>Blank 1: lpu</p>\n<p>Blank 2: lpu</p>\n",
+            },
+            {
+              optionId: "5c4abcf55be7926ef7d922e6",
+              option: "<p>Blank 1: int</p>\n<p>Blank 2: obj1</p>\n",
+            },
+            {
+              optionId: "5c4abcf55be792bdbbd922e5",
+              option: "<p>Blank 1: lpu</p>\n<p>Blank 2: obj1</p>\n",
+            },
+            {
+              optionId: "5c4abcf55be792e849d922e4",
+              option: "<p>Blank 1: string</p>\n<p>Blank 2: lpu</p>\n",
+            },
+          ],
+        },
+      ],
+    },
+
     // MCQ C++
     {
       testNumber: 1,
@@ -565,89 +655,6 @@ export const sampleTestData: TestItem = {
             '<p><span style="font-size:11pt"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif">Write a program to find and print the largest number among entered three unique numbers?</span></span></span></p>\n',
           correctCode:
             "import java.util.*;\nclass Largestnum {\n    public static void main(String args[]) {\n       Scanner sc = new Scanner(System.in);\n       int n1,n2,n3;\n       n1 = sc.nextInt();\n       n2 = sc.nextInt();\n       n3 = sc.nextInt();\n       int m = Math.max(n1,n2);\n       int res = Math.max(m,n3);\n       System.out.println(res);\n    }\n}",
-        },
-      ],
-    },
-
-    // CODE C++
-    {
-      testNumber: 3,
-      testId: "5c01813cab9c275c04a52768",
-      testTitle: "Coding Learn C/C++: Classes and Objects",
-      attemptData: [
-        {
-          questionType: "mcq",
-          questionId: "5c01813cab9c274bb5a52769",
-          question:
-            '<p>In a procedural programming language like C, the entire code is written into one long procedure even though it might contain functions and subroutines. It is not manageable as both data and logic get mixed together. But when we talk about object-oriented programming, the program is split into self-contained objects or several mini-programs.</p>\n<p><meta charset="utf-8"/></p>\n<p dir="ltr">When working on complex programs in particular, objects are a way of organizing code in a program and breaking things down to make it easier to think about complex ideas. Object-oriented programming makes your code more readable, which in turn makes it more maintainable.</p>\n<p>C++ is an object-oriented programming language. One of the most important concepts in object-oriented programming is the distinction between classes and objects, which are defined as follows:</p>\n<p>Class --&gt; A blueprint created by a programmer for an object. This defines a set of properties that will characterize any object. We can think of class as a way to classify objects into groups.</p>\n<p dir="ltr">Object --&gt; An instance of a class. This is the realized version of the class, where the class is manifested in the program.</p>\n<p>For example: let’s think of humans as a class which posses a set of properties like name age etc. then we all are different instances that are objects of the class human with different properties like name and age.</p>\n<p>Question: _____ represents an entity in the real world with its identity and behaviour.</p>\n',
-          correctOptionId: "5c01813cab9c2703e6a5276c",
-          options: [
-            {
-              optionId: "5c01813cab9c2727fca5276d",
-              option: "<p>A method</p>\n",
-            },
-            {
-              optionId: "5c01813cab9c2703e6a5276c",
-              option: '<p dir="ltr">An object</p>\n',
-            },
-            {
-              optionId: "5c01813cab9c2713c4a5276b",
-              option: "<p>A class</p>\n",
-            },
-            {
-              optionId: "5c01813cab9c279d27a5276a",
-              option: "<p>An operator</p>\n",
-            },
-          ],
-        },
-        {
-          questionType: "code",
-          questionId: "5c01813cab9c27646ca5276f",
-          question:
-            '<p><u><strong>Methods and Attributes</strong></u></p>\n<p><span style="font-family:Courier New,Courier,monospace;">#include &lt;iostream&gt;</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">using namespace std;</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">class Lion{</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">public:<br/>\n    void walk(){<br/>\n        print("Lion is walking");</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">}</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">    void roar(){<br/>\n        print("Lion is roaring");</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">}</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">int main()</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">{</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">Lion jake;</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">}</span><br/>\n<span style="font-family:Arial,Helvetica,sans-serif;">In this example, we initialized the object jake as an instance of the class Lion. We have defined access as public so it can be accessed from outside the class.</span></p>\n<p><span style="font-family:Arial,Helvetica,sans-serif;">Let’s use the two methods with the Lion object jake:</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">Lion jake;<br/>\njake.walk();<br/>\njake.roar();</span><br/>\n<span style="font-family:Arial,Helvetica,sans-serif;">And the output would be like,</span><br/>\n<span style="font-family:Courier New,Courier,monospace;">Lion is walking<br/>\nLion is roaring</span></p>\n<p><span style="font-family:Arial,Helvetica,sans-serif;">The class Lion using the two methods, walk() and roar(). We called these using the dot operator (.) which is used to reference an attribute of the object. In this case, the attribute is a method and it’s called with parentheses.</span></p>\n<p> </p>\n<p><span style="font-family:Arial,Helvetica,sans-serif;"><strong>Question</strong>: Define a class Computer with two methods system_in() and system_out(). The method system_in() should ask for the user\'s first name as input and system_out() should display the string “Thank you ______” (User\'s name in place of blank)<br/>\nCreate an instance of the class and call the methods.</span></p>\n',
-          correctCode:
-            '#include <iostream>\nusing namespace std;\nclass Computer\n{\n  public:\n  string name;\n  void system_in()\n  {\n    cin>>name;\n  }\n  void system_out()\n  {\n    cout<<"Thank you "<<name;\n  }\n};\nint main()\n{\n  Computer sys1;\n  sys1.system_in();\n  sys1.system_out();\n  return 0;\n}',
-        },
-        {
-          questionType: "code",
-          questionId: "5c01813cab9c273c17a52774",
-          question:
-            '<p><u><strong>Constructor</strong></u></p>\n<p>The constructor is a member function used to initialize data. It is run as soon as an object of a class is  created. It is defined using the same name as of class.</p>\n<p><strong>There is no return type of constructor not even void.</strong></p>\n<p>For example:<br/>\n<span style="font-family:Courier New,Courier,monospace;">class Lion{<br/>\n      Lion(){<br/>\n             cout&lt;&lt;"This is the constructor method."&lt;&lt;endl;</span><br/>\n<span style="font-family:Courier New,Courier,monospace;">          }<br/>\n };</span></p>\n<p>If you added the above constructor to the Lion class in the previous example, the program would execute the print statement inside the constructor method, whenever you create a new object.</p>\n<p> </p>\n<p>Let’s create a constructor that passes parameters to assign variables to object.</p>\n<p><span style="font-family:Courier New,Courier,monospace;">#include &lt;iostream&gt;</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">using namespace std;</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">class Student{</span></p>\n<p><br/>\n<span style="font-family:Courier New,Courier,monospace;">public:<br/>\nstring first_name,last_name;<br/>\nint roll_no;</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">//constructor<br/>\n Student(string first, string last, int roll){<br/>\n first_name = first;<br/>\n last_name = last;<br/>\nroll_no = roll;<br/>\n}</span></p>\n<p><br/>\n<span style="font-family:Courier New,Courier,monospace;">void exam(){<br/>\n cout&lt;&lt;"Exam registration number is: "&lt;&lt;"2018"&lt;&lt;first_name&lt;&lt;last_name&lt;&lt;endl;<br/>\n}</span></p>\n<p><br/>\n<span style="font-family:Courier New,Courier,monospace;">};</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">int main()<br/>\n{<br/>\nStudent student1("Sophia", "John", 5);<br/>\ncout&lt;&lt;student1.first_name&lt;&lt;endl;<br/>\n student1.exam();</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;"> return 0;<br/>\n}</span><br/>\n </p>\n<p>The output would be,<br/>\n<span style="font-family:Courier New,Courier,monospace;">Sophia<br/>\nExam registration number is: 2018SophiaJohn</span></p>\n<p><br/>\nQuestion: Create a class <strong>Circle </strong>with a data member<strong> radius</strong>. <br/>\nDefine a method to find the area of the circle. <br/>\nDefine a method to find the circumference of the circle.<br/>\nAssume radius= 10 units</p>\n<p>The output should look like:-</p>\n<p>Area: 314</p>\n<p>Circumference: 62.8</p>\n',
-          correctCode:
-            '#include <iostream>\nusing namespace std;\nclass Circle\n{\n  public:\n  float radius;\n  Circle(float rad)\n  {\n    radius=rad;\n  }\n  void area()\n  {\n    cout<<"Area: "<<(3.14*radius*radius)<<endl;\n  }\n  void circumference()\n  {\n    cout<<"Circumference: "<<(2*3.14*radius)<<endl;\n  }\n};\nint main()\n{\n  Circle circle1(10.0);\n  circle1.area();\n  circle1.circumference();\n  return 0;\n}',
-        },
-        {
-          questionType: "code",
-          questionId: "5c01813cab9c27f1f7a52779",
-          question:
-            '<p><strong><u>Inheritance</u></strong><br/>\nIf a class is a part of another class, then it’s a child of that class, and the other class is its parent. Classes can be both children of and parents to other classes.</p>\n<p><span style="font-family:Courier New,Courier,monospace;">class subclass_name : access_mode base_class_name<br/>\n{<br/>\n  //body of subclass<br/>\n};</span></p>\n<p>Inheritance is when a class uses code constructed within another class. If we think of inheritance in terms of biology, we can think of a child inheriting certain traits from their parent. That is, a child can inherit a parent’s height or blood group. Children also may share the same last name with their parents. <br/>\nClasses called child classes or subclasses inherit methods and variables from parent classes or base classes. We can think of a parent class called Parent that has class variables for last_name, height and blood group that the child class Child will inherit from the Parent. Because the Child subclass is inheriting from the Parent base class, the Child class can reuse the code of Parent allowing the programmer to use fewer lines of code and decrease redundancy.</p>\n<p>For example: </p>\n<p><span style="font-family:Courier New,Courier,monospace;">#include &lt;iostream&gt; <br/>\nusing namespace std; <br/>\n  <br/>\nclass Fruits { <br/>\n  public: <br/>\n    Fruits() <br/>\n    { <br/>\n      cout &lt;&lt; "This is a Fruit" &lt;&lt; endl; <br/>\n    } <br/>\n}; <br/>\n  <br/>\nclass Apple: public Fruits{ <br/>\n  <br/>\n}; <br/>\n  <br/>\n<br/>\nint main() <br/>\n{    <br/>\n    // creating object of sub class will invoke the constructor of base classes <br/>\n    Apple obj; <br/>\n    return 0; <br/>\n}</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">Output:</span></p>\n<p><span style="font-family:Courier New,Courier,monospace;">This is a Fruit</span></p>\n<p>The private members in the base class cannot be directly accessed in the derived class while protected members can be directly accessed. For example, Classes B, C and D all contain the variables x, y and z in below example. It is just question of access.</p>\n<p><br/>\n<span style="font-family:Courier New,Courier,monospace;">class A  <br/>\n{ <br/>\npublic: <br/>\n    int a; <br/>\nprotected: <br/>\n    int b; <br/>\nprivate: <br/>\n    int c; <br/>\n}; <br/>\n  <br/>\nclass B : public A <br/>\n{ <br/>\n    // a is public <br/>\n    // b is protected <br/>\n    // c is not accessible from B <br/>\n}; <br/>\n  <br/>\nclass C : protected A <br/>\n{ <br/>\n    // a is protected <br/>\n    // b is protected <br/>\n    // c is not accessible from C <br/>\n}; <br/>\n  <br/>\nclass D : private A    // \'private\' is default for classes <br/>\n{ <br/>\n    // a is private <br/>\n    // b is private <br/>\n    // c is not accessible from D <br/>\n};</span></p>\n<p><strong><span style="font-family:Arial,Helvetica,sans-serif;">Types of inheritance in C++</span></strong></p>\n<p><span style="font-family:Arial,Helvetica,sans-serif;">A derived class with only one base class is called</span><strong><span style="font-family:Arial,Helvetica,sans-serif;"> single inheritance.</span></strong></p>\n<p><span style="font-family:Arial,Helvetica,sans-serif;">A derived class with one base class and that base class is a derived class of another is called</span><strong><span style="font-family:Arial,Helvetica,sans-serif;"> multilevel inheritance.</span></strong></p>\n<p><span style="font-family:Arial,Helvetica,sans-serif;">A derived class with multiple base class is called</span><strong><span style="font-family:Arial,Helvetica,sans-serif;"> multiple inheritance.</span></strong></p>\n<p><span style="font-family:Arial,Helvetica,sans-serif;">Multiple derived classes with same base class is called</span><strong><span style="font-family:Arial,Helvetica,sans-serif;"> hierarchical inheritance.</span></strong></p>\n<p><strong>Question</strong>:</p>\n<p>Create a class <strong>Person</strong> with <strong>name </strong>as its data member. It should have a parameterized constructor that assigns a value to name.</p>\n<p>Create another class <strong>Student </strong>which is a child class of Person. It should have <b>roll_no</b> and <strong>gender </strong>as its data members. Define a parameterized constructor that assigns values to name, roll_no and gender. Define a method <strong>display()</strong> to print the name, roll_no and gender respectively in separate lines.</p>\n<p>In main function, create an instance of Student and assign the values (Sam,15,Male) to it using the constructor. Then display the details of the object by calling the display() method.</p>\n',
-          correctCode:
-            '#include<iostream>\nusing namespace std;\nclass Person\n{\n  public:\n  string name;\n  Person(){}\n  Person(string s)\n  {\n    name = s;\n  }\n};\nclass Student : public Person\n{\n  public:\n  int roll_no;\n  string gender;\n  Student(string s, int roll, string g):Person(s)\n  {\n    roll_no = roll;\n    gender = g;\n  }\n  void display()\n  {\n    cout<<this->name<<endl;\n    cout<<this->roll_no<<endl;\n    cout<<this->gender<<endl;\n  }\n};\nint main()\n{\n  Student obj("Sam", 15, "Male");\n  obj.display();\n}',
-        },
-        {
-          questionType: "mcq",
-          questionId: "5c4abcf55be7921ca0d922e0",
-          question:
-            '<p style="margin:0cm 0cm 10pt"><span style="font-size:11pt"><span style="line-height:normal"><span style="font-family:Calibri,sans-serif"><b><u><span style="font-size:12.0pt"><span style=\'font-family:"Times New Roman","serif"\'>Defining classes and objects</span></span></u></b></span></span></span></p>\n<p>A class is the blueprint from which specific objects are created.</p>\n<p>A class is defined in C++ using keyword <strong>class</strong> followed by the name of class. The body of class is defined inside the curly brackets and terminated by a semicolon at the end.</p>\n<p>class class_name <br/>\n{ <br/>\n    //Access specifiers <br/>\n    //Data Members       <br/>\n    //Member functions<br/>\n};</p>\n<p style="margin:0cm 0cm 10pt"><strong><span style="font-size:11pt"><span style="line-height:normal"><span style="font-family:Calibri,sans-serif"><span style="font-size:12.0pt"><span style=\'font-family:"Times New Roman","serif"\'>Accessing Data Members</span></span></span></span></span></strong></p>\n<p>Accessing a data member depends solely on the access control of that data member.<br/>\nThis access control is given by Access modifiers in C++. There are three access modifiers : public, private and protected.</p>\n<p>Public - All the class members declared under public will be available to everyone. The data members and member functions declared public can be accessed by other classes too.</p>\n<p>Protected - Protected access modifier is similar to that of private access modifiers, the difference is that the class member declared as Protected are inaccessible outside the class but they can be accessed by any subclass(derived class) of that class.</p>\n<p>Private - The class members declared as private can be accessed only by the functions inside the class. They are not allowed to be accessed directly by any object or function outside the class</p>\n<p>ClassName ObjectName;</p>\n<p>Now creating a class is incomplete without some functionality. So functionalities can be defined by setting various attributes which acts as a container for data and functions related to those attributes.</p>\n<p>#include &lt;iostream&gt; <br/>\nusing namespace std; <br/>\nclass example<br/>\n{ <br/>\n    public:<br/>\n    void method1() <br/>\n    { <br/>\n       // Print something<br/>\n    } <br/>\n}; <br/>\n  <br/>\nint main() {<br/>\n   example object1;   <br/>\n   object.method1(); <br/>\n    return 0; <br/>\n} </p>\n<p>Here a class named example is defined and a method is defined in class called method1. object1 is an object of class and method1 is called using object of the class.</p>\n<p>Question: A class definition is given below, fill in the blanks with appropriate keywords</p>\n<p>#include &lt;iostream&gt; <br/>\nusing namespace std; <br/>\nclass lpu <br/>\n{ <br/>\n    public:<br/>\n    void printname() <br/>\n    { <br/>\n       cout &lt;&lt;"Inside the Class"&lt;&lt;endl; <br/>\n    } <br/>\n}; <br/>\n  <br/>\nint main() { <br/>\n  <br/>\n    ____ obj1;    // Blank 1<br/>\n    ____.printname();  //Blank 2<br/>\n    return 0; <br/>\n}</p>\n',
-          correctOptionId: "5c4abcf55be792bdbbd922e5",
-          options: [
-            {
-              optionId: "5c4abcf55be79262d4d922e7",
-              option: "<p>Blank 1: lpu</p>\n<p>Blank 2: lpu</p>\n",
-            },
-            {
-              optionId: "5c4abcf55be7926ef7d922e6",
-              option: "<p>Blank 1: int</p>\n<p>Blank 2: obj1</p>\n",
-            },
-            {
-              optionId: "5c4abcf55be792bdbbd922e5",
-              option: "<p>Blank 1: lpu</p>\n<p>Blank 2: obj1</p>\n",
-            },
-            {
-              optionId: "5c4abcf55be792e849d922e4",
-              option: "<p>Blank 1: string</p>\n<p>Blank 2: lpu</p>\n",
-            },
-          ],
         },
       ],
     },
