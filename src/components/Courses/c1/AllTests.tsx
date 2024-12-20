@@ -1,39 +1,46 @@
-/* "use client";
+"use client";
 
 import React from "react";
-import { motion } from "framer-motion";
-import { CalendarIcon, BookOpen } from "lucide-react";
-import { aeTests, levelTests } from "@/lib/data";
+import { CalendarIcon, BookOpen, ChevronRight } from "lucide-react";
+import { aeTests, levelTests } from "@/lib/data-c1";
 import { useRouter } from "next/navigation";
-
-const fadeInUp = {
-  initial: { opacity: 0, y: 10 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.4 },
-};
+import { useSession } from "next-auth/react";
+import { Course } from "@/lib/data";
 
 export default function AllTests() {
   const router = useRouter();
+  const { data: session } = useSession();
+
+  const isEnrolled = session?.user?.courses?.includes(Course.Course1Hitbulls);
 
   return (
-    <motion.div
-      className="w-[80vw] lg:w-[60vw] py-2 md:py-8 overflow-hidden"
-      initial="initial"
-      animate="animate"
-      variants={{
-        animate: {
-          transition: {
-            staggerChildren: 0.05,
-          },
-        },
-      }}
-    >
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8">
-        <motion.div variants={fadeInUp} className="p-3 md:p-6 rounded-lg">
-          <h2 className="text-xl md:text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4">
-            AE Tests
-          </h2>
-          <div className="space-y-4">
+    <div className="w-full max-w-7xl mx-auto px-4 py-4 md:py-10">
+      <div className="flex flex-row items-center justify-center gap-2 md:gap-4 rounded-lg backdrop-blur-sm mb-5">
+        <h1 className="text-xl flex items-center md:text-2xl font-bold bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent">
+          Available Tests
+        </h1>
+        <Badge
+          className={`
+            ${
+              isEnrolled
+                ? "bg-green-500/10 text-green-300 hover:bg-green-500/20"
+                : "bg-red-500/10 text-red-300 hover:bg-red-500/20"
+            }
+            transition-colors duration-200 cursor-pointer px-3 py-1.5
+          `}
+        >
+          <span
+            className={`inline-block w-1.5 h-1.5 rounded-full mr-1.5 ${
+              isEnrolled ? "bg-green-400" : "bg-red-400"
+            }`}
+          />
+          {isEnrolled ? "Enrolled" : "Enroll Now"}
+        </Badge>
+      </div>
+      <div className="space-y-8 sm:space-y-12">
+        <section>
+          <h2 className="text-lg md:text-2xl font-semibold mb-4">AE Tests</h2>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {aeTests.map((test) => (
               <PracticeComponent
                 key={test.id}
@@ -42,63 +49,88 @@ export default function AllTests() {
               />
             ))}
           </div>
-        </motion.div>
-        <motion.div variants={fadeInUp} className="p-3 md:p-6 rounded-lg">
-          <h2 className="text-xl md:text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4">
+        </section>
+        <section>
+          <h2 className="text-lg md:text-2xl font-semibold mb-4">
             Level Tests
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {levelTests.map((level) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {levelTests.map((obj) => (
               <LevelComponent
-                key={level}
-                level={level}
-                onClick={() => router.push("/c1/level/" + level)}
+                key={obj.level}
+                level={obj.level}
+                isNew={obj.isNew}
+                onClick={() => router.push("/c1/level/" + obj.level)}
               />
             ))}
           </div>
-        </motion.div>
+        </section>
       </div>
-    </motion.div>
+    </div>
+  );
+}
+
+function Badge({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <span
+      className={`text-[10px] sm:text-xs font-semibold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full ${className}`}
+    >
+      {children}
+    </span>
   );
 }
 
 function LevelComponent({
   level,
+  isNew,
   onClick,
 }: {
   level: number;
+  isNew: boolean;
   onClick: () => void;
 }) {
   return (
-    <motion.div
-      className="relative overflow-hidden rounded-lg border-[1.75px] border-gray-400 dark:border-gray-400 cursor-pointer backdrop-blur-md bg-purple-800/10 dark:bg-purple-800/20"
-      whileHover={{ y: -3 }}
-      whileTap={{ scale: 0.98 }}
+    <div
+      className="relative cursor-pointer border border-gray-500 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:border-gray-300 group bg-gray-900/50 backdrop-blur-sm"
       onClick={onClick}
     >
-      <div className="p-4 relative">
-        <div className="flex items-baseline mb-1">
-          <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mr-2">
-            Level {level}
-          </h3>
-          <p className="text-[12px] md:text-xs text-gray-600 dark:text-gray-400">
-            Aptitude & Programming
-          </p>
+      {isNew && (
+        <div className="absolute -top-3 -right-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-lg animate-pulse">
+          NEW
         </div>
-        <div className="flex space-x-1">
+      )}
+      <div className="p-4 sm:p-6">
+        <div className="flex items-center justify-between mb-3 sm:mb-4">
+          <div>
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent tracking-tight">
+              Level {level}
+            </h3>
+            <p className="text-xs sm:text-sm text-gray-400 mt-1 sm:mt-1.5 font-medium">
+              Aptitude & Programming
+            </p>
+          </div>
+          <div className="p-2 sm:p-2.5 rounded-full border border-gray-600 group-hover:border-gray-400 transition-colors bg-gray-800/50">
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 group-hover:text-white transition-colors" />
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-2 sm:gap-2.5">
           {["A", "B", "C", "D", "E"].map((set) => (
-            <motion.span
+            <span
               key={set}
-              className="text-xs font-semibold px-1.5 py-0.5 rounded border border-gray-400 dark:border-gray-600 cursor-pointer backdrop-blur-md bg-purple-800/10 dark:bg-purple-800/20"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
+              className="px-2.5 sm:px-3.5 py-1 sm:py-1.5 text-xs font-semibold rounded-lg border border-gray-600 text-gray-300 hover:border-gray-400 hover:text-white hover:bg-gray-800/50 transition-all duration-200"
             >
-              {set}
-            </motion.span>
+              Set {set}
+            </span>
           ))}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -114,229 +146,28 @@ function PracticeComponent({
   onClick: () => void;
 }) {
   return (
-    <motion.div
-      className="relative overflow-hidden rounded-lg border-[1.75px] border-gray-400 dark:border-gray-400 cursor-pointer backdrop-blur-md bg-purple-800/10 dark:bg-purple-800/20"
-      whileHover={{ y: -3 }}
-      whileTap={{ scale: 0.98 }}
+    <div
+      className="cursor-pointer border border-gray-500 rounded-lg transition-colors duration-200 hover:border-gray-200"
       onClick={onClick}
     >
-      <div className="relative z-10 p-4">
-        <div className="flex justify-between items-start">
+      <div className="p-3 sm:p-4">
+        <div className="flex items-center justify-between">
           <div className="flex-1">
-            <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200 leading-tight mb-2">
-              {name}
-            </h3>
-            <div className="flex justify-between items-center">
-              <p className="text-xs text-gray-600 dark:text-gray-400 flex items-center">
-                <BookOpen className="w-3 h-3 mr-1" />
+            <h3 className="text-sm md:text-lg font-semibold mb-2">{name}</h3>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-1 sm:space-y-0">
+              <p className="text-xs md:text-sm text-gray-500 flex items-center">
+                <BookOpen className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                 {type}
               </p>
-              <p className="text-xs text-gray-500 dark:text-gray-500">{date}</p>
+              <p className="text-xs md:text-sm text-gray-500 flex items-center">
+                <CalendarIcon className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                {date}
+              </p>
             </div>
           </div>
-          <div className="bg-gray-100 dark:bg-gray-800 rounded-full p-1.5 ml-2">
-            <CalendarIcon className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-          </div>
+          <ChevronRight className="text-gray-400 w-5 h-5 ml-2" />
         </div>
       </div>
-      <div
-        className="absolute inset-0 bg-gradient-to-br from-gray-100 to-white dark:from-gray-900 dark:to-gray-800 opacity-30"
-        style={{ filter: "blur(20px)" }}
-      />
-    </motion.div>
-  );
-} */
-
-"use client";
-
-import React from "react";
-import { motion } from "framer-motion";
-import { CalendarIcon, BookOpen, ChevronRight } from "lucide-react";
-import { aeTests, levelTests } from "@/lib/data-c1";
-import { useRouter } from "next/navigation";
-
-const fadeInUp = {
-  initial: { opacity: 0, y: 10 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.4 },
-};
-
-export default function AllTests() {
-  const router = useRouter();
-
-  return (
-    <motion.div
-      className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8"
-      initial="initial"
-      animate="animate"
-      variants={{
-        animate: {
-          transition: {
-            staggerChildren: 0.05,
-          },
-        },
-      }}
-    >
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <motion.div variants={fadeInUp}>
-          <div className="p-6">
-            <h2 className="text-2xl font-semibold text-gray-200 mb-4">
-              AE Tests
-            </h2>
-            <div className="space-y-4">
-              {aeTests.map((test) => (
-                <PracticeComponent
-                  key={test.id}
-                  {...test}
-                  onClick={() => router.push("/c1/practice/" + test.id)}
-                />
-              ))}
-            </div>
-          </div>
-        </motion.div>
-        <motion.div variants={fadeInUp}>
-          <div className="p-6">
-            <h2 className="text-2xl font-semibold text-gray-200 mb-4">
-              Level Tests
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {levelTests.map((level) => (
-                <LevelComponent
-                  key={level}
-                  level={level}
-                  onClick={() => router.push("/c1/level/" + level)}
-                />
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </motion.div>
+    </div>
   );
 }
-
-function LevelComponent({
-  level,
-  onClick,
-}: {
-  level: number;
-  onClick: () => void;
-}) {
-  return (
-    <motion.div
-      className="group cursor-pointer"
-      whileHover={{ y: -3 }}
-      whileTap={{ scale: 0.98 }}
-      onClick={onClick}
-    >
-      <div className="bg-white/5 dark:bg-purple-800/10 backdrop-blur-lg border border-white/50 rounded-lg transition-colors duration-200 group-hover:bg-purple-800/40">
-        <div className="p-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-xl font-bold text-gray-200 mb-1">
-                Level {level}
-              </h3>
-              <p className="text-sm text-gray-400">Aptitude & Programming</p>
-            </div>
-            <ChevronRight className="text-gray-400 group-hover:text-violet-400 transition-colors duration-200" />
-          </div>
-          <div className="flex space-x-2 mt-3">
-            {["A", "B", "C", "D", "E"].map((set) => (
-              <span
-                key={set}
-                className="px-2 py-1 text-xs font-semibold rounded-full bg-white/5 text-gray-300 border border-white/40 hover:bg-white/10 transition-colors duration-200"
-              >
-                {set}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-function PracticeComponent({
-  name,
-  type,
-  date,
-  onClick,
-}: {
-  name: string;
-  type: string;
-  date: string;
-  onClick: () => void;
-}) {
-  return (
-    <motion.div
-      className="group cursor-pointer"
-      whileHover={{ y: -3 }}
-      whileTap={{ scale: 0.98 }}
-      onClick={onClick}
-    >
-      <div className="bg-white/5 dark:bg-purple-800/10 backdrop-blur-lg border border-white/50 rounded-lg transition-colors duration-200 group-hover:bg-purple-800/40">
-        <div className="p-4">
-          <div className="flex items-center justify-between">
-            <div className="flex-1">
-              <h3 className="text-lg font-semibold text-gray-200 mb-2">
-                {name}
-              </h3>
-              <div className="flex items-center justify-between">
-                <p className="text-sm text-gray-400 flex items-center">
-                  <BookOpen className="w-4 h-4 mr-2" />
-                  {type}
-                </p>
-                <p className="text-sm text-gray-400 flex items-center">
-                  <CalendarIcon className="w-4 h-4 mr-2" />
-                  {date}
-                </p>
-              </div>
-            </div>
-            <ChevronRight className="text-gray-400 group-hover:text-violet-400 transition-colors duration-200" />
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-// import React from "react";
-// import LevelComponent from "@/ui/Aceternity/LevelComponent";
-
-// export default function AllTests() {
-//   return (
-//     <div className="min-h-screen py-12">
-//       <div className="mb-16">
-//         <h2 className="text-3xl font-bold text-white mb-8 border-b pb-4">
-//           AE Tests
-//         </h2>
-//         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-//           {[1, 2].map((level) => (
-//             <div
-//               key={level}
-//               className="rounded-xl p-6 transition-all duration-300 hover:shadow-xl hover:shadow-black/20"
-//             >
-//               <LevelComponent level={level} />
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-
-//       <div>
-//         <h2 className="text-3xl font-bold text-white mb-8 border-b pb-4">
-//           Level Tests
-//         </h2>
-//         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-//           {[1, 2].map((level) => (
-//             <div
-//               key={level}
-//               className="rounded-xl p-6 transition-all duration-300 hover:shadow-xl hover:shadow-black/20"
-//             >
-//               <LevelComponent level={level} />
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }

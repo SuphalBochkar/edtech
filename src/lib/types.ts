@@ -1,38 +1,6 @@
-// import { JWTPayload } from "jose";
-
-// export type CookieType = {
-//   id: number | string;
-//   email: string;
-//   username?: string | null;
-// };
-
-// export interface SessionPayload extends JWTPayload {
-//   id: string;
-// }
-
-// export interface SessionData {
-//   session: string | undefined;
-// }
-
-// Auth Types
+import { Course } from "./data";
 
 export const EXPIRE_DAYS = 15;
-
-// export interface UserType extends DefaultUser {
-//   id: string;
-//   paid: boolean;
-//   expireAt?: Date;
-//   courses?: Course[];
-// }
-// export interface TokenType {
-//   userId: string;
-//   paid: boolean;
-//   expireAt: Date;
-//   courses: Course[];
-// }
-// export interface SessionType extends DefaultSession {
-//   user: UserType & { userId: string; paid: boolean };
-// }
 
 export enum Status {
   Updating = "updating",
@@ -48,6 +16,7 @@ export type FlowTypes =
   | "success"
   | "error";
 
+//! C1
 export interface DataItem {
   question1?: string;
   question2?: string;
@@ -67,6 +36,42 @@ export interface tempTestData {
   [category: string]: {
     [testName: string]: string;
   };
+}
+
+//! C2
+
+export type TestTypeData = {
+  [key in Course]: {
+    mcq: { [key: string]: Status | string };
+    code?: { [key: string]: Status | string };
+  };
+};
+
+export interface TestItem {
+  Level: number;
+  levelData: LevelData[];
+  testType: string;
+}
+
+export interface LevelData {
+  testId: string;
+  testNumber: number;
+  testTitle: string;
+  attemptData: Attempt[];
+}
+
+export interface Attempt {
+  questionId: string;
+  question: string;
+  questionType?: "code" | "mcq";
+  correctOptionId?: string;
+  correctCode?: string;
+  options?: Option[];
+}
+
+export interface Option {
+  optionId: string;
+  option: string;
 }
 
 export enum HttpStatus {

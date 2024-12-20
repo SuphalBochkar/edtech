@@ -75,8 +75,9 @@ export async function getRazorPayOptions(
           //     ...(sessionData.user.courses || []),
           //     Course.Course1Level,
           //   ];
-          update(sessionData);
           setPaymentFlow("success");
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+          update(sessionData);
         }
       } catch (error) {
         console.log("Error updating sessionData data after payment", error);

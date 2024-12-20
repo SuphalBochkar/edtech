@@ -34,7 +34,7 @@ model User {
 
     accounts Account[]
     sessions Session[]
-    Query    Query[]
+    queries  Query[]
 }
 
 model StaticUser {
@@ -73,6 +73,8 @@ enum Course {
     C2002
     C2003
     C2004
+    C2005
+    C2006
 }
 
 model Payment {
@@ -86,6 +88,7 @@ model Payment {
     user                User          @relation("UserPayments", fields: [userId], references: [id])
     StaticUser          StaticUser?   @relation(fields: [staticUserId], references: [id])
     staticUserId        String?       @db.ObjectId
+    createdAt           DateTime?     @default(now())
 }
 
 enum PaymentStatus {

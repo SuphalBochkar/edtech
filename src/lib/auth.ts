@@ -1,107 +1,19 @@
-// @/lib/auth.ts
-
-//~ Old Auth Without Prisma Adapter
-
-// import GoogleProvider from "next-auth/providers/google";
-// import { prisma } from "@/lib/prisma";
-// import { User, Account, SessionStrategy, Session, JWT } from "next-auth";
-// import { EXPIRE_DAYS } from "./types";
-// export const AUTH_PROVIDERS = {
-//   providers: [
-//     GoogleProvider({
-//       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
-//       clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
-//       authorization: {
-//         params: {
-//           prompt: "select_account",
-//         },
-//       },
-//     }),
-//   ],
-//   secret: process.env.NEXTAUTH_SECRET,
-//   session: {
-//     strategy: "jwt" as SessionStrategy,
-//     maxAge: EXPIRE_DAYS * 24 * 60 * 60,
-//   },
-
-//   pages: {
-//     signIn: "/auth/signin",
-//   },
-
-//   callbacks: {
-//     async signIn({ user, account }: { user: User; account: Account | null }) {
-//       if (account?.provider === "google" && user.email) {
-//         const existingUser = await prisma.user.findUnique({
-//           where: { email: user.email },
-//         });
-//         const expireAt = new Date(
-//           Date.now() + EXPIRE_DAYS * 24 * 60 * 60 * 1000
-//         );
-
-//         if (!existingUser) {
-//           const newUser = await prisma.user.create({
-//             data: {
-//               email: user.email,
-//               name: user.name,
-//               image: user.image,
-//               paid: false,
-//               createdAt: new Date(),
-//               expireAt: expireAt,
-//             },
-//           });
-//           user.id = newUser.id;
-//           user.paid = newUser.paid;
-//           user.expireAt = expireAt;
-//           user.courses = newUser.courses;
-//         } else {
-//           user.id = existingUser.id;
-//           user.paid = existingUser.paid;
-//           user.expireAt = expireAt;
-//           user.courses = existingUser.courses;
-//         }
-//       }
-
-//       return user;
-//     },
-
-//     async jwt({ token, user }: { token: JWT; user: User | null }) {
-//       if (user) {
-//         token.id = user.id;
-//         token.paid = user.paid;
-//         token.expireAt = user.expireAt ?? new Date();
-//         token.courses = user.courses ?? [];
-//       }
-//       return token;
-//     },
-
-//     async session({ session, token }: { session: Session; token: JWT }) {
-//       if (token) {
-//         session.user.id = token.id as string;
-//         session.user.paid = token.paid as boolean;
-//         session.user.courses = token.courses as string[];
-//         // session.user.expireAt = token.expireAt;
-//       }
-
-//       return session;
-//     },
-//   },
-// };
-
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
-import { User, SessionStrategy, Session, JWT } from "next-auth";
+import { User, AuthOptions, SessionStrategy } from "next-auth";
 import { EXPIRE_DAYS } from "./types";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import type { Adapter } from "next-auth/adapters";
 import bcrypt from "bcryptjs";
 
-export const AUTH_PROVIDERS = {
+export const AUTH_PROVIDERS: AuthOptions = {
   adapter: PrismaAdapter(prisma) as Adapter,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
+      allowDangerousEmailAccountLinking: true,
       authorization: {
         params: {
           prompt: "select_account",
@@ -129,9 +41,15 @@ export const AUTH_PROVIDERS = {
             staticUser &&
             bcrypt.compareSync(credentials.password, staticUser.password)
           ) {
+            await prisma.session.deleteMany({
+              where: { userId: staticUser.id },
+            });
+
             return {
               id: staticUser.id,
               name: staticUser.email,
+              email: staticUser.email,
+              image: staticUser.image,
               paid: staticUser.paid,
               expireAt: staticUser.expireAt,
               courses: staticUser.courses,
@@ -148,57 +66,141 @@ export const AUTH_PROVIDERS = {
   ],
   secret: process.env.NEXTAUTH_SECRET,
   session: {
-    strategy: "jwt" as SessionStrategy,
+    strategy: "database" as SessionStrategy,
     maxAge: EXPIRE_DAYS * 24 * 60 * 60,
   },
-
   pages: {
     signIn: "/auth/signin",
   },
 
   callbacks: {
-    async jwt({ token, user }: { token: JWT; user: User | null }) {
+    // async signIn({ user, account }) {
+    //   try {
+    //     if (account?.provider === "google" && user.email) {
+    //       console.log("Sigin 1: ", account);
+    //       console.log("Sigin 1: ", user);
+    //       const existingUser = await prisma.user.findUnique({
+    //         where: { email: user.email },
+    //       });
+    //       if (existingUser?.id) {
+    //         console.log("Existing user found:", existingUser);
+    //         console.log("Updating user with new session...");
+
+    //         await prisma.session.deleteMany({
+    //           where: { userId: existingUser.id },
+    //         });
+
+    //         await prisma.user.update({
+    //           where: { id: existingUser.id },
+    //           data: {
+    //             expireAt: new Date(
+    //               Date.now() + EXPIRE_DAYS * 24 * 60 * 60 * 1000
+    //             ),
+    //             name: user.name ?? user.email,
+    //             image: user.image,
+    //           },
+    //         });
+    //       } else {
+    //         console.log("Creating new user with email:", user.email);
+    //         console.log("User details:", {
+    //           name: user.name ?? user.email,
+    //           image: user.image,
+    //           expireAt: new Date(
+    //             Date.now() + EXPIRE_DAYS * 24 * 60 * 60 * 1000
+    //           ),
+    //         });
+
+    //         await prisma.user.create({
+    //           data: {
+    //             email: user.email,
+    //             name: user.name ?? user.email,
+    //             image: user.image,
+    //             paid: false,
+    //             expireAt: new Date(
+    //               Date.now() + EXPIRE_DAYS * 24 * 60 * 60 * 1000
+    //             ),
+    //             courses: [],
+    //           },
+    //         });
+    //       }
+    //     }
+
+    //     return true;
+    //   } catch (error) {
+    //     console.error("Error in signIn callback:", error);
+    //     return false;
+    //   }
+    // },
+
+    // async jwt({ token, user }) {
+    //   try {
+    //     if (user) {
+    //       const userData = user.email
+    //         ? await prisma.user.findUnique({ where: { email: user.email } })
+    //         : await prisma.staticUser.findUnique({ where: { id: user.id } });
+
+    //       if (userData) {
+    //         token.id = userData.id;
+    //         token.paid = userData.paid;
+    //         token.courses = userData.courses;
+    //         token.expireAt = userData.expireAt;
+    //       }
+    //     }
+    //     return token;
+    //   } catch (error) {
+    //     console.error("Error in jwt callback:", error);
+    //     return token;
+    //   }
+    // },
+
+    async session({ session, user }) {
       if (user) {
+        session.user.id = user.id;
+        session.user.paid = user.paid;
+        session.user.courses = user.courses;
+        session.user.expireAt = user.expireAt;
       }
-      return token;
+      return session;
+    },
+  },
+
+  events: {
+    async signIn({ user }) {
+      if (user.id) {
+        const existingUser = await prisma.user.findUnique({
+          where: { id: user.id },
+        });
+        if (existingUser) {
+          const sessions = await prisma.session.findMany({
+            where: { userId: user.id },
+          });
+          if (sessions.length > 1) {
+            const [, ...oldSessions] = sessions.sort(
+              (a, b) => b.expires.getTime() - a.expires.getTime()
+            );
+            await prisma.session.deleteMany({
+              where: {
+                userId: user.id,
+                id: {
+                  in: oldSessions.map((s) => s.id),
+                },
+              },
+            });
+          }
+        }
+      }
     },
 
-    async session({ session, token }: { session: Session; token: JWT }) {
-      if (token && token.sub) {
-        const user = await prisma.user.findUnique({
-          where: {
-            id: token.sub,
-          },
-        });
-
-        if (user) {
-          session.user.id = user.id;
-          session.user.paid = user.paid;
-          session.user.courses = user.courses;
-          return session;
+    async signOut({ token }) {
+      try {
+        if (token?.id) {
+          await prisma.session.deleteMany({
+            where: { userId: token.id },
+          });
         }
-
-        const staticUser = await prisma.staticUser.findUnique({
-          where: {
-            id: token.sub,
-          },
-        });
-
-        if (staticUser) {
-          session.user.id = staticUser.id;
-          session.user.name = staticUser.name;
-          session.user.email = staticUser.email;
-          session.user.image = staticUser.image;
-          session.user.paid = staticUser.paid;
-          session.user.courses = staticUser.courses;
-          return session;
-        }
-
-        console.log("No user found. Logging out...");
-        return null;
+      } catch (error) {
+        console.error("Error in signOut event:", error);
       }
-
-      return null;
     },
   },
 };

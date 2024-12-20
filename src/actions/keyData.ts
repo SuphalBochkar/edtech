@@ -26,6 +26,17 @@ export function getLevelTypeData(type: Course) {
   return testTypeData[type] || null;
 }
 
-export function getTypeTestId(testType: Course, level: string) {
-  return testTypeData[testType]?.[level] || null;
+export function getTypeTestId(
+  testType: Course,
+  type: "mcq" | "code",
+  level: string
+) {
+  if (
+    testTypeData[testType] &&
+    testTypeData[testType][type] &&
+    testTypeData[testType][type][level]
+  ) {
+    return testTypeData[testType][type][level];
+  }
+  return null;
 }

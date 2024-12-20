@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Loader } from "lucide-react";
+import { Loader, Mail, MessageCircle } from "lucide-react";
 
 export default function ContactUsButton() {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,21 +16,34 @@ export default function ContactUsButton() {
   const { data: session } = useSession();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const textTimer = setTimeout(() => {
       setShowText(false);
-    }, 3000);
+    }, 5000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(textTimer);
+    };
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulated API call
+      const response = await fetch("/api/queries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: session?.user?.id,
+          message,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to submit query");
+      }
       setSubmitStatus("success");
       setMessage("");
-    } catch {
+    } catch (error) {
+      console.error("Error submitting message:", error);
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
@@ -40,44 +53,45 @@ export default function ContactUsButton() {
   return (
     <>
       <motion.button
-        className="fixed bottom-6 right-6 z-50 bg-purple-800 text-white rounded-full shadow-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 flex items-center justify-center overflow-hidden"
+        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-violet-600 to-violet-500 text-white rounded-xl shadow-lg hover:from-violet-500 hover:to-violet-600 focus:outline-none focus:ring-2 focus:ring-violet-500 flex items-center justify-center overflow-hidden backdrop-blur-lg"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        onClick={() => setIsOpen(true)}
-        initial={{
-          width: "auto",
-          paddingLeft: "1.25rem",
-          paddingRight: "1.25rem",
-          paddingTop: "0.75rem",
-          paddingBottom: "0.75rem",
-        }}
-        animate={
-          showText
-            ? { width: "auto", paddingLeft: "1.25rem", paddingRight: "1.25rem" }
-            : {
-                width: "3.5rem",
-                height: "3.5rem",
-                paddingLeft: "0",
-                paddingRight: "0",
-              }
-        }
-        transition={{ duration: 0.3, ease: "easeInOut" }}
+        onClick={() => setIsOpen((isOpen) => !isOpen)}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        <AnimatePresence>
-          {showText && (
-            <motion.span
-              className="mr-2 text-sm font-medium whitespace-nowrap"
-              initial={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.2 }}
-            >
-              Contact Us
-            </motion.span>
-          )}
-        </AnimatePresence>
-        <MessageCircle size={20} className="flex-shrink-0" />
-        <span className="sr-only">Contact Us</span>
+        <motion.div
+          className="flex items-center justify-center"
+          layout
+          initial={false}
+          animate={{
+            width: showText ? "auto" : "3.5rem",
+            height: showText ? "auto" : "3.5rem",
+            padding: showText ? "0.75rem 1.25rem" : "0",
+          }}
+          transition={{
+            duration: 0.3,
+            ease: [0.4, 0, 0.2, 1],
+          }}
+        >
+          <AnimatePresence mode="popLayout">
+            {showText && (
+              <motion.span
+                className="mr-2 text-sm font-medium whitespace-nowrap"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                transition={{ duration: 0.2 }}
+              >
+                Need Help?
+              </motion.span>
+            )}
+          </AnimatePresence>
+          <MessageCircle size={20} className="flex-shrink-0" />
+        </motion.div>
       </motion.button>
+
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -85,52 +99,83 @@ export default function ContactUsButton() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="fixed bottom-24 right-6 z-50 border dark:border-white/30 rounded-lg shadow-xl p-6 w-80 backdrop-blur-lg"
+            className="fixed bottom-24 right-6 z-50 rounded-2xl shadow-2xl p-4 sm:p-6 w-[85vw] sm:w-96 bg-gradient-to-b from-gray-900 to-black border border-violet-500/20 backdrop-blur-lg text-white"
           >
-            <button
+            <motion.button
               onClick={() => setIsOpen(false)}
-              className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 dark:text-gray-300 dark:hover:text-gray-100 transition-colors duration-200"
+              className="absolute top-3 sm:top-4 right-3 sm:right-4 p-1 hover:text-violet-100 transition-colors duration-200 rounded-full hover:bg-violet-500/10 text-red-400"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
-              <X size={20} />
-              <span className="sr-only">Close</span>
-            </button>
-            <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
-              Contact Us
-            </h2>
+              Close
+            </motion.button>
+
+            <div className="flex items-center gap-3 mb-4 sm:mb-6">
+              <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-violet-400" />
+              <h2 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-violet-200 to-violet-400 bg-clip-text text-transparent">
+                Contact Support
+              </h2>
+            </div>
+
             {!session ? (
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                Please sign in to contact us.
-              </p>
+              <div className="text-center p-4 sm:p-6 bg-violet-900/20 rounded-xl">
+                <p className="text-sm sm:text-base text-violet-200">
+                  Please sign in to contact our support team.
+                </p>
+              </div>
             ) : (
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <textarea
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Describe your issue..."
-                  className="w-full h-32 p-3 border border-gray-300 dark:border-gray-700 rounded-md resize-none focus:ring-2 focus:ring-purple-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
+                  placeholder="Describe your issue or question..."
+                  className="w-full h-28 sm:h-32 p-3 sm:p-4 bg-violet-900/20 border border-violet-500/30 rounded-xl resize-none focus:ring-violet-500 focus:border-transparent text-foreground placeholder-violet-400 text-xs sm:text-sm"
                   required
                 />
-                <button
+
+                <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  className="mt-4 w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50 transition-colors duration-200"
+                  className="w-full bg-gradient-to-r from-violet-600 to-violet-500 hover:from-violet-500 hover:to-violet-600 text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-xl font-semibold shadow-lg disabled:opacity-50 transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   {isSubmitting ? (
-                    <Loader className="animate-spin mx-auto" size={20} />
+                    <>
+                      <Loader className="animate-spin" size={16} />
+                      <span>Sending...</span>
+                    </>
                   ) : (
-                    "Submit"
+                    <>
+                      <Mail size={16} />
+                      <span>Send Message</span>
+                    </>
                   )}
-                </button>
-                {submitStatus === "success" && (
-                  <p className="mt-2 text-sm text-green-600 dark:text-green-400">
-                    Message sent! We{"'"}ll be resolving your issue soon.
-                  </p>
-                )}
-                {submitStatus === "error" && (
-                  <p className="mt-2 text-sm text-red-600 dark:text-red-400">
-                    Failed to send message. Please try again.
-                  </p>
-                )}
+                </motion.button>
+
+                <AnimatePresence>
+                  {submitStatus === "success" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="p-2.5 sm:p-3 bg-green-500/20 border border-green-500/30 rounded-xl text-green-300 text-xs sm:text-sm text-center"
+                    >
+                      Message sent successfully! We{"'"}ll resolve your issue
+                      soon.
+                    </motion.div>
+                  )}
+                  {submitStatus === "error" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="p-2.5 sm:p-3 bg-red-500/20 border border-red-500/30 rounded-xl text-red-300 text-xs sm:text-sm text-center"
+                    >
+                      Failed to send message. Please try again.
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </form>
             )}
           </motion.div>
