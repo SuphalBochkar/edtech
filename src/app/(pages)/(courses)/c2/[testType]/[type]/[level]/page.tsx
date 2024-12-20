@@ -84,13 +84,38 @@ export default async function Page({
     })
   );
 
+  if (
+    !allDataArrays ||
+    !Array.isArray(allDataArrays) ||
+    allDataArrays.length === 0 ||
+    allDataArrays.some((arr) => !Array.isArray(arr) || arr.length === 0)
+  ) {
+    return (
+      <div className="text-foreground">
+        <ErrorPage text="No test data available!" />
+      </div>
+    );
+  }
+
   // @ts-expect-error - We are sure that the data is not empty
   const combinedData: TestItem[] = allDataArrays.flat();
 
+  if (
+    !combinedData ||
+    !Array.isArray(combinedData) ||
+    combinedData.length === 0
+  ) {
+    return (
+      <div className="text-foreground">
+        <ErrorPage text="No test data available!" />
+      </div>
+    );
+  }
+
   const finalData = {
-    Level: combinedData[0].Level,
-    levelData: combinedData.flatMap((data) => data.levelData),
-    testType: combinedData[0].testType,
+    Level: combinedData[0]?.Level,
+    levelData: combinedData.flatMap((data) => data?.levelData),
+    testType: combinedData[0]?.testType,
   };
 
   return (
