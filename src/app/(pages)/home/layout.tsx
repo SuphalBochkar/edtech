@@ -1,5 +1,6 @@
 "use client";
 
+import ContactUsButton from "@/components/Contact/ContactUsButton";
 import NavBar from "@/components/Navbar/NavBar";
 
 const TestLayout = ({ children }: { children: React.ReactNode }) => {
@@ -7,6 +8,7 @@ const TestLayout = ({ children }: { children: React.ReactNode }) => {
     <div className="max-h-screen">
       <NavBar />
       {children}
+      <ContactUsButton />
     </div>
   );
 };

@@ -35,7 +35,7 @@ const NavBar = () => {
     if (pathname.includes("/pricing")) return;
   }, [user, status, router]);
 
-  const relativeRoutes = ["/c1/level/", "/c1/practice/"];
+  const relativeRoutes = ["/c1/level/", "/c1/practice/", "/c2/"];
   const isRelativeRoute = relativeRoutes.some((route) =>
     pathname.startsWith(route)
   );
@@ -48,7 +48,7 @@ const NavBar = () => {
     <nav
       className={`${
         isRelativeRoute ? "relative" : "sticky"
-      }  wrapper top-0 z-50 flex items-center justify-center gap-2 py-6 w-full text-[#f9fafb]`}
+      }  wrapper top-0 z-50 flex items-center justify-center gap-2 py-3 md:py-6 w-full text-[#f9fafb]`}
     >
       <motion.div
         initial={{ y: -20, opacity: 0 }}
@@ -59,7 +59,7 @@ const NavBar = () => {
           type: "spring",
           damping: 10,
         }}
-        className="flex w-[90%] sm:w-[70%] justify-between backdrop-blur-lg border-[1.2px] dark:border-gray-600 p-6 rounded-2xl"
+        className="flex w-[90%] sm:w-[70%] justify-between backdrop-blur-lg border-[1.2px] dark:border-gray-600 p-3 md:p-6 rounded-2xl"
       >
         <Link href={"/"} className="flex items-center gap-2 cursor-pointer">
           <Image

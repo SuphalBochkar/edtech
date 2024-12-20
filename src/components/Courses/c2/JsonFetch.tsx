@@ -8,8 +8,8 @@ import { getServerSession } from "next-auth";
 import JsonLoading from "./JsonLoading";
 import { Status } from "@/lib/types";
 import { Course } from "@/lib/data";
-// import { encodeData } from "@/lib/utils";
-// import { prisma } from "@/lib/prisma";
+import { encodeData } from "@/lib/utils";
+import { prisma } from "@/lib/prisma";
 
 interface TestPageProps {
   fetchData: () => string | null | undefined | Status;
@@ -34,25 +34,25 @@ export default async function JsonFetch({
   if (courseType) {
   }
 
-  //   const userCourses = await prisma.user.findFirst({
-  //     where: {
-  //       email: session.user.email,
-  //     },
-  //     select: {
-  //       courses: true,
-  //     },
-  //   });
+  const userCourses = await prisma.user.findFirst({
+    where: {
+      email: session.user.email,
+    },
+    select: {
+      courses: true,
+    },
+  });
 
-  //   const isAuthorized =
-  //     userCourses?.courses.includes(courseType) ||
-  //     userCourses?.courses.includes(Course.Course2Perfect) ||
-  //     false;
+  const isAuthorized =
+    userCourses?.courses.includes(courseType) ||
+    userCourses?.courses.includes(Course.Course2Perfect) ||
+    false;
 
-  //   if (!isAuthorized) {
-  //     const encodedData = encodeData(courseType);
-  //     redirect(`/pricing/${encodedData}`);
-  //     return;
-  //   }
+  if (!isAuthorized) {
+    const encodedData = encodeData(courseType);
+    redirect(`/pricing/${encodedData}`);
+    return;
+  }
 
   if (
     testId === undefined ||
@@ -80,7 +80,10 @@ export default async function JsonFetch({
   );
   const combinedData = allDataArrays?.flat();
 
-  if (!combinedData) {
+  if (
+    !combinedData ||
+    (Array.isArray(combinedData) && combinedData.length === 0)
+  ) {
     return (
       <div className="text-foreground">
         <ErrorPage text="We couldn't find the data. Please try again later." />
@@ -99,18 +102,26 @@ export default async function JsonFetch({
 }
 
 const fetchTestData = async (testId: string) => {
-  const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-  const response = await fetch(`${baseURL}/api/c-hit/getdata/${testId}`, {
-    method: "POST",
+  //   const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+  //   const response = await fetch(`${baseURL}/api/c-hit/getdata/${testId}`, {
+  //     method: "POST",
+  //   });
+
+  //   if (!response.ok) {
+  //     console.error("Error fetching data:", response.status, response.statusText);
+  //     const errorText = await response.text();
+  //     console.error("Response body:", errorText);
+  //     return [];
+  //   }
+
+  //   const serverData = await response.json();
+  //   return serverData?.data || [];
+
+  const testData = await prisma.perfectice.findFirst({
+    where: {
+      id: testId,
+    },
   });
 
-  if (!response.ok) {
-    console.error("Error fetching data:", response.status, response.statusText);
-    const errorText = await response.text();
-    console.error("Response body:", errorText);
-    return [];
-  }
-
-  const serverData = await response.json();
-  return serverData?.data || [];
+  return testData?.data || [];
 };

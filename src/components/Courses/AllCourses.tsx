@@ -19,6 +19,7 @@ export default function AllCourses() {
       subtitle: "Bullseye",
       icon: Target,
       path: "/c1",
+      isNewlyUpdated: true,
     },
     {
       id: 2,
@@ -26,6 +27,7 @@ export default function AllCourses() {
       subtitle: "Perfectice",
       icon: Zap,
       path: "/c2",
+      isNewlyUpdated: true,
     },
   ];
 
@@ -47,9 +49,15 @@ export default function AllCourses() {
           <motion.div
             key={course.id}
             variants={fadeInUp}
-            className="group cursor-pointer"
+            className="group cursor-pointer relative"
             onClick={() => router.push(course.path)}
           >
+            {course.isNewlyUpdated && (
+              <div className="absolute top-4 right-2 bg-gradient-to-r from-violet-500 to-purple-700 text-white text-xs md:text-sm font-semibold px-3 py-1 rounded-full shadow-lg animate-bounce z-10">
+                Newly Updated
+              </div>
+            )}
+
             <div className="p-6 md:p-8 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-violet-500/50 transition-all duration-300 h-full">
               <div className="flex flex-col items-center text-center space-y-4">
                 <course.icon className="w-12 h-12 text-violet-400 group-hover:text-violet-300 transition-colors duration-300" />
