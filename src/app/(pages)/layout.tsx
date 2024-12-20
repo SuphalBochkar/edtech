@@ -22,9 +22,7 @@ const lato = Lato({
 
 export default async function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <link rel="icon" href="./icon.svg" type="image/svg+xml" />
@@ -36,7 +34,6 @@ export default async function RootLayout({
         {/* <Maintenance /> */}
         <Analytics />
       </body>
-      {/* <Script src="https://checkout.razorpay.com/v1/checkout.js" /> */}
     </html>
   );
 }
