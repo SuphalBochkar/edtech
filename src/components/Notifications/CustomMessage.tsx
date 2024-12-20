@@ -7,7 +7,7 @@ export const CustomMessageC1 = () => {
         </span>{" "}
         have been updated! Check them out.
       </div>
-      <div>
+      {/* <div>
         Stay updated! Join our{" "}
         <a
           href="https://t.me/+sYgr_ndeZQIzZTll"
@@ -18,7 +18,7 @@ export const CustomMessageC1 = () => {
           Telegram channel
         </a>{" "}
         for the latest announcements and updates.
-      </div>
+      </div> */}
     </div>
   );
 };
@@ -32,7 +32,7 @@ export const CustomMessageC2 = () => {
         </span>{" "}
         have been updated! Check them out.
       </div>
-      <div>
+      {/* <div>
         Stay updated! Join our{" "}
         <a
           href="https://t.me/+sYgr_ndeZQIzZTll"
@@ -43,7 +43,7 @@ export const CustomMessageC2 = () => {
           Telegram channel
         </a>{" "}
         for the latest announcements and updates.
-      </div>
+      </div> */}
     </div>
   );
 };

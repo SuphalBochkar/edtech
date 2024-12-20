@@ -59,7 +59,7 @@ const NavBar = () => {
           type: "spring",
           damping: 10,
         }}
-        className="flex w-[90%] sm:w-[70%] justify-between backdrop-blur-lg border-[1.2px] dark:border-gray-600 p-6 rounded-2xl"
+        className="flex w-[90%] sm:w-[70%] justify-between backdrop-blur-lg border-[1.2px] dark:border-gray-600 p-3 md:p-6 rounded-2xl"
       >
         <Link href={"/"} className="flex items-center gap-2 cursor-pointer">
           <Image

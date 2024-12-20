@@ -99,7 +99,7 @@ function TestTypeComponent({
 }: {
   testName: Course;
   onClick: () => void;
-  courses: Course[] | undefined;
+  courses: string[] | undefined;
 }) {
   return (
     <motion.div
@@ -119,7 +119,7 @@ function TestTypeComponent({
         </div>
         <h3 className="text-lg font-bold mb-2">{CourseNames[testName]}</h3>
         <p className="text-sm text-gray-300 mb-3">
-          Master your skills in {CourseNames[testName]} tests
+          Access the {CourseNames[testName]} tests
         </p>
         <div className="flex items-center text-purple-500">
           <span className="text-sm font-medium mr-1">
@@ -163,7 +163,8 @@ function SampleTestType({
         </div>
         <h3 className="text-lg font-bold mb-2">{testName}</h3>
         <p className="text-sm text-gray-300 mb-3">
-          Master your skills in Sample Test
+          Try this free sample test to get a preview and an idea of our course
+          content.
         </p>
         <div className="flex items-center text-purple-500">
           <span className="text-sm font-medium mr-1">Start Now</span>
@@ -178,7 +179,7 @@ function StatusBadge({
   courses,
   testName,
 }: {
-  courses: Course[] | undefined;
+  courses: string[] | undefined;
   testName: Course;
 }) {
   if (!courses) {

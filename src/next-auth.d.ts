@@ -4,28 +4,27 @@ declare module "next-auth" {
   interface User {
     id: string;
     paid: boolean;
-    expireAt?: Date;
-    courses?: Course[];
+    expireAt: Date;
+    courses: string[];
   }
 
   interface Session {
     user: {
       id: string;
+      email: string;
       name?: string | null;
-      email?: string | null;
       image?: string | null;
-      paid?: boolean;
-      courses?: Course[];
-      expireAt?: Date;
+      paid: boolean;
+      courses: string[];
+      expireAt: Date;
     };
     expires: string;
   }
 
   interface JWT {
-    sub?: string;
     id: string;
     paid: boolean;
     expireAt: Date;
-    courses: Course[];
+    courses: string[];
   }
 }

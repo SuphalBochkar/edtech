@@ -36,14 +36,17 @@ function highlightHTML(html: string, searchQuery: string): string {
   );
 
   let node;
+  let nodeIndex = 0;
   while ((node = walker.nextNode())) {
     const parent = node.parentElement;
     const highlighted = highlightText(node.textContent || "", searchQuery);
     if (highlighted !== node.textContent) {
       const span = document.createElement("span");
+      span.setAttribute("key", `highlight-${nodeIndex}`);
       span.innerHTML = highlighted;
       parent?.replaceChild(span, node);
     }
+    nodeIndex++;
   }
 
   return doc.body.innerHTML;

@@ -7,6 +7,7 @@ import { getTypeTestId } from "@/actions/keyData";
 import { Status, TestItem } from "@/lib/types";
 import ErrorPage from "@/components/Courses/ErrorPage";
 import TestDisplay from "@/components/Courses/c2/TestDisplay";
+import { AUTH_PROVIDERS } from "@/lib/auth";
 
 export default async function Page({
   params,
@@ -17,13 +18,21 @@ export default async function Page({
     level: string;
   };
 }) {
-  const session = await getServerSession();
-  if (!session || !session.user || !session.user.email) {
+  const session = await getServerSession(AUTH_PROVIDERS);
+
+  if (!session?.user?.email) {
     redirect("/");
     return null;
   }
 
-  const userCourses = await prisma.user.findFirst({
+  const courseType = CourseIds[params?.testType];
+
+  if (!courseType) {
+    redirect("/c2");
+    return null;
+  }
+
+  const user = await prisma.user.findUnique({
     where: {
       email: session.user.email,
     },
@@ -32,11 +41,9 @@ export default async function Page({
     },
   });
 
-  const courseType = CourseIds[params?.testType];
-
   const isAuthorized =
-    userCourses?.courses.includes(courseType) ||
-    userCourses?.courses.includes(Course.Course2Perfect) ||
+    user?.courses.includes(courseType) ||
+    user?.courses.includes(Course.Course2Perfect) ||
     false;
 
   if (!isAuthorized) {
@@ -73,7 +80,6 @@ export default async function Page({
       const testData = await prisma.perfectice.findFirst({
         where: { id },
       });
-
       return testData?.data || [];
     })
   );
@@ -92,10 +98,6 @@ export default async function Page({
     session.user &&
     isAuthorized && (
       <>
-        {/* <h1 className="text-3xl font-bold mb-6">
-          {params.testType} - Level {params.level} - {params.type.toUpperCase()}{" "}
-          Test
-        </h1> */}
         {/* {combinedData.map((testItem, index) => ( */}
         <TestDisplay testItem={finalData} />
         {/* ))} */}
