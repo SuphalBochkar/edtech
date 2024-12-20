@@ -5,6 +5,7 @@ import "./globals.css";
 import Providers from "@/providers/providers";
 import { Lato } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { SessionMonitor } from "@/components/Session/SessionMonitor";
 // import Maintenance from "@/components/Maintenance";
 // import Script from "next/script";
 
@@ -28,10 +29,11 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <link rel="icon" href="./icon.svg" type="image/svg+xml" />
       <body className={`${lato.className} bg-background text-foreground`}>
-        <Providers>{children}</Providers>
-        {/* <Providers>
-          <Maintenance />
-        </Providers> */}
+        <Providers>
+          <SessionMonitor />
+          {children}
+        </Providers>
+        {/* <Maintenance /> */}
         <Analytics />
       </body>
       {/* <Script src="https://checkout.razorpay.com/v1/checkout.js" /> */}

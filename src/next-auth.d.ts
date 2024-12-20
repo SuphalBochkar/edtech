@@ -12,13 +12,12 @@ declare module "next-auth" {
     user: {
       id: string;
       email: string;
-      name?: string | null;
-      image?: string | null;
+      name: string;
+      image?: string;
       paid: boolean;
       courses: string[];
       expireAt: Date;
-    };
-    expires: string;
+    }
   }
 
   interface JWT {
