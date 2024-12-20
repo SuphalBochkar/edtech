@@ -51,8 +51,7 @@ const renderFlowStatus = (paymentFlow: FlowTypes) => {
         <div className={`${baseClasses} bg-green-50 text-green-700`}>
           <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3" />
           <span>
-            Payment successful! Please check your email for confirmation.
-            Redirecting to the test page...
+            Payment successful! Please Wait. Redirecting to the test page...
           </span>
         </div>
       );
@@ -285,7 +284,11 @@ export default function Page({
 
                   <div className="text-center text-xs md:text-sm text-gray-400 mb-4 md:mb-6">
                     <p>Secured by Razorpay 🔒</p>
-                    <p>Supports UPI, Cards & Net Banking</p>
+                    <p>
+                      Supports (PhonePe, Google Pay, Paytm & all UPI apps)
+                      <br />
+                      Cards & Net Banking
+                    </p>
                   </div>
 
                   <div className="mb-6 md:mb-8">

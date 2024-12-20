@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Check, Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Course, CourseNames, CoursePrices } from "@/lib/data";
+import { Course, CourseNames } from "@/lib/data";
 
 const Pricing = ({ courseId, id }: { courseId: Course; id: string }) => {
   const router = useRouter();
@@ -35,14 +35,14 @@ const Pricing = ({ courseId, id }: { courseId: Course; id: string }) => {
               {CourseNames[courseId]}
             </span>
           </h3>
-          <div className="mt-3 sm:mt-4 flex items-baseline justify-center gap-x-2">
+          {/* <div className="mt-3 sm:mt-4 flex items-baseline justify-center gap-x-2">
             <span className="text-3xl sm:text-5xl font-bold tracking-tight text-violet-100">
               ₹{CoursePrices[courseId]}
             </span>
             <span className="text-lg sm:text-xl text-gray-400 line-through">
               ₹59
             </span>
-          </div>
+          </div> */}
         </div>
 
         <p className="text-gray-300 mt-3 sm:mt-4 text-sm sm:text-base text-center font-medium">
@@ -66,11 +66,11 @@ const Pricing = ({ courseId, id }: { courseId: Course; id: string }) => {
                 "🚀 Start any test instantly with direct links provided - No waiting time!",
               highlight: true,
             },
-            {
-              feature:
-                "💳 Pay easily with UPI, QR code, or payment apps (PhonePe, GooglePay, PayTM)",
-              highlight: true,
-            },
+            // {
+            //   feature:
+            //     "💳 Pay easily with UPI, QR code, or payment apps (PhonePe, GooglePay, PayTM)",
+            //   highlight: true,
+            // },
             {
               feature: "🔍 Quick search with image support",
               highlight: true,
@@ -99,9 +99,9 @@ const Pricing = ({ courseId, id }: { courseId: Course; id: string }) => {
           ))}
         </ul>
 
-        <div className="mt-4 sm:mt-6 text-center text-xs sm:text-sm text-gray-400">
+        {/* <div className="mt-4 sm:mt-6 text-center text-xs sm:text-sm text-gray-400">
           Supports PhonePe, Google Pay, Paytm & all UPI apps
-        </div>
+        </div> */}
 
         <motion.a
           whileHover={{ scale: 1.03 }}
@@ -109,7 +109,7 @@ const Pricing = ({ courseId, id }: { courseId: Course; id: string }) => {
           className="bg-violet-500 text-white shadow-lg hover:bg-violet-600 focus-visible:outline-violet-500 mt-3 block rounded-full py-2.5 sm:py-3 text-center text-sm sm:text-base font-semibold transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 cursor-pointer"
           onClick={() => router.push(`/pay/${id}`)}
         >
-          Pay & Get Access Now
+          Get Access Now
         </motion.a>
       </motion.div>
     </motion.div>
