@@ -32,7 +32,7 @@ export function SessionMonitor() {
     checkSession();
 
     // Set up interval for subsequent checks
-    sessionCheckerRef.current = setInterval(checkSession, 30000);
+    sessionCheckerRef.current = setInterval(checkSession, 20000);
 
     return () => {
       if (sessionCheckerRef.current) {
