@@ -84,18 +84,20 @@ export default async function Page({
     })
   );
 
-  if (
-    !allDataArrays ||
-    !Array.isArray(allDataArrays) ||
-    allDataArrays.length === 0 ||
-    allDataArrays.some((arr) => !Array.isArray(arr) || arr.length === 0)
-  ) {
-    return (
-      <div className="text-foreground">
-        <ErrorPage text="No test data available!" />
-      </div>
-    );
-  }
+  console.log("allDataArrays", allDataArrays);
+
+  //   if (
+  //     !allDataArrays ||
+  //     !Array.isArray(allDataArrays) ||
+  //     allDataArrays.length === 0 ||
+  //     allDataArrays.some((arr) => !Array.isArray(arr) || arr.length === 0)
+  //   ) {
+  //     return (
+  //       <div className="text-foreground">
+  //         <ErrorPage text="No test data available!" />
+  //       </div>
+  //     );
+  //   }
 
   // @ts-expect-error - We are sure that the data is not empty
   const combinedData: TestItem[] = allDataArrays.flat();
