@@ -1,62 +1,40 @@
 "use client";
 
-import { Suspense } from "react";
 import { useSession } from "next-auth/react";
-import dynamic from "next/dynamic";
-import Loading from "./loading";
-// import Blobs from "@/components/Main/Blobs";
-
-import React from "react";
 import Footer from "@/components/Main/Footer";
 import PricingButton from "@/components/Pricing/PricingButton";
-
-const DynamicAllCourses = dynamic(
-  () => import("@/components/Courses/AllCourses"),
-  {
-    loading: () => <></>,
-  }
-);
-
-const DynamicWelcomeMsg = dynamic(
-  () => import("@/components/Main/WelcomeMsg"),
-  {
-    loading: () => <></>,
-  }
-);
+import WelcomeMsg from "@/components/Main/WelcomeMsg";
+import AllCourses from "@/components/Courses/AllCourses";
+import Loading from "./loading";
 
 const Page = () => {
-  const { data: session, status } = useSession();
+  const { data: session, status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      return;
+    },
+  });
 
-  if (status === "loading") {
+  if (status === "loading" || !session) {
     return <Loading />;
   }
 
   const emails = process.env.NEXT_PUBLIC_MY_EMAIL!.split("-");
+  const isAdmin = emails.includes(session.user?.email as string);
 
   return (
     <>
       <div className="flex flex-col relative overflow-hidden">
-        {/* <Blobs /> */}
-        {session?.user && (
-          <div className="flex flex-col align-middle justify-center items-center content-center">
-            <Suspense fallback={<Loading />}>
-              <DynamicWelcomeMsg
-                name={session.user.name || "User"}
-                isPaid={session.user.paid || false}
-              />
-              {session &&
-                session?.user &&
-                emails.includes(session?.user.email as string) && (
-                  <PricingButton />
-                )}
-              <DynamicAllCourses />
-            </Suspense>
-          </div>
-        )}
+        <div className="flex flex-col align-middle justify-center items-center content-center">
+          <WelcomeMsg
+            name={session.user?.name || "User"}
+            isPaid={session.user?.paid || false}
+          />
+          {isAdmin && <PricingButton />}
+          <AllCourses />
+        </div>
       </div>
-      {session &&
-        session?.user &&
-        emails.includes(session?.user.email as string) && <Footer />}
+      {isAdmin && <Footer />}
     </>
   );
 };

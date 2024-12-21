@@ -17,11 +17,11 @@ const fadeInUp = {
 };
 
 const iconMap: Partial<Record<Course, JSX.Element>> = {
-  [Course.Course2Place]: <FaCode className="w-5 h-5 sm:w-6 sm:h-6" />,
-  [Course.Course2V5]: <FaTerminal className="w-5 h-5 sm:w-6 sm:h-6" />,
-  [Course.Course2N2NCPP]: <SiCplusplus className="w-5 h-5 sm:w-6 sm:h-6" />,
-  [Course.Course2N2NJAVA]: <FaJava className="w-5 h-5 sm:w-6 sm:h-6" />,
-  [Course.Course2N2NPYTHON]: <FaPython className="w-5 h-5 sm:w-6 sm:h-6" />,
+  [Course.Course2Place]: <FaCode className="w-5 h-5" />,
+  [Course.Course2V5]: <FaTerminal className="w-5 h-5" />,
+  [Course.Course2N2NCPP]: <SiCplusplus className="w-5 h-5" />,
+  [Course.Course2N2NJAVA]: <FaJava className="w-5 h-5" />,
+  [Course.Course2N2NPYTHON]: <FaPython className="w-5 h-5" />,
 };
 
 export default function AllTests() {
@@ -33,47 +33,67 @@ export default function AllTests() {
   }
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 py-4 sm:py-8 md:py-10">
-      <motion.h1
-        className="text-lg md:text-2xl font-bold text-center"
+    <div className="w-full max-w-6xl mx-auto px-4 py-4">
+      <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.5 }}
+        className="text-center mb-8"
       >
-        Available Tests
-      </motion.h1>
+        <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-violet-200 to-violet-400 bg-clip-text text-transparent mb-2">
+          Available Tests
+        </h1>
+      </motion.div>
+
       <div className="space-y-8">
-        <div>
-          <h2 className="text-lg md:text-2xl font-bold mb-4">Sample Test</h2>
+        <section>
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 }}
+            className="flex items-center gap-2 mb-4"
+          >
+            <h2 className="text-lg font-semibold text-violet-300">
+              Sample Test
+            </h2>
+            <div className="h-px flex-1 bg-violet-500/20" />
+          </motion.div>
+
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4"
             initial="initial"
             animate="animate"
             variants={{
               animate: {
-                transition: {
-                  staggerChildren: 0.1,
-                },
+                transition: { staggerChildren: 0.1 },
               },
             }}
           >
             <SampleTestType
-              testName={"Sample Course"}
+              testName="Sample Course"
               onClick={() => router.push(`/c2/sample`)}
             />
           </motion.div>
-        </div>
-        <div className="">
-          <h2 className="text-lg md:text-2xl font-bold mb-4">All Tests</h2>
+        </section>
+
+        <section>
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+            className="flex items-center gap-2 mb-4"
+          >
+            <h2 className="text-lg font-semibold text-violet-300">All Tests</h2>
+            <div className="h-px flex-1 bg-violet-500/20" />
+          </motion.div>
+
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4"
             initial="initial"
             animate="animate"
             variants={{
               animate: {
-                transition: {
-                  staggerChildren: 0.1,
-                },
+                transition: { staggerChildren: 0.1 },
               },
             }}
           >
@@ -86,7 +106,7 @@ export default function AllTests() {
               />
             ))}
           </motion.div>
-        </div>
+        </section>
       </div>
     </div>
   );
@@ -106,27 +126,38 @@ function TestTypeComponent({
       variants={fadeInUp}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.97 }}
-      className="cursor-pointer"
       onClick={onClick}
+      className="group cursor-pointer relative overflow-hidden"
     >
-      <div className="border-2 border-gray-500 rounded-lg p-4">
-        <div className="flex items-center justify-between mb-3">
-          <div>{iconMap[testName]}</div>
+      <div className="relative p-5 rounded-xl bg-gradient-to-b from-violet-500/10 to-violet-500/5 border border-violet-500/20 backdrop-blur-sm hover:border-violet-500/30 transition-colors duration-300">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="p-2 rounded-lg bg-violet-500/20 text-violet-300">
+            {iconMap[testName]}
+          </div>
           <div className="flex gap-2">
             <StatusBadge courses={courses} testName={testName} />
             <Badge>5 Levels</Badge>
           </div>
         </div>
-        <h3 className="text-lg font-bold mb-2">{CourseNames[testName]}</h3>
-        <p className="text-sm text-gray-300 mb-3">
+
+        {/* Content */}
+        <h3 className="text-lg font-semibold text-gray-200 mb-2">
+          {CourseNames[testName]}
+        </h3>
+        <p className="text-sm text-gray-400 mb-4">
           Access the {CourseNames[testName]} tests
         </p>
-        <div className="flex items-center text-purple-500">
-          <span className="text-sm font-medium mr-1">
-            {/* Go to {CourseNames[testName]} */}
-            Go to Course
-          </span>
-          <ArrowRight className="w-4 h-4" />
+
+        {/* Footer */}
+        <div className="flex items-center text-violet-400 group-hover:text-violet-300 transition-colors duration-200">
+          <span className="text-sm font-medium mr-2">Start Course</span>
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+        </div>
+
+        {/* Shine effect */}
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-violet-500/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
         </div>
       </div>
     </motion.div>
@@ -145,30 +176,40 @@ function SampleTestType({
       variants={fadeInUp}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.97 }}
-      className="cursor-pointer"
       onClick={onClick}
+      className="group cursor-pointer relative overflow-hidden"
     >
-      <div className="border border-gray-500 rounded-lg p-4">
-        <div className="flex items-center justify-between mb-3">
-          <div>
+      <div className="relative p-5 rounded-xl bg-gradient-to-b from-violet-500/10 to-violet-500/5 border border-violet-500/20 backdrop-blur-sm hover:border-violet-500/30 transition-colors duration-300">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="p-2 rounded-lg bg-violet-500/20 text-violet-300">
             <FaCode className="w-5 h-5" />
           </div>
           <div className="flex gap-2">
             <Badge className="bg-green-500/20 text-green-300">
               <span className="inline-block w-1.5 h-1.5 rounded-full mr-1 bg-green-400" />
-              {"Free Access"}
+              Free Access
             </Badge>
             <Badge>5 Levels</Badge>
           </div>
         </div>
-        <h3 className="text-lg font-bold mb-2">{testName}</h3>
-        <p className="text-sm text-gray-300 mb-3">
+
+        {/* Content */}
+        <h3 className="text-lg font-semibold text-gray-200 mb-2">{testName}</h3>
+        <p className="text-sm text-gray-400 mb-4">
           Try this free sample test to get a preview and an idea of our course
           content.
         </p>
-        <div className="flex items-center text-purple-500">
-          <span className="text-sm font-medium mr-1">Start Now</span>
-          <ArrowRight className="w-4 h-4" />
+
+        {/* Footer */}
+        <div className="flex items-center text-violet-400 group-hover:text-violet-300 transition-colors duration-200">
+          <span className="text-sm font-medium mr-2">Start Now</span>
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+        </div>
+
+        {/* Shine effect */}
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-violet-500/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
         </div>
       </div>
     </motion.div>

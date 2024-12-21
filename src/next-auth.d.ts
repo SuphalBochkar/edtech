@@ -25,5 +25,6 @@ declare module "next-auth" {
     paid: boolean;
     expireAt: Date;
     courses: string[];
+    credentials: boolean;
   }
 }

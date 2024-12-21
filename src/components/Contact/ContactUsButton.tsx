@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Loader, Mail, MessageCircle } from "lucide-react";
+import { ExternalLink, Loader, Mail, MessageCircle } from "lucide-react";
 
 export default function ContactUsButton() {
   const [isOpen, setIsOpen] = useState(false);
@@ -125,6 +125,19 @@ export default function ContactUsButton() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
+                <p className="text-sm sm:text-base text-gray-300">
+                  You can also reach us on{" "}
+                  <a
+                    href="https://t.me/+sYgr_ndeZQIzZTll"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-violet-400 hover:text-violet-300 transition-colors duration-200 inline-flex items-center group"
+                  >
+                    Telegram
+                    <ExternalLink className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
+                  </a>
+                </p>
+
                 <textarea
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}

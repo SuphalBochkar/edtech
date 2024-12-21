@@ -1,67 +1,68 @@
 "use client";
 
 import React from "react";
-import { CalendarIcon, BookOpen, ChevronRight } from "lucide-react";
+import { CalendarIcon, BookOpen, Sparkles, LucideIcon } from "lucide-react";
 import { aeTests, levelTests } from "@/lib/data-c1";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Course } from "@/lib/data";
+import { motion } from "framer-motion";
 
 export default function AllTests() {
   const router = useRouter();
   const { data: session } = useSession();
-
   const isEnrolled = session?.user?.courses?.includes(Course.Course1Hitbulls);
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 py-4 md:py-10">
-      <div className="flex flex-row items-center justify-center gap-2 md:gap-4 rounded-lg backdrop-blur-sm mb-5">
-        <h1 className="text-xl flex items-center md:text-2xl font-bold bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent">
+    <div className="w-full max-w-7xl mx-auto px-4 py-2 md:py-10">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-center mb-3 md:mb-12"
+      >
+        <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-violet-300 to-violet-600 bg-clip-text text-transparent mb-3">
           Available Tests
         </h1>
-        <Badge
-          className={`
-            ${
-              isEnrolled
-                ? "bg-green-500/10 text-green-300 hover:bg-green-500/20"
-                : "bg-red-500/10 text-red-300 hover:bg-red-500/20"
-            }
-            transition-colors duration-200 cursor-pointer px-3 py-1.5
-          `}
-        >
-          <span
-            className={`inline-block w-1.5 h-1.5 rounded-full mr-1.5 ${
-              isEnrolled ? "bg-green-400" : "bg-red-400"
-            }`}
-          />
-          {isEnrolled ? "Enrolled" : "Enroll Now"}
-        </Badge>
-      </div>
-      <div className="space-y-8 sm:space-y-12">
+        <EnrollmentBadge isEnrolled={isEnrolled ?? false} />
+      </motion.div>
+
+      <div className="space-y-10 md:space-y-16">
         <section>
-          <h2 className="text-lg md:text-2xl font-semibold mb-4">AE Tests</h2>
+          <SectionHeader title="AE Tests" icon={BookOpen} />
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {aeTests.map((test) => (
-              <PracticeComponent
+            {aeTests.map((test, index) => (
+              <motion.div
                 key={test.id}
-                {...test}
-                onClick={() => router.push("/c1/practice/" + test.id)}
-              />
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <PracticeCard
+                  {...test}
+                  onClick={() => router.push("/c1/practice/" + test.id)}
+                />
+              </motion.div>
             ))}
           </div>
         </section>
+
         <section>
-          <h2 className="text-lg md:text-2xl font-semibold mb-4">
-            Level Tests
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {levelTests.map((obj) => (
-              <LevelComponent
+          <SectionHeader title="Level Tests" icon={Sparkles} />
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {levelTests.map((obj, index) => (
+              <motion.div
                 key={obj.level}
-                level={obj.level}
-                isNew={obj.isNew}
-                onClick={() => router.push("/c1/level/" + obj.level)}
-              />
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <LevelCard
+                  level={obj.level}
+                  isNew={obj.isNew}
+                  onClick={() => router.push("/c1/level/" + obj.level)}
+                />
+              </motion.div>
             ))}
           </div>
         </section>
@@ -70,71 +71,44 @@ export default function AllTests() {
   );
 }
 
-function Badge({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
+function EnrollmentBadge({ isEnrolled }: { isEnrolled: boolean }) {
   return (
     <span
-      className={`text-[10px] sm:text-xs font-semibold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full ${className}`}
+      className={`
+        inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
+        ${
+          isEnrolled
+            ? "bg-green-500/10 text-green-400 ring-1 ring-green-500/20"
+            : "bg-red-500/10 text-red-400 ring-1 ring-red-500/20"
+        }
+      `}
     >
-      {children}
+      <span
+        className={`w-1.5 h-1.5 rounded-full mr-2 ${
+          isEnrolled ? "bg-green-400" : "bg-red-400"
+        }`}
+      />
+      {isEnrolled ? "Enrolled" : "Enroll Now"}
     </span>
   );
 }
 
-function LevelComponent({
-  level,
-  isNew,
-  onClick,
+function SectionHeader({
+  title,
+  icon: Icon,
 }: {
-  level: number;
-  isNew: boolean;
-  onClick: () => void;
+  title: string;
+  icon: LucideIcon;
 }) {
   return (
-    <div
-      className="relative cursor-pointer border border-gray-500 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:border-gray-300 group bg-gray-900/50 backdrop-blur-sm"
-      onClick={onClick}
-    >
-      {isNew && (
-        <div className="absolute -top-3 -right-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-lg animate-pulse">
-          NEW
-        </div>
-      )}
-      <div className="p-4 sm:p-6">
-        <div className="flex items-center justify-between mb-3 sm:mb-4">
-          <div>
-            <h3 className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent tracking-tight">
-              Level {level}
-            </h3>
-            <p className="text-xs sm:text-sm text-gray-400 mt-1 sm:mt-1.5 font-medium">
-              Aptitude & Programming
-            </p>
-          </div>
-          <div className="p-2 sm:p-2.5 rounded-full border border-gray-600 group-hover:border-gray-400 transition-colors bg-gray-800/50">
-            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 group-hover:text-white transition-colors" />
-          </div>
-        </div>
-        <div className="flex flex-wrap gap-2 sm:gap-2.5">
-          {["A", "B", "C", "D", "E"].map((set) => (
-            <span
-              key={set}
-              className="px-2.5 sm:px-3.5 py-1 sm:py-1.5 text-xs font-semibold rounded-lg border border-gray-600 text-gray-300 hover:border-gray-400 hover:text-white hover:bg-gray-800/50 transition-all duration-200"
-            >
-              Set {set}
-            </span>
-          ))}
-        </div>
-      </div>
+    <div className="flex items-center gap-2 mb-4 md:mb-6">
+      <Icon className="w-5 h-5 text-violet-400" />
+      <h2 className="text-xl md:text-2xl font-bold text-gray-200">{title}</h2>
     </div>
   );
 }
 
-function PracticeComponent({
+function PracticeCard({
   name,
   type,
   date,
@@ -146,28 +120,74 @@ function PracticeComponent({
   onClick: () => void;
 }) {
   return (
-    <div
-      className="cursor-pointer border border-gray-500 rounded-lg transition-colors duration-200 hover:border-gray-200"
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      className="group cursor-pointer rounded-xl bg-gray-900/50 border border-violet-500/10 hover:border-violet-500/30 backdrop-blur-sm transition-all duration-200"
       onClick={onClick}
     >
-      <div className="p-3 sm:p-4">
-        <div className="flex items-center justify-between">
-          <div className="flex-1">
-            <h3 className="text-sm md:text-lg font-semibold mb-2">{name}</h3>
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-1 sm:space-y-0">
-              <p className="text-xs md:text-sm text-gray-500 flex items-center">
-                <BookOpen className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                {type}
-              </p>
-              <p className="text-xs md:text-sm text-gray-500 flex items-center">
-                <CalendarIcon className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                {date}
-              </p>
-            </div>
+      <div className="p-4">
+        <h3 className="text-sm md:text-base font-semibold text-gray-200 mb-2 line-clamp-2">
+          {name}
+        </h3>
+        <div className="space-y-2">
+          <div className="flex items-center text-gray-400 text-xs">
+            <BookOpen className="w-3.5 h-3.5 mr-1.5" />
+            {type}
           </div>
-          <ChevronRight className="text-gray-400 w-5 h-5 ml-2" />
+          <div className="flex items-center text-gray-400 text-xs">
+            <CalendarIcon className="w-3.5 h-3.5 mr-1.5" />
+            {date}
+          </div>
         </div>
       </div>
-    </div>
+    </motion.div>
+  );
+}
+
+function LevelCard({
+  level,
+  isNew,
+  onClick,
+}: {
+  level: number;
+  isNew: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      className="group cursor-pointer rounded-xl bg-gray-900/50 border border-violet-500/10 hover:border-violet-500/30 backdrop-blur-sm transition-all duration-200 relative"
+      onClick={onClick}
+    >
+      <div className="p-4">
+        {isNew && (
+          <div className="absolute -top-3 -right-3 bg-gradient-to-r from-violet-600 to-violet-400 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-lg">
+            NEW
+          </div>
+        )}
+        <div className="flex items-center justify-between mb-3">
+          <div>
+            <h3 className="text-lg font-bold bg-gradient-to-r from-gray-200 to-gray-400 bg-clip-text text-transparent">
+              Level {level}
+            </h3>
+            <p className="text-xs text-gray-400 mt-0.5">
+              Aptitude & Programming
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          {["A", "B", "C", "D", "E"].map((set) => (
+            <span
+              key={set}
+              className="px-1.5 py-0.5 text-xs font-medium rounded-sm bg-violet-500/5 text-violet-300 border-b border-violet-500/20"
+            >
+              {set}
+            </span>
+          ))}
+        </div>
+      </div>
+    </motion.div>
   );
 }

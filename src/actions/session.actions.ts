@@ -1,12 +1,12 @@
 "use server";
 
 import { getServerSession } from "next-auth/next";
-import { AUTH_PROVIDERS } from "../lib/auth";
+import { AUTH_OPTIONS } from "../lib/auth";
 import { prisma } from "../lib/prisma";
 
 export async function checkSessionValidity() {
   try {
-    const session = await getServerSession(AUTH_PROVIDERS);
+    const session = await getServerSession(AUTH_OPTIONS);
 
     if (!session?.user?.id) {
       return { valid: false };

@@ -7,7 +7,7 @@ import { getTypeTestId } from "@/actions/keyData";
 import { Status, TestItem } from "@/lib/types";
 import ErrorPage from "@/components/Courses/ErrorPage";
 import TestDisplay from "@/components/Courses/c2/TestDisplay";
-import { AUTH_PROVIDERS } from "@/lib/auth";
+import { AUTH_OPTIONS } from "@/lib/auth";
 
 export default async function Page({
   params,
@@ -18,7 +18,7 @@ export default async function Page({
     level: string;
   };
 }) {
-  const session = await getServerSession(AUTH_PROVIDERS);
+  const session = await getServerSession(AUTH_OPTIONS);
 
   if (!session?.user?.email) {
     redirect("/");
@@ -83,8 +83,6 @@ export default async function Page({
       return testData?.data || [];
     })
   );
-
-  console.log("allDataArrays", allDataArrays);
 
   //   if (
   //     !allDataArrays ||

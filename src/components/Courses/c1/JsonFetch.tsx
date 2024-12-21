@@ -10,7 +10,7 @@ import { DataItem, Status } from "@/lib/types";
 import { Course } from "@/lib/data";
 import { prisma } from "@/lib/prisma";
 import { encodeData } from "@/lib/utils";
-import { AUTH_PROVIDERS } from "@/lib/auth";
+import { AUTH_OPTIONS } from "@/lib/auth";
 
 interface DataArraysType {
   data: DataItem[];
@@ -26,7 +26,7 @@ export default async function JsonFetch({
   courseType,
 }: TestPageProps) {
   const testId = fetchData();
-  const session = await getServerSession(AUTH_PROVIDERS);
+  const session = await getServerSession(AUTH_OPTIONS);
 
   if (!session?.user?.email) {
     redirect("/");
@@ -88,8 +88,6 @@ export default async function JsonFetch({
   );
 
   const mainData = allDataArrays.flatMap((test) => test?.data || []);
-
-  console.log(mainData);
 
   return (
     session &&

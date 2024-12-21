@@ -25,45 +25,32 @@ const WhyPricing = () => {
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 bg-gradient-to-r from-violet-300 to-violet-800 bg-clip-text text-transparent">
           Why Are We Charging?
         </h2>
-        <div className="space-y-4">
-          {[
-            {
-              title: "Quality Education for All",
-              content:
-                "Our primary goal has always been to provide the best free resources to all. However, due to our high user base, we've had to introduce a small fee to maintain and cover our costs.",
-              icon: "💫",
-            },
-            {
-              title: "Affordable Investment",
-              content:
-                "We've worked hard to keep costs as low as possible. For less than the price of a drink or a quick snack, you get access to our comprehensive Courses.",
-              icon: "🎯",
-            },
-            {
-              title: "Flexible Options",
-              content:
-                "If you're unable to pay or would like to request a reduced fee, we're here to help find a solution that works for you.",
-              icon: "🤝",
-            },
-          ].map((item, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1 + index * 0.1 }}
-              className="flex gap-4 p-4 rounded-xl hover:bg-violet-900/10 transition-colors duration-200"
+        <div className="space-y-6">
+          <p className="leading-relaxed text-gray-300">
+            Our primary goal has always been to provide the best free resources
+            to all. However, due to our high user base, we{"'"}ve had to
+            introduce a small fee to maintain and cover our costs.
+          </p>
+          <p className="leading-relaxed text-gray-300">
+            We{"'"}ve worked hard to keep costs as low as possible. For less
+            than the price of a drink or a quick snack, you get access to our
+            comprehensive Courses.
+          </p>
+          <p className="leading-relaxed text-gray-300">
+            If you{"'"}re unable to pay or would like to request a reduced fee,
+            please don{"'"}t hesitate to reach out to us on{" "}
+            <a
+              href="https://t.me/+sYgr_ndeZQIzZTll"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-violet-400 hover:text-violet-300 transition-colors duration-200 inline-flex items-center group"
             >
-              <span className="text-2xl">{item.icon}</span>
-              <div>
-                <h4 className="text-violet-300 font-semibold mb-2">
-                  {item.title}
-                </h4>
-                <p className="text-sm sm:text-base leading-relaxed text-gray-300">
-                  {item.content}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+              Telegram
+              <ExternalLink className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
+            </a>
+            . We{"'"}ll work with you to find a way to provide access, including
+            free options where possible.
+          </p>
         </div>
 
         <motion.div
@@ -78,7 +65,7 @@ const WhyPricing = () => {
           </h3>
           <p className="text-sm text-gray-300 mb-3">
             Contact us on Telegram for support or to discuss flexible payment
-            options:
+            options.
           </p>
           <a
             href="https://t.me/+sYgr_ndeZQIzZTll"

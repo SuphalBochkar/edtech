@@ -4,7 +4,7 @@ import { useSession, signOut } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { SessionExpiredModal } from "./SessionExpiredModal";
-import { checkSessionValidity } from "@/actions/sessionActions";
+import { checkSessionValidity } from "@/actions/session.actions";
 
 export function SessionMonitor() {
   const { data: session, status } = useSession();
@@ -32,7 +32,7 @@ export function SessionMonitor() {
     checkSession();
 
     // Set up interval for subsequent checks
-    sessionCheckerRef.current = setInterval(checkSession, 20000);
+    sessionCheckerRef.current = setInterval(checkSession, 15000);
 
     return () => {
       if (sessionCheckerRef.current) {
