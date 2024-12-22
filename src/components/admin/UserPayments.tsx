@@ -43,6 +43,7 @@ type Payment = {
   razorpay_signature: string | null;
   razorpay_order_id: string;
   course: string;
+  amount: number;
   status: "PENDING" | "SUCCESS" | "FAILED";
   createdAt: string | null;
   user: {
@@ -51,7 +52,7 @@ type Payment = {
   };
 };
 
-type SortField = "status" | "createdAt" | "user" | "course";
+type SortField = "status" | "createdAt" | "user" | "course" | "amount";
 type FilterStatus = "ALL" | "PENDING" | "SUCCESS" | "FAILED";
 
 const formatDate = (date: string | null) => {
@@ -143,6 +144,8 @@ export default function UserPayments() {
           return modifier * a.status.localeCompare(b.status);
         case "course":
           return modifier * a.course.localeCompare(b.course);
+        case "amount":
+          return modifier * (a.amount - b.amount);
         case "createdAt":
           return (
             modifier * (a.createdAt || "").localeCompare(b.createdAt || "")
@@ -253,6 +256,20 @@ export default function UserPayments() {
                 <TableHead
                   className="cursor-pointer"
                   onClick={() => {
+                    setSortField("amount");
+                    setSortOrder(
+                      sortField === "amount" && sortOrder === "asc"
+                        ? "desc"
+                        : "asc"
+                    );
+                  }}
+                >
+                  Cost{" "}
+                  {sortField === "amount" && (sortOrder === "asc" ? "↑" : "↓")}
+                </TableHead>
+                <TableHead
+                  className="cursor-pointer"
+                  onClick={() => {
                     setSortField("status");
                     setSortOrder(
                       sortField === "status" && sortOrder === "asc"
@@ -303,8 +320,13 @@ export default function UserPayments() {
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
-                      <IndianRupee className="h-4 w-4" />
                       <span>{CourseNames[payment.course as Course]}</span>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center gap-1">
+                      <IndianRupee className="h-4 w-4" />
+                      <span>{payment.amount.toLocaleString("en-IN")}</span>
                     </div>
                   </TableCell>
                   <TableCell>

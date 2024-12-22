@@ -16,6 +16,7 @@ type UserResponse = {
       status: string;
       razorpay_payment_id: string | null;
       createdAt: string | null;
+      amount: number;
     }[];
     queries: {
       id: string;
@@ -54,6 +55,7 @@ export async function getUserDetails(search: string): Promise<UserResponse> {
             status: true,
             razorpay_payment_id: true,
             createdAt: true,
+            amount: true,
           },
           orderBy: {
             createdAt: "desc",
@@ -217,11 +219,11 @@ export async function getActiveSessions(): Promise<SessionsResponse> {
         },
       },
       orderBy: {
-        createdAt: 'desc',
+        createdAt: "desc",
       },
     });
 
-    const formattedSessions = sessions.map(session => ({
+    const formattedSessions = sessions.map((session) => ({
       ...session,
       expires: session.expires.toISOString(),
       createdAt: session.createdAt.toISOString(),
@@ -241,7 +243,8 @@ type PaymentWithUser = {
   razorpay_signature: string | null;
   razorpay_order_id: string;
   course: string;
-  status: 'PENDING' | 'SUCCESS' | 'FAILED';
+  amount: number;
+  status: "PENDING" | "SUCCESS" | "FAILED";
   createdAt: string | null;
   user: {
     name: string | null;
@@ -263,11 +266,11 @@ export async function getPayments(): Promise<PaymentsResponse> {
         },
       },
       orderBy: {
-        createdAt: 'desc',
+        createdAt: "desc",
       },
     });
 
-    const formattedPayments = payments.map(payment => ({
+    const formattedPayments = payments.map((payment) => ({
       ...payment,
       createdAt: payment.createdAt?.toISOString() || null,
     }));

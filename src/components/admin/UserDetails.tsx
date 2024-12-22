@@ -19,6 +19,7 @@ type Payment = {
   status: string;
   razorpay_payment_id?: string | null;
   createdAt: string | null;
+  amount: number;
 };
 
 type Query = {
@@ -188,6 +189,7 @@ function PaymentHistory({ payments }: { payments: Payment[] }) {
               <tr>
                 <th className="p-2 text-left">Course</th>
                 <th className="p-2 text-left">Status</th>
+                <th className="p-2 text-left">Amount</th>
                 <th className="p-2 text-left">Payment ID</th>
                 <th className="p-2 text-left">Created At</th>
               </tr>
@@ -205,6 +207,7 @@ function PaymentHistory({ payments }: { payments: Payment[] }) {
                       {payment.status}
                     </span>
                   </td>
+                  <td className="p-2">₹ {payment.amount || 0}</td>
                   <td className="p-2 font-mono text-xs">
                     {payment.razorpay_payment_id || "N/A"}
                   </td>

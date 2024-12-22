@@ -80,6 +80,7 @@ export async function POST(req: NextRequest) {
     const payment = await prisma.payment.create({
       data: {
         userId: data.userId,
+        amount: CoursePrices[courseId] as number,
         course: courseId,
         razorpay_order_id: order.id,
         status: "PENDING",

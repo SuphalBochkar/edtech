@@ -54,6 +54,7 @@ model Payment {
     razorpay_signature  String?
     razorpay_order_id   String
     course              Course
+    amount              Int
     status              PaymentStatus @default(PENDING)
     userId              String        @map("user_id") @db.ObjectId
     user                User          @relation("UserPayments", fields: [userId], references: [id])
