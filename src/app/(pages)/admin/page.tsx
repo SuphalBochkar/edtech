@@ -7,10 +7,14 @@ import { Card, CardDescription, CardHeader, CardTitle } from "@/ui/shad/card";
 import { Button } from "@/ui/shad/button";
 import { useSession } from "next-auth/react";
 import DashboardSkeleton from "@/components/admin/DashboardSkeleton";
+import UserSessions from "@/components/admin/UserSessions";
+import UserPayments from "@/components/admin/UserPayments";
 
 export default function AdminDashboard() {
   const { data: session, status: authStatus } = useSession();
-  const [activeTab, setActiveTab] = useState<"details" | "queries">("details");
+  const [activeTab, setActiveTab] = useState<
+    "details" | "queries" | "sessions" | "payments"
+  >("details");
 
   const adminEmails = useMemo(() => {
     return process.env.NEXT_PUBLIC_ADMIN_EMAIL?.split("-") || [];
@@ -48,19 +52,34 @@ export default function AdminDashboard() {
 
       <div className="mb-4 flex space-x-2">
         <Button
-          variant={activeTab === "queries" ? "default" : "outline"}
+          variant={activeTab === "details" ? "outline" : "default"}
           onClick={() => setActiveTab("details")}
         >
           User Details
         </Button>
         <Button
-          variant={activeTab === "details" ? "default" : "outline"}
+          variant={activeTab === "queries" ? "outline" : "default"}
           onClick={() => setActiveTab("queries")}
         >
           User Queries
         </Button>
+        <Button
+          variant={activeTab === "payments" ? "outline" : "default"}
+          onClick={() => setActiveTab("payments")}
+        >
+          Payments
+        </Button>
+        <Button
+          variant={activeTab === "sessions" ? "outline" : "default"}
+          onClick={() => setActiveTab("sessions")}
+        >
+          User Sessions
+        </Button>
       </div>
-      {activeTab === "details" ? <UserDetails /> : <UserQueries />}
+      {activeTab === "details" && <UserDetails />}
+      {activeTab === "queries" && <UserQueries />}
+      {activeTab === "sessions" && <UserSessions />}
+      {activeTab === "payments" && <UserPayments />}
     </div>
   );
 }

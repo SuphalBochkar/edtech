@@ -41,11 +41,12 @@ import {
   DropdownMenuTrigger,
 } from "@/ui/shad/dropdown";
 import QueriesSkeleton from "./QueriesSkeleton";
+import { getQueries, updateQueryStatus } from "@/actions/admin.actions";
 
 // Types
 type Query = {
   id: string;
-  user?: { name: string; email: string };
+  user?: { name: string | null; email: string } | null;
   message: string;
   status: "PENDING" | "RESOLVED" | "ERROR";
   createdAt: string;
@@ -93,17 +94,19 @@ export default function UserQueries() {
     setError(null);
     setLoading(true);
     try {
-      const response = await fetch("/api/admin/queries");
-      const data = await response.json();
-      if (!response.ok)
-        throw new Error(data.message || "Failed to fetch queries");
+      const result = await getQueries();
+      if (result.error) {
+        throw new Error(result.error);
+      }
 
-      setQueries(
-        data.queries.map((q: Query) => ({
-          ...q,
-          createdAt: new Date(q.createdAt).toISOString(),
-        }))
-      );
+      if (result.queries) {
+        setQueries(
+          result.queries.map((q) => ({
+            ...q,
+            status: q.status as Query["status"],
+          }))
+        );
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
       console.error("Error fetching queries:", err);
@@ -118,20 +121,14 @@ export default function UserQueries() {
     setRefreshing(false);
   };
 
-  const updateStatus = async (id: string, status: Query["status"]) => {
+  const handleUpdateStatus = async (id: string, status: Query["status"]) => {
     setError(null);
     try {
-      const response = await fetch("/api/admin/queries", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, status }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to update query status");
+      const result = await updateQueryStatus(id, status);
+      if (result.error) {
+        throw new Error(result.error);
       }
-
-      await fetchQueries();
+      await fetchQueries(); // Refresh the queries list
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to update status");
       console.error("Error updating query:", err);
@@ -363,7 +360,10 @@ export default function UserQueries() {
                         <Select
                           value={query.status}
                           onValueChange={(value) =>
-                            updateStatus(query.id, value as Query["status"])
+                            handleUpdateStatus(
+                              query.id,
+                              value as Query["status"]
+                            )
                           }
                         >
                           <SelectTrigger className="w-[130px]">
