@@ -21,7 +21,7 @@ export default function AllTests() {
         transition={{ duration: 0.5 }}
         className="text-center mb-3 md:mb-12"
       >
-        <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-violet-300 to-violet-600 bg-clip-text text-transparent mb-3">
+        <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-violet-200 to-violet-400 bg-clip-text text-transparent">
           Available Tests
         </h1>
         <EnrollmentBadge isEnrolled={isEnrolled ?? false} />

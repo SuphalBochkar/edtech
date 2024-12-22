@@ -6,6 +6,7 @@ import PricingButton from "@/components/Pricing/PricingButton";
 import WelcomeMsg from "@/components/Main/WelcomeMsg";
 import AllCourses from "@/components/Courses/AllCourses";
 import Loading from "./loading";
+import MadeBy from "@/components/Main/MadeBy";
 
 const Page = () => {
   const { data: session, status } = useSession({
@@ -32,6 +33,9 @@ const Page = () => {
           />
           {isAdmin && <PricingButton />}
           <AllCourses />
+          <div className="mt-8 mb-4">
+            <MadeBy />
+          </div>
         </div>
       </div>
       {isAdmin && <Footer />}
