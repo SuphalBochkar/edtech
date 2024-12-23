@@ -2,73 +2,106 @@
 
 import React, { useState } from "react";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
-import {
-  atomOneDark,
-  atomOneLight,
-} from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { Copy, Check } from "lucide-react";
-import { Button } from "@/ui/shad/button";
+import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { Copy, Check, Code2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const DisplayCode = ({ code }: { code: string }) => {
-  //   const [isDarkTheme, setIsDarkTheme] = useState(true);
   const [isCopied, setIsCopied] = useState(false);
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(code);
-    setIsCopied(true);
-    setTimeout(() => setIsCopied(false), 2000);
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
   };
 
-  const isDarkTheme = true;
+  // Enhanced syntax highlighting theme
+  const customStyle = {
+    ...atomOneDark,
+    hljs: {
+      ...atomOneDark.hljs,
+      background: "transparent",
+    },
+  };
 
   return (
-    <div className="w-full border-t-2">
-      <div className="relative">
-        <SyntaxHighlighter
-          language="cpp"
-          style={isDarkTheme ? atomOneDark : atomOneLight}
-          //   showLineNumbers
-          customStyle={{
-            margin: 0,
-            borderRadius: "0.2rem",
-            fontSize: "0.875rem",
-            backgroundColor: isDarkTheme ? "black" : "white",
-            fontFamily: "JetBrains Mono, monospace",
-            color: isDarkTheme ? "white" : "black",
-          }}
-        >
-          {"\n" + code}
-        </SyntaxHighlighter>
-        <Button
-          size="sm"
-          variant="secondary"
-          className="absolute top-0 right-0 bg-primary/10 hover:bg-primary/20 text-primary"
+    <motion.div
+      initial={{ opacity: 0, y: 5 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="relative group rounded-xl overflow-hidden border border-violet-500/20 bg-violet-950/20 backdrop-blur-xl"
+    >
+      {/* Header */}
+      <div className="flex items-center justify-between px-4 py-2 border-b border-violet-500/20 bg-violet-500/5">
+        <div className="flex items-center gap-2">
+          <Code2 className="w-4 h-4 text-violet-400" />
+          <span className="text-sm font-medium text-violet-300">
+            Solution Code
+          </span>
+        </div>
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           onClick={copyToClipboard}
+          className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-lg
+            bg-violet-500/10 hover:bg-violet-500/20
+            border border-violet-500/20 hover:border-violet-500/30
+            text-violet-300 transition-all duration-200"
         >
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={isCopied ? "check" : "copy"}
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.15 }}
-              className="text-foreground flex items-center !text-sm"
+              className="flex items-center gap-1.5"
             >
               {isCopied ? (
                 <>
-                  Copied &nbsp; <Check className="h-4 w-4" />
+                  <Check className="w-3.5 h-3.5" />
+                  <span>Copied!</span>
                 </>
               ) : (
                 <>
-                  Copy Code &nbsp;
-                  <Copy className="h-4 w-4" />
+                  <Copy className="w-3.5 h-3.5" />
+                  <span>Copy Code</span>
                 </>
               )}
             </motion.div>
           </AnimatePresence>
-        </Button>
+        </motion.button>
       </div>
-    </div>
+
+      {/* Code Content */}
+      <div className="relative group">
+        <div className="overflow-x-auto">
+          <SyntaxHighlighter
+            language="cpp"
+            style={customStyle}
+            customStyle={{
+              margin: 0,
+              padding: "1rem",
+              background: "transparent",
+              fontSize: "0.875rem",
+              fontFamily: "JetBrains Mono, monospace",
+            }}
+            showLineNumbers
+            lineNumberStyle={{
+              minWidth: "2.5em",
+              paddingRight: "1em",
+              color: "rgb(139, 92, 246, 0.3)",
+              textAlign: "right",
+              userSelect: "none",
+            }}
+          >
+            {code.trim()}
+          </SyntaxHighlighter>
+        </div>
+      </div>
+    </motion.div>
   );
 };

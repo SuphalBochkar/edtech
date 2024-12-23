@@ -37,6 +37,63 @@
   text-indent: 0 !important;
   font-size: 12px !important;
   text-wrap: pretty;
+  text-align: left !important;
+  line-height: 1.6 !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+  text-decoration: none !important;
+  font-weight: normal !important;
+  width: auto !important;
+  height: auto !important;
+  display: block !important;
+  position: relative !important;
+  transform: none !important;
+}
+
+.question-block pre,
+.question-block code {
+  font-family: "JetBrains Mono", monospace !important;
+  background: var(--question) !important;
+  padding: 0.5rem !important;
+  border-radius: 0.5rem !important;
+  margin: 0.5rem 0 !important;
+  font-size: 12px !important;
+  line-height: 1.5 !important;
+  overflow-x: auto !important;
+}
+
+.question-block table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin: 0.5rem 0 !important;
+}
+
+.question-block td,
+.question-block th {
+  border: 1px solid rgb(139 92 246 / 0.2) !important;
+  padding: 0.5rem !important;
+  font-size: 12px !important;
+  color: var(--foreground) !important;
+}
+
+.question-block ul,
+.question-block ol {
+  padding-left: 1.5rem !important;
+  margin: 0.5rem 0 !important;
+}
+
+.question-block li {
+  color: var(--foreground) !important;
+  font-size: 12px !important;
+  margin: 0.25rem 0 !important;
+}
+
+.question-block img {
+  max-width: 100% !important;
+  height: auto !important;
+  margin: 0.5rem 0 !important;
+  border-radius: 0.5rem !important;
 }
 
 @media (min-width: 600px) {
@@ -44,8 +101,13 @@
   .question-block h4,
   .question-block p,
   .question-block span,
-  .question-block div {
-    font-size: medium !important;
+  .question-block div,
+  .question-block pre,
+  .question-block code,
+  .question-block td,
+  .question-block th,
+  .question-block li {
+    font-size: 14px !important;
   }
 }
 
@@ -54,8 +116,13 @@
   .question-block h4,
   .question-block p,
   .question-block span,
-  .question-block div {
-    font-size: medium !important;
+  .question-block div,
+  .question-block pre,
+  .question-block code,
+  .question-block td,
+  .question-block th,
+  .question-block li {
+    font-size: 16px !important;
   }
 }
 

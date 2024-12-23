@@ -6,7 +6,7 @@ export const testTypes: Array<{ name: Course; path: string }> = [
   { name: Course.Course2N2NJAVA, path: "/n2njava" },
   { name: Course.Course2N2NPYTHON, path: "/n2npython" },
   { name: Course.Course2Place, path: "/place" },
-  //   { name: Course.Course2V5, path: "/v5" },
+  { name: Course.Course2V5, path: "/v5" },
 ];
 
 export const testTypeData: Partial<TestTypeData> = {
@@ -58,7 +58,7 @@ export const testTypeData: Partial<TestTypeData> = {
     //   "5": "7c5b3a8e6d1f4e2a93b6f0d7",
     // },
     mcq: {
-      "1": Status.Updating,
+      "1": "9f1c6d7a5e7344b3a7289b52-6d3f5b72e9c452f0b18a3c5d-4c7e2b81d9a6345f7e3c1b0e-3b8f5a9d2e63720c9d74182f-7c5b3a8e6d1f4e2a93b6f0d7",
       "2": Status.Updating,
       "3": Status.Updating,
       "4": Status.Updating,
@@ -71,6 +71,63 @@ export const sampleTestData: TestItem = {
   Level: 1,
   testType: "Sample Test of Courses",
   levelData: [
+    // CODE Java
+    {
+      testNumber: 2,
+      testId: "5c175923d105b8cc8f678390",
+      testTitle: "Coding JAVA Practice: Conditions (Medium)",
+      attemptData: [
+        {
+          questionType: "code",
+          questionId: "5bd73f4c1206374806e9d82b",
+          question:
+            "<p>Write a program to check if an entered number is a power of 2 or not and print 'Yes' , if entered number is power of 2 otherwise print 'No'.</p>\n",
+          correctCode:
+            'import java.util.*;\nclass FindPowerofTwo\n{ \n  static boolean checkPowerofTwo(int num) \n  { \n    return (int)(Math.ceil((Math.log(num) / Math.log(2)))) == \n      (int)(Math.floor(((Math.log(num) / Math.log(2))))); \n  } \n  public static void main(String[] args) \n  { \n    Scanner sc= new Scanner(System.in);\n    int num=sc.nextInt();\n    if(checkPowerofTwo(num)) \n      System.out.println("Yes"); \n    else\n      System.out.println("No"); \t\n  } \n}\n',
+        },
+        {
+          questionType: "code",
+          questionId: "5bd7408312063776b8e9d83d",
+          question:
+            "<p>Write a program to count and print the number of set bits in entered number where set of bits are the count of 1's in binary representation of an entered integer?</p>\n<p>For example, input number is 10(=1010 in binary)  and 1010 has two count of 1 so output is 2.</p>\n",
+          correctCode:
+            "import java.io.*; \nimport java.util.*;\nclass SetBits { \t\n\tpublic static int countSetBits(int num) { \t\t\n\t\tif (num == 0) \n\t\t\treturn 0; \t\n\t\telse\t\n\t\t\treturn (num & 1) + countSetBits(num >> 1); \n\t} \t\n\tpublic static void main(String[] args) { \t\t\n\t    Scanner sc= new Scanner(System.in);\n        int num=sc.nextInt();\t\n\t\tSystem.out.println(countSetBits(num)); \n\t} \n}\n",
+        },
+        {
+          questionType: "code",
+          questionId: "5bafb30b52f89bbf3b70ec41",
+          question:
+            '<p>Write a program to check whether a number N is good number or not. If the number is a good number, print "Yes",  otherwise print "No".</p>\n<p>If the binary representation of a number does not contain any consecutive 1s, then it is called good number. For example: Decimal number 17 is 10001 in binary, so it is a good number.</p>\n',
+          correctCode:
+            'import java.util.*;\n\nclass GoodNum \n{\t\n  static boolean checkgoodnumber(int num) \n  {\n    int prev_last = 0;\t\t\n    while (num != 0) \n    {\t\t\n      if ((num & 1) != 0 && prev_last != 0)\t\t\t\n        return false;\t\t\n      prev_last = num & 1;\t\t\n      num >>= 1;\n    }\t\n    return true;\n  }\n  public static void main(String[] args)\n  {\n    Scanner scanner = new Scanner(System.in);\n    int num=scanner.nextInt();\n    if (checkgoodnumber(num) == true)\n      System.out.println("Yes");\n    else\n      System.out.println("No");\n  }\n}',
+        },
+        {
+          questionType: "code",
+          questionId: "5bafcde552f89b7cb670eca8",
+          question:
+            "<p>Write a  program to find and print the power of an entered number other than 0.</p>\n",
+          correctCode:
+            "import java.io.*;\nimport java.util.*;\nclass powerofnum {\n  static int pow(int base, int expo)\n\t{\n    if(expo == 0)\n        return 1;\n    else if(expo > 0)\n        return base * pow(base, expo - 1);\n    else\n        return 1 / pow(base, -expo);\n\t}\n    public static void main(String[] args){\n    int base,expo,power;\n    Scanner in = new Scanner(System.in);\n    base = in.nextInt();\n    expo = in.nextInt();\n    power = pow(base, expo); \n    System.out.println(power);\n    }\n}\n      ",
+        },
+        {
+          questionType: "code",
+          questionId: "5bafcfde52f89bab1970ecce",
+          question:
+            '<p>Write a program to check entered number is odd or even and print "Odd" if the number is odd and "Even" if the number is even.</p>\n',
+          correctCode:
+            'import java.util.*;\nclass CheckEvenOddNum \n{\n    public static void main(String args[]) \n    {\n       Scanner sc = new Scanner(System.in);\n       int num;\n       num = sc.nextInt();\n       if(num % 2 == 0)\n            System.out.println("Even");\n       else\n            System.out.println("Odd");\n\n    }\n}',
+        },
+        {
+          questionType: "code",
+          questionId: "5bafcfde52f89b889970ecd3",
+          question:
+            '<p><span style="font-size:11pt"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif">Write a program to find and print the largest number among entered three unique numbers?</span></span></span></p>\n',
+          correctCode:
+            "import java.util.*;\nclass Largestnum {\n    public static void main(String args[]) {\n       Scanner sc = new Scanner(System.in);\n       int n1,n2,n3;\n       n1 = sc.nextInt();\n       n2 = sc.nextInt();\n       n3 = sc.nextInt();\n       int m = Math.max(n1,n2);\n       int res = Math.max(m,n3);\n       System.out.println(res);\n    }\n}",
+        },
+      ],
+    },
+
     // CODE C++
     {
       testNumber: 3,
@@ -598,63 +655,6 @@ export const sampleTestData: TestItem = {
               option: "<p>compile time error</p>",
             },
           ],
-        },
-      ],
-    },
-
-    // CODE Java
-    {
-      testNumber: 2,
-      testId: "5c175923d105b8cc8f678390",
-      testTitle: "Coding JAVA Practice: Conditions (Medium)",
-      attemptData: [
-        {
-          questionType: "code",
-          questionId: "5bd73f4c1206374806e9d82b",
-          question:
-            "<p>Write a program to check if an entered number is a power of 2 or not and print 'Yes' , if entered number is power of 2 otherwise print 'No'.</p>\n",
-          correctCode:
-            'import java.util.*;\nclass FindPowerofTwo\n{ \n  static boolean checkPowerofTwo(int num) \n  { \n    return (int)(Math.ceil((Math.log(num) / Math.log(2)))) == \n      (int)(Math.floor(((Math.log(num) / Math.log(2))))); \n  } \n  public static void main(String[] args) \n  { \n    Scanner sc= new Scanner(System.in);\n    int num=sc.nextInt();\n    if(checkPowerofTwo(num)) \n      System.out.println("Yes"); \n    else\n      System.out.println("No"); \t\n  } \n}\n',
-        },
-        {
-          questionType: "code",
-          questionId: "5bd7408312063776b8e9d83d",
-          question:
-            "<p>Write a program to count and print the number of set bits in entered number where set of bits are the count of 1's in binary representation of an entered integer?</p>\n<p>For example, input number is 10(=1010 in binary)  and 1010 has two count of 1 so output is 2.</p>\n",
-          correctCode:
-            "import java.io.*; \nimport java.util.*;\nclass SetBits { \t\n\tpublic static int countSetBits(int num) { \t\t\n\t\tif (num == 0) \n\t\t\treturn 0; \t\n\t\telse\t\n\t\t\treturn (num & 1) + countSetBits(num >> 1); \n\t} \t\n\tpublic static void main(String[] args) { \t\t\n\t    Scanner sc= new Scanner(System.in);\n        int num=sc.nextInt();\t\n\t\tSystem.out.println(countSetBits(num)); \n\t} \n}\n",
-        },
-        {
-          questionType: "code",
-          questionId: "5bafb30b52f89bbf3b70ec41",
-          question:
-            '<p>Write a program to check whether a number N is good number or not. If the number is a good number, print "Yes",  otherwise print "No".</p>\n<p>If the binary representation of a number does not contain any consecutive 1s, then it is called good number. For example: Decimal number 17 is 10001 in binary, so it is a good number.</p>\n',
-          correctCode:
-            'import java.util.*;\n\nclass GoodNum \n{\t\n  static boolean checkgoodnumber(int num) \n  {\n    int prev_last = 0;\t\t\n    while (num != 0) \n    {\t\t\n      if ((num & 1) != 0 && prev_last != 0)\t\t\t\n        return false;\t\t\n      prev_last = num & 1;\t\t\n      num >>= 1;\n    }\t\n    return true;\n  }\n  public static void main(String[] args)\n  {\n    Scanner scanner = new Scanner(System.in);\n    int num=scanner.nextInt();\n    if (checkgoodnumber(num) == true)\n      System.out.println("Yes");\n    else\n      System.out.println("No");\n  }\n}',
-        },
-        {
-          questionType: "code",
-          questionId: "5bafcde552f89b7cb670eca8",
-          question:
-            "<p>Write a  program to find and print the power of an entered number other than 0.</p>\n",
-          correctCode:
-            "import java.io.*;\nimport java.util.*;\nclass powerofnum {\n  static int pow(int base, int expo)\n\t{\n    if(expo == 0)\n        return 1;\n    else if(expo > 0)\n        return base * pow(base, expo - 1);\n    else\n        return 1 / pow(base, -expo);\n\t}\n    public static void main(String[] args){\n    int base,expo,power;\n    Scanner in = new Scanner(System.in);\n    base = in.nextInt();\n    expo = in.nextInt();\n    power = pow(base, expo); \n    System.out.println(power);\n    }\n}\n      ",
-        },
-        {
-          questionType: "code",
-          questionId: "5bafcfde52f89bab1970ecce",
-          question:
-            '<p>Write a program to check entered number is odd or even and print "Odd" if the number is odd and "Even" if the number is even.</p>\n',
-          correctCode:
-            'import java.util.*;\nclass CheckEvenOddNum \n{\n    public static void main(String args[]) \n    {\n       Scanner sc = new Scanner(System.in);\n       int num;\n       num = sc.nextInt();\n       if(num % 2 == 0)\n            System.out.println("Even");\n       else\n            System.out.println("Odd");\n\n    }\n}',
-        },
-        {
-          questionType: "code",
-          questionId: "5bafcfde52f89b889970ecd3",
-          question:
-            '<p><span style="font-size:11pt"><span style="line-height:107%"><span style="font-family:Calibri,sans-serif">Write a program to find and print the largest number among entered three unique numbers?</span></span></span></p>\n',
-          correctCode:
-            "import java.util.*;\nclass Largestnum {\n    public static void main(String args[]) {\n       Scanner sc = new Scanner(System.in);\n       int n1,n2,n3;\n       n1 = sc.nextInt();\n       n2 = sc.nextInt();\n       n3 = sc.nextInt();\n       int m = Math.max(n1,n2);\n       int res = Math.max(m,n3);\n       System.out.println(res);\n    }\n}",
         },
       ],
     },
