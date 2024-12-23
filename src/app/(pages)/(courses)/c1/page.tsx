@@ -2,9 +2,10 @@
 
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-import { NotifyC1 } from "@/components/Notifications/Notify";
+import { NotifyBase } from "@/components/Notifications/Notify";
 import AllTests from "@/components/Courses/c1/AllTests";
 import Loading from "./loading";
+import { CustomMessageC1 } from "@/components/Notifications/CustomMessage";
 
 const Page = () => {
   const { data: session, status } = useSession({
@@ -34,7 +35,7 @@ const Page = () => {
           </div>
         )}
       </div>
-      <NotifyC1 />
+      <NotifyBase CustomMessage={CustomMessageC1} />
     </>
   );
 };

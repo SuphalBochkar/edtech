@@ -82,14 +82,14 @@ const AllCourses = () => {
                       ease: "easeInOut",
                     },
                   }}
-                  className="absolute top-3 right-3 flex items-center gap-2 bg-gradient-to-r from-violet-500 via-purple-600 to-violet-500 px-3 py-1 rounded-full shadow-lg border border-violet-400/30"
+                  className="absolute top-3 right-3 flex items-center gap-2 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full shadow-lg border border-violet-500/40"
                 >
-                  <Sparkles className="w-3 h-3 text-white animate-pulse" />
-                  <span className="text-[10px] font-medium text-white">
+                  <Sparkles className="w-3 h-3 text-violet-300 animate-pulse" />
+                  <span className="text-[10px] font-medium bg-gradient-to-r from-violet-200 to-violet-400 bg-clip-text text-transparent">
                     <span className="hidden md:inline">Newly </span>
                     Updated
                   </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shine" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-violet-500/20 to-transparent animate-shine rounded-full" />
                 </motion.div>
               )}
 

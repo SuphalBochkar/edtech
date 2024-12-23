@@ -5,7 +5,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { LogOut, Loader2, Sparkles, Crown } from "lucide-react";
+import { LogOut, Loader2 } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 import ThemeSwitch from "./ThemeSwitch";
 import defaultImage from "@/assets/default-avatar.png";
@@ -51,22 +51,22 @@ const NavBar = () => {
           <Link href="/" className="group flex items-center gap-3">
             <div className="relative">
               <motion.div
-                whileHover={{ scale: 1.05, rotate: 5 }}
-                whileTap={{ scale: 0.95, rotate: -5 }}
+                whileHover={{ scale: 1.05, rotate: 3 }}
+                whileTap={{ scale: 0.95, rotate: -3 }}
                 className="relative"
               >
-                <div className="absolute -inset-1 rounded-[20px] bg-gradient-to-r from-violet-600 via-purple-500 to-violet-600 opacity-75 blur group-hover:opacity-100 transition duration-300 animate-pulse" />
-                <div className="absolute -inset-0.5 rounded-[20px] bg-gradient-to-r from-violet-500/50 to-purple-500/50 p-0.5 transition duration-300 group-hover:from-violet-500 group-hover:to-purple-500">
-                  <div className="absolute inset-0 bg-black/90 rounded-[20px] backdrop-blur-xl" />
+                <div className="absolute -inset-1.5 rounded-lg bg-gradient-to-r from-indigo-400/40 via-purple-400/40 to-pink-400/40 opacity-60 blur-sm group-hover:opacity-80 transition duration-300" />
+                <div className="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-indigo-300/30 to-pink-300/30 p-0.5 transition duration-300 group-hover:from-indigo-400/40 group-hover:to-pink-400/40">
+                  <div className="absolute inset-0 bg-black/90 rounded-lg backdrop-blur-xl" />
                 </div>
                 <Image
                   src={myAvatar}
                   alt="Logo"
                   width={300}
                   height={200}
-                  className="relative size-9 sm:size-10 rounded-[18px] border-2 border-violet-500/40 transform transition-all duration-300 group-hover:border-violet-500"
+                  className="relative size-10 sm:size-12 rounded-lg border-2 border-indigo-300/30 transform transition-all duration-300 group-hover:border-pink-300/40 shadow-lg shadow-indigo-500/10"
                 />
-                <motion.div
+                {/* <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: [0, 1.1, 1] }}
                   transition={{
@@ -81,14 +81,14 @@ const NavBar = () => {
                     <div className="absolute inset-0 blur-sm bg-yellow-400/50 rounded-full" />
                     <Crown className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-400 filter drop-shadow-lg" />
                   </div>
-                </motion.div>
+                </motion.div> */}
               </motion.div>
             </div>
             <div className="flex flex-col">
               <motion.span
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="bg-gradient-to-r from-violet-200 to-violet-400 bg-clip-text text-sm sm:text-lg md:text-xl font-bold tracking-tight text-transparent"
+                className="bg-gradient-to-r from-indigo-100 via-purple-200 to-pink-200 bg-clip-text text-sm sm:text-lg md:text-xl font-bold tracking-tight text-transparent"
               >
                 Finish66
               </motion.span>
@@ -96,7 +96,7 @@ const NavBar = () => {
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
-                className="hidden md:block text-xs bg-gradient-to-r from-violet-400/60 to-purple-400/60 bg-clip-text text-transparent font-medium tracking-wider"
+                className="hidden md:block text-xs bg-gradient-to-r from-indigo-200/70 via-purple-200/70 to-pink-200/70 bg-clip-text text-transparent font-medium tracking-wider"
               >
                 ✨ Learn • Create • Innovate ✨
               </motion.span>
@@ -148,21 +148,8 @@ const NavBar = () => {
                           height={36}
                           className="rounded-full border-2 border-violet-500/20 transition-transform duration-300 group-hover:scale-105"
                         />
-                        <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: [0, 1, 0] }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            repeatDelay: 3,
-                          }}
-                          className="absolute -top-1 -right-1"
-                        >
-                          <Sparkles className="h-3 w-3 text-yellow-400" />
-                        </motion.div>
                       </div>
                     </div>
-
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}

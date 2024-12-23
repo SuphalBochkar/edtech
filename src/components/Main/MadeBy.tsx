@@ -23,7 +23,7 @@ const MadeBy = () => {
       {/* Main content */}
       <motion.div
         whileHover={{ scale: 1.02 }}
-        className="relative flex items-center justify-center gap-2 py-3 px-6 rounded-full bg-gradient-to-r from-violet-950/50 to-violet-900/50 border border-violet-500/20 backdrop-blur-sm shadow-lg hover:shadow-violet-500/10 transition-all duration-300"
+        className="relative flex items-center justify-center gap-2 py-3 px-6 rounded-full border border-violet-500/20 backdrop-blur-sm shadow-lg hover:shadow-violet-500/10 transition-all duration-300"
       >
         {/* Animated background gradient */}
         <motion.div

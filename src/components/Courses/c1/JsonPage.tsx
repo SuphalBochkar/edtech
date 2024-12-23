@@ -572,7 +572,7 @@ function QuestionCard({
                   >
                     <div className="flex items-start gap-3">
                       <span className="text-violet-400 font-medium">
-                        {optionKey.toUpperCase()} →
+                        {optionKey.toUpperCase()} : 
                       </span>
                       <span
                         className="text-violet-200 flex-1 question-block"

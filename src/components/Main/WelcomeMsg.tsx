@@ -16,7 +16,7 @@ const WelcomeMsg = ({ name, isPaid }: { name: string; isPaid: boolean }) => {
     >
       {/* Animated background gradient */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-violet-600/5 via-purple-600/5 to-violet-600/5 rounded-3xl opacity-60"
+        className="absolute inset-0"
         animate={{
           backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
         }}
