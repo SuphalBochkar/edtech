@@ -1,7 +1,7 @@
 "use client";
 
 import ContactUsButton from "@/components/Contact/ContactUsButton";
-import CustomBreadcrumb from "@/components/Courses/CustomBreadcrumb";
+import CustomBreadcrumb from "@/components/Main/CustomBreadcrumb";
 import NavBar from "@/components/Navbar/NavBar";
 import { NotistackProvider } from "@/components/Notifications/NotifyClientProvider";
 import { StyledMaterialDesignContent } from "@/components/Notifications/Notistack";

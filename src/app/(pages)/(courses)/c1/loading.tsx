@@ -1,66 +1,107 @@
-import { Skeleton } from "@/ui/shad/skeleton";
+"use client";
 
-export default function Loading() {
+import { motion } from "framer-motion";
+
+const Loading = () => {
   return (
-    <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 py-4 sm:py-6">
-      <Skeleton className="h-8 sm:h-10 w-48 sm:w-64 mx-auto mb-4 sm:mb-8" />
-      <div className="space-y-8 sm:space-y-12">
-        <section>
-          <Skeleton className="h-6 sm:h-8 w-32 sm:w-40 mb-3 sm:mb-4" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-            {[...Array(3)].map((_, index) => (
-              <SkeletonPracticeCard key={index} />
+    <div className="w-full">
+      {/* WelcomeMsg Skeleton */}
+      <div className="w-full flex flex-col items-center justify-center py-8 px-4">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="w-full max-w-4xl space-y-6"
+        >
+          {/* Title Skeleton */}
+          <div className="space-y-3 text-center">
+            <div className="h-8 w-64 mx-auto rounded-lg bg-violet-500/10 animate-pulse" />
+            <div className="h-4 w-96 mx-auto rounded-md bg-violet-500/10 animate-pulse" />
+          </div>
+
+          {/* Stats Cards Skeleton */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+            {[1, 2, 3].map((index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="relative rounded-xl backdrop-blur-xl border border-violet-500/20 p-6"
+              >
+                {/* Shine Effect */}
+                <div className="absolute inset-0">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-violet-500/10 to-transparent animate-shine" />
+                </div>
+                <div className="space-y-3">
+                  <div className="h-6 w-24 rounded-md bg-violet-500/10 animate-pulse" />
+                  <div className="h-4 w-32 rounded-md bg-violet-500/10 animate-pulse" />
+                </div>
+              </motion.div>
             ))}
           </div>
-        </section>
-        <section>
-          <Skeleton className="h-6 sm:h-8 w-32 sm:w-40 mb-3 sm:mb-4" />
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-            {[...Array(8)].map((_, index) => (
-              <SkeletonLevelCard key={index} />
+        </motion.div>
+      </div>
+
+      {/* AllCourses Skeleton */}
+      <div className="w-full py-8 px-4">
+        <div className="max-w-6xl mx-auto space-y-8">
+          {/* Section Title */}
+          <div className="h-8 w-48 rounded-lg bg-violet-500/10 animate-pulse mx-auto" />
+
+          {/* Course Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+            {[1, 2, 3].map((index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="relative rounded-xl backdrop-blur-xl border border-violet-500/20 p-6"
+              >
+                {/* Shine Effect */}
+                <div className="absolute inset-0">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-violet-500/10 to-transparent animate-shine" />
+                </div>
+                <div className="space-y-4">
+                  <div className="h-6 w-32 rounded-md bg-violet-500/10 animate-pulse" />
+                  <div className="space-y-2">
+                    <div className="h-4 w-full rounded-md bg-violet-500/10 animate-pulse" />
+                    <div className="h-4 w-3/4 rounded-md bg-violet-500/10 animate-pulse" />
+                  </div>
+                  <div className="h-10 w-full rounded-lg bg-violet-500/10 animate-pulse" />
+                </div>
+              </motion.div>
             ))}
           </div>
-        </section>
+        </div>
       </div>
-    </div>
-  );
-}
 
-function SkeletonPracticeCard() {
-  return (
-    <div className="p-2 sm:p-4">
-      <div className="flex items-start justify-between">
-        <div className="flex-1 pr-2">
-          <Skeleton className="h-5 sm:h-6 w-3/4 mb-2" />
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-            <Skeleton className="h-3 sm:h-4 w-16 sm:w-20 mb-1 sm:mb-0" />
-            <Skeleton className="h-3 sm:h-4 w-20 sm:w-24" />
+      {/* Content Section Skeleton */}
+      {/* <div className="w-full py-8 px-4 bg-violet-500/5">
+        <div className="max-w-6xl mx-auto space-y-6">
+          <div className="h-8 w-64 rounded-lg bg-violet-500/10 animate-pulse mx-auto" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+            {[1, 2].map((index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="space-y-4"
+              >
+                <div className="h-6 w-48 rounded-md bg-violet-500/10 animate-pulse" />
+                <div className="space-y-2">
+                  <div className="h-4 w-full rounded-md bg-violet-500/10 animate-pulse" />
+                  <div className="h-4 w-5/6 rounded-md bg-violet-500/10 animate-pulse" />
+                  <div className="h-4 w-4/5 rounded-md bg-violet-500/10 animate-pulse" />
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
-        <Skeleton className="h-4 w-4 sm:h-5 sm:w-5" />
-      </div>
+      </div> */}
     </div>
   );
-}
+};
 
-function SkeletonLevelCard() {
-  return (
-    <div className="p-2 sm:p-4">
-      <div className="flex items-center justify-between mb-2">
-        <div>
-          <Skeleton className="h-5 sm:h-6 w-16 sm:w-20 mb-1" />
-          <Skeleton className="h-3 sm:h-4 w-24 sm:w-28" />
-        </div>
-        <Skeleton className="h-4 w-4 sm:h-5 sm:w-5" />
-      </div>
-      <div className="flex flex-wrap gap-1 sm:gap-2 mt-2">
-        {[...Array(5)].map((_, index) => (
-          <Skeleton
-            key={index}
-            className="h-4 w-6 sm:h-5 sm:w-7 rounded-full"
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
+export default Loading;

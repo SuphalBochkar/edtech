@@ -92,9 +92,14 @@ const NavBar = () => {
               >
                 Finish66
               </motion.span>
-              <span className="hidden md:block text-xs text-violet-400/70">
-                Premium Education
-              </span>
+              <motion.span
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
+                className="hidden md:block text-xs bg-gradient-to-r from-violet-400/60 to-purple-400/60 bg-clip-text text-transparent font-medium tracking-wider"
+              >
+                ✨ Learn • Create • Innovate ✨
+              </motion.span>
             </div>
           </Link>
 

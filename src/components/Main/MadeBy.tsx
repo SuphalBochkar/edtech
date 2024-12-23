@@ -43,7 +43,7 @@ const MadeBy = () => {
           className="relative text-sm font-medium bg-gradient-to-r from-violet-200 to-violet-400 bg-clip-text text-transparent"
           whileHover={{ scale: 1.05 }}
         >
-          Crafted with passion by
+          Designed & Developed by
         </motion.span>
 
         <Link
@@ -53,7 +53,7 @@ const MadeBy = () => {
           className="group/link relative flex items-center gap-1"
         >
           <motion.span
-            className="relative text-sm font-bold bg-gradient-to-r from-violet-300 to-violet-500 bg-clip-text text-transparent group-hover/link:from-violet-400 group-hover/link:to-violet-600 transition-all duration-300"
+            className="relative text-base lg:text-lg font-bold bg-gradient-to-r from-violet-300 to-violet-500 bg-clip-text text-transparent group-hover/link:from-violet-400 group-hover/link:to-violet-600 transition-all duration-300"
             whileHover={{ scale: 1.05 }}
           >
             Finish66
@@ -62,13 +62,29 @@ const MadeBy = () => {
         </Link>
 
         <motion.div
-          whileHover={{ scale: 1.2 }}
+          whileHover={{ scale: 1.3 }}
           animate={controls}
           onClick={pulseHeart}
           className="relative flex items-center cursor-pointer"
         >
-          <Heart className="h-4 w-4 text-pink-500 fill-pink-500 hover:fill-pink-600 transition-colors duration-300" />
-          <Sparkles className="absolute -top-1 -right-1 h-3 w-3 text-yellow-400" />
+          <motion.div
+            animate={{
+              scale: [1, 1.1, 1],
+            }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          >
+            <Heart className="h-5 w-5 text-pink-500 fill-pink-500 hover:fill-pink-600 transition-colors duration-300" />
+          </motion.div>
+          <motion.div
+            animate={{
+              rotate: [0, 360],
+              scale: [0.8, 1.2, 0.8],
+            }}
+            transition={{ duration: 3, repeat: Infinity }}
+            className="absolute -top-1 -right-1"
+          >
+            <Sparkles className="h-3 w-3 text-yellow-400" />
+          </motion.div>
         </motion.div>
       </motion.div>
 

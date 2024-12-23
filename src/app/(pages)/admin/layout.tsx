@@ -1,6 +1,6 @@
 "use client";
 
-import CustomBreadcrumb from "@/components/Courses/CustomBreadcrumb";
+import CustomBreadcrumb from "@/components/Main/CustomBreadcrumb";
 import NavBar from "@/components/Navbar/NavBar";
 // import Blobs from "@/components/Main/Blobs";
 

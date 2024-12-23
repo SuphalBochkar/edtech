@@ -109,7 +109,7 @@ const AllCourses = () => {
                   <h3 className="text-xl md:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-violet-200 to-violet-400 bg-clip-text text-transparent">
                     {course.title}
                   </h3>
-                  <p className="text-sm font-medium bg-gradient-to-r from-violet-200 via-violet-300 to-violet-400 bg-clip-text text-transparent animate-pulse">
+                  <p className="text-base md:text-lg font-medium bg-gradient-to-r from-violet-200 via-violet-300 to-violet-400 bg-clip-text text-transparent animate-pulse">
                     {course.subtitle}
                   </p>
                 </div>
