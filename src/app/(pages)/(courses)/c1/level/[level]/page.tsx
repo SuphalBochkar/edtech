@@ -25,7 +25,7 @@ export default function Page({ params }: { params: { level: string } }) {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="w-full min-h-[calc(100vh-4rem)] flex flex-col items-center px-4 py-8"
+      className="w-full flex flex-col items-center px-4 py-8"
     >
       {/* Title Section */}
       <motion.div

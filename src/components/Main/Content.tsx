@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -12,9 +12,18 @@ import { ArrowRight, Crown, Star } from "lucide-react";
 const Content = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
   const { status } = useSession();
 
-  if (status === "loading") return <MainLoading />;
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setInitialLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (initialLoading || status === "loading") return <MainLoading />;
   if (status === "authenticated") {
     router.replace("/home");
     return <MainLoading />;
@@ -70,7 +79,7 @@ const Content = () => {
             <span className="tracking-tighter text-2xl md:text-3xl text-center font-medium text-foreground">
               Welcome to
             </span>
-            <h1 className="tracking-tighter text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-center font-bold flex items-center justify-center">
+            <h1 className="tracking-tighter text-5xl md:text-5xl lg:text-6xl xl:text-7xl text-center font-bold flex items-center justify-center">
               <span className="font-bold bg-gradient-to-b from-violet-300 to-violet-800 bg-clip-text text-transparent">
                 Finish66
               </span>
@@ -82,7 +91,7 @@ const Content = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="text-foreground max-w-lg mx-auto text-center tracking-tight md:text-lg font-light"
+            className="text-foreground max-w-lg text-sm mx-auto text-center tracking-tight md:text-lg font-light"
           >
             A platform where you{"'"}ll find the right content to help you
             improve your skills and grow your knowledge.

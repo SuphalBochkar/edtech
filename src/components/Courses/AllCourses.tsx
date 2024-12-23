@@ -29,7 +29,7 @@ const AllCourses = () => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="w-[80vw] md:w-[85vw] lg:w-[60vw] py-2 md:py-4"
+      className="w-[80vw] md:w-[85vw] lg:w-[50vw] py-2 md:py-4"
     >
       {/* Header */}
       <motion.div
@@ -72,21 +72,22 @@ const AllCourses = () => {
                   animate={{
                     opacity: 1,
                     scale: 1,
-                    y: [0, -8, 0]
+                    y: [0, -8, 0],
                   }}
                   transition={{
                     delay: 0.5,
                     y: {
                       duration: 1.5,
                       repeat: Infinity,
-                      ease: "easeInOut"
-                    }
+                      ease: "easeInOut",
+                    },
                   }}
                   className="absolute top-3 right-3 flex items-center gap-2 bg-gradient-to-r from-violet-500 via-purple-600 to-violet-500 px-3 py-1 rounded-full shadow-lg border border-violet-400/30"
                 >
                   <Sparkles className="w-3 h-3 text-white animate-pulse" />
-                  <span className="text-xs font-medium text-white">
-                    Newly Updated
+                  <span className="text-[10px] font-medium text-white">
+                    <span className="hidden md:inline">Newly </span>
+                    Updated
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shine" />
                 </motion.div>
@@ -105,22 +106,22 @@ const AllCourses = () => {
 
                 {/* Title & Subtitle */}
                 <div className="space-y-1">
-                  <h3 className="text-lg md:text-xl font-bold bg-gradient-to-r from-violet-200 to-violet-400 bg-clip-text text-transparent">
+                  <h3 className="text-xl md:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-violet-200 to-violet-400 bg-clip-text text-transparent">
                     {course.title}
                   </h3>
-                  <p className="text-violet-300/80 text-sm font-medium">
+                  <p className="text-sm font-medium bg-gradient-to-r from-violet-200 via-violet-300 to-violet-400 bg-clip-text text-transparent animate-pulse">
                     {course.subtitle}
                   </p>
                 </div>
 
                 {/* Action Button */}
                 <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="mt-2 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-violet-500/20 hover:bg-violet-500/30 border border-violet-500/30 hover:border-violet-500/50 transition-all duration-300 text-violet-300 text-xs"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="mt-1 flex items-center gap-1 px-2 py-1 rounded-full bg-violet-500/10 hover:bg-violet-500/20 border border-violet-500/20 hover:border-violet-500/30 transition-all duration-300 text-violet-300/80 text-[10px]"
                 >
                   <span>Start Learning</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" />
+                  <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform duration-300" />
                 </motion.button>
               </div>
             </div>

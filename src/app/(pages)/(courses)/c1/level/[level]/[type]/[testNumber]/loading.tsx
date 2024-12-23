@@ -7,6 +7,27 @@ import { motion } from "framer-motion";
 const Loading = () => {
   return (
     <div className="w-full flex flex-col items-center justify-center p-4">
+      {/* Loading Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+        className="my-4 md:my-6 lg:my-8 flex flex-col items-center gap-4"
+      >
+        <div className="text-sm text-violet-300/70">Loading questions...</div>
+        <div className="w-48 h-1 bg-violet-500/10 rounded-full overflow-hidden">
+          <motion.div
+            animate={{ x: ["-100%", "100%"] }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="w-full h-full bg-gradient-to-r from-violet-500 via-purple-500 to-violet-500"
+          />
+        </div>
+      </motion.div>
+
       {/* Question Cards */}
       <div className="w-full max-w-4xl space-y-6">
         {[1, 2, 3].map((index) => (
@@ -51,27 +72,6 @@ const Loading = () => {
           </motion.div>
         ))}
       </div>
-
-      {/* Loading Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-        className="mt-8 flex flex-col items-center gap-4"
-      >
-        <div className="text-sm text-violet-300/70">Loading questions...</div>
-        <div className="w-48 h-1 bg-violet-500/10 rounded-full overflow-hidden">
-          <motion.div
-            animate={{ x: ["-100%", "100%"] }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="w-full h-full bg-gradient-to-r from-violet-500 via-purple-500 to-violet-500"
-          />
-        </div>
-      </motion.div>
     </div>
   );
 };

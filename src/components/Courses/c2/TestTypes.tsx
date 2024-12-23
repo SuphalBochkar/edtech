@@ -29,12 +29,15 @@ const TestTypes = ({ testType, path }: { testType: Course; path: string }) => {
 
       {/* Cards Container */}
       {data && (
-        <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div
+          className={`w-full max-w-4xl grid grid-cols-1 ${data.mcq && data.code ? "md:grid-cols-2 gap-6" : "place-items-center"}`}
+        >
           {data.mcq && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
+              className="w-full max-w-xl"
             >
               <LevelTypeCard path={path} type="mcq" tests={data.mcq} />
             </motion.div>
@@ -44,6 +47,7 @@ const TestTypes = ({ testType, path }: { testType: Course; path: string }) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
+              className="w-full max-w-xl"
             >
               <LevelTypeCard path={path} type="code" tests={data.code} />
             </motion.div>
@@ -79,7 +83,7 @@ function LevelTypeCard({ tests, type, path }: LevelTypeCardProps) {
             )}
           </div>
           <h3 className="text-lg font-medium text-violet-300">
-            {type === "mcq" ? "Multiple Choice" : "Coding Challenge"}
+            {type === "mcq" ? "Multiple Choice ( MCQ )" : "Coding Challenge"}
           </h3>
         </div>
 
