@@ -1,6 +1,6 @@
 import React from "react";
 import { motion, useAnimation } from "framer-motion";
-import { Heart, Sparkles, Github, Code2, Star } from "lucide-react";
+import { Heart, Sparkles, Github } from "lucide-react";
 import Link from "next/link";
 
 const MadeBy = () => {
@@ -40,7 +40,7 @@ const MadeBy = () => {
 
         {/* Content */}
         <motion.span
-          className="relative text-sm font-medium bg-gradient-to-r from-violet-200 to-violet-400 bg-clip-text text-transparent"
+          className="relative text-[10px] md:text-xs font-medium bg-gradient-to-r from-violet-200 to-violet-400 bg-clip-text text-transparent"
           whileHover={{ scale: 1.05 }}
         >
           Designed & Developed by
@@ -53,7 +53,7 @@ const MadeBy = () => {
           className="group/link relative flex items-center gap-1"
         >
           <motion.span
-            className="relative text-base lg:text-lg font-bold bg-gradient-to-r from-violet-300 to-violet-500 bg-clip-text text-transparent group-hover/link:from-violet-400 group-hover/link:to-violet-600 transition-all duration-300"
+            className="relative text-xs md:text-base font-bold bg-gradient-to-r from-violet-300 to-violet-500 bg-clip-text text-transparent group-hover/link:from-violet-400 group-hover/link:to-violet-600 transition-all duration-300"
             whileHover={{ scale: 1.05 }}
           >
             Finish66
@@ -89,7 +89,7 @@ const MadeBy = () => {
       </motion.div>
 
       {/* Interactive elements */}
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
@@ -122,7 +122,7 @@ const MadeBy = () => {
             →
           </motion.div>
         </Link>
-      </motion.div>
+      </motion.div> */}
     </motion.div>
   );
 };

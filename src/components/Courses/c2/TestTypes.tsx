@@ -88,7 +88,7 @@ function LevelTypeCard({ tests, type, path }: LevelTypeCardProps) {
         </div>
 
         {/* Levels List */}
-        <div className="flex flex-col gap-1 md:gap-3">
+        <div className="flex flex-col gap-2 md:gap-3">
           {Object.entries(tests).map(([testNumber, testId]) => (
             <Link key={testId} href={`/c2/${path}/${type}/${testNumber}`}>
               <motion.div

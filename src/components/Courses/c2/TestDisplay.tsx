@@ -60,7 +60,7 @@ function highlightHTML(html: string, searchQuery: string): string {
 
 const addWatermark = (content: string, userId: string) => {
   return (
-    <div className="relative">
+    <div className="relative opacity-[0.08]">
       {content}
       <div className="absolute bottom-0 right-0 text-xs text-violet-400/50 select-none">
         <span>Licensed to {userId}</span>

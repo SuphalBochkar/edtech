@@ -13,7 +13,7 @@ const Page: React.FC = async () => {
 
   return (
     <div>
-      <TestDisplay testItem={sampleTestData} />
+      <TestDisplay testItem={sampleTestData} email={session.user.email} />
     </div>
   );
 };

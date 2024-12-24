@@ -18,16 +18,18 @@ const Content = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setInitialLoading(false);
-    }, 1300);
+    }, 500);
 
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/home");
+    }
+  }, [status, router]);
+
   if (initialLoading || status === "loading") return <MainLoading />;
-  if (status === "authenticated") {
-    router.replace("/home");
-    return <MainLoading />;
-  }
 
   const handleSignIn = async () => {
     try {

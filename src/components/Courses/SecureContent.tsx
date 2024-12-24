@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
@@ -10,12 +12,20 @@ const SecuredContent = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [showWarning, setShowWarning] = useState(false);
+  const [watermarkText, setWatermarkText] = useState("");
 
-  const generateWatermarkPattern = (email: string) => {
+  // Generate watermark text only on client side
+  useEffect(() => {
     const timestamp = new Date().toISOString();
-    const watermarkText = `${email} • ${timestamp}`;
-    return Array(3).fill(watermarkText).join(" • ");
-  };
+    const text = `${email} • ${timestamp}`;
+    setWatermarkText(Array(3).fill(text).join(" • "));
+  }, [email]);
+
+  //   const generateWatermarkPattern = (email: string) => {
+  //     const timestamp = new Date().toISOString();
+  //     const watermarkText = `${email} • ${timestamp}`;
+  //     return Array(3).fill(watermarkText).join(" • ");
+  //   };
 
   useEffect(() => {
     let warningTimeout: NodeJS.Timeout;
@@ -130,30 +140,32 @@ const SecuredContent = ({
       }}
     >
       {/* Dynamic Watermark Layer */}
-      <div
-        className="fixed inset-0 pointer-events-none overflow-hidden opacity-[0.03] select-none flex items-center justify-center"
-        style={{
-          zIndex: 1000,
-        }}
-      >
+      {watermarkText && (
         <div
-          className="whitespace-nowrap text-violet-400 text-sm absolute"
+          className="fixed inset-0 pointer-events-none overflow-hidden opacity-[0.04] select-none flex items-center justify-center"
           style={{
-            transform: "rotate(-45deg)",
-            width: "200%",
-            left: "-50%",
-            textAlign: "center"
+            zIndex: 1000,
           }}
         >
-          {Array(20)
-            .fill(null)
-            .map((_, i) => (
-              <div key={i} className="my-8">
-                {generateWatermarkPattern(email)}
-              </div>
-            ))}
+          <div
+            className="whitespace-nowrap text-violet-400 text-sm absolute"
+            style={{
+              transform: "rotate(-45deg)",
+              width: "200%",
+              left: "-50%",
+              textAlign: "center",
+            }}
+          >
+            {Array(20)
+              .fill(null)
+              .map((_, i) => (
+                <div key={i} className="my-8">
+                  {watermarkText}
+                </div>
+              ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Main Content */}
       <div className="relative z-10">{children}</div>

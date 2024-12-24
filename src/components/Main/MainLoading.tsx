@@ -122,7 +122,7 @@ const MainLoading = () => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const duration = 1500;
+    const duration = 1000;
     const interval = 50;
     const steps = duration / interval;
     const increment = 100 / steps;
