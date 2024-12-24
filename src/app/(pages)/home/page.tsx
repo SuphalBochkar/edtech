@@ -7,6 +7,7 @@ import WelcomeMsg from "@/components/Main/WelcomeMsg";
 import AllCourses from "@/components/Courses/AllCourses";
 import Loading from "./loading";
 import MadeBy from "@/components/Main/MadeBy";
+// import Announcement from "@/components/Notifications/Anouncement";
 
 const Page = () => {
   const { data: session, status } = useSession({
@@ -38,6 +39,7 @@ const Page = () => {
           </div>
         </div>
       </div>
+      {/* <Announcement /> */}
       {isAdmin && <Footer />}
     </>
   );

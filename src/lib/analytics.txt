@@ -1,0 +1,22 @@
+import { prisma } from "@/lib/prisma";
+
+export const trackAccess = async (
+  userId: string,
+  contentType: string,
+  contentId: string
+) => {
+  try {
+    await prisma.accessLog.create({
+      data: {
+        userId,
+        contentType,
+        contentId,
+        timestamp: new Date(),
+        userAgent: process.env.USER_AGENT || "Unknown",
+        ip: process.env.IP_ADDRESS || "Unknown",
+      },
+    });
+  } catch (error) {
+    console.error("Failed to track access:", error);
+  }
+};

@@ -2,7 +2,6 @@
 
 import React, { Suspense } from "react";
 import ErrorPage from "@/components/Courses/ErrorPage";
-import AnswerPage from "@/components/Courses/c1/AnswerPage";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import JsonLoading from "./JsonLoading";
@@ -11,6 +10,7 @@ import { Course } from "@/lib/data";
 import { prisma } from "@/lib/prisma";
 import { encodeData } from "@/lib/utils";
 import { AUTH_OPTIONS } from "@/lib/auth";
+import JsonPage from "./JsonPage";
 
 interface DataArraysType {
   data: DataItem[];
@@ -87,7 +87,23 @@ export default async function JsonFetch({
     })
   );
 
+  if (allDataArrays.length === 0) {
+    return (
+      <div className="text-foreground">
+        <ErrorPage text="We couldn't find the data. Please try again later." />
+      </div>
+    );
+  }
+
   const mainData = allDataArrays.flatMap((test) => test?.data || []);
+
+  if (mainData.length === 0) {
+    return (
+      <div className="text-foreground">
+        <ErrorPage text="We couldn't find the data. Please try again later." />
+      </div>
+    );
+  }
 
   return (
     session &&
@@ -95,7 +111,9 @@ export default async function JsonFetch({
     isAuthorized && (
       <Suspense fallback={<JsonLoading />}>
         <div className="text-foreground">
-          {isAuthorized && <AnswerPage data={mainData} />}
+          {isAuthorized && (
+            <JsonPage data={mainData} email={session.user.email} />
+          )}
         </div>
       </Suspense>
     )

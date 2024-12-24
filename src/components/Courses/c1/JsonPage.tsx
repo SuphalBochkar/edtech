@@ -333,8 +333,9 @@ import { usePathname } from "next/navigation";
 import { DataItem } from "@/lib/types";
 import { Search, X } from "lucide-react";
 import { motion } from "framer-motion";
+import SecuredContent from "../SecureContent";
 
-const JsonPage = ({ data }: { data: DataItem[] }) => {
+const JsonPage = ({ data, email }: { data: DataItem[]; email: string }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const [selectedFilter, setSelectedFilter] = useState("All");
@@ -422,7 +423,7 @@ const JsonPage = ({ data }: { data: DataItem[] }) => {
   )} Test ${cap(pathname[5])}`;
 
   return (
-    <>
+    <SecuredContent email={email}>
       <div className="mx-auto max-w-7xl px-4 text-white flex flex-col items-center py-6 min-h-screen">
         {/* Title Section */}
         <motion.h1
@@ -504,7 +505,7 @@ const JsonPage = ({ data }: { data: DataItem[] }) => {
           ))}
         </div>
       </div>
-    </>
+    </SecuredContent>
   );
 };
 
@@ -572,7 +573,7 @@ function QuestionCard({
                   >
                     <div className="flex items-start gap-3">
                       <span className="text-violet-400 font-medium">
-                        {optionKey.toUpperCase()} : 
+                        {optionKey.toUpperCase()} :
                       </span>
                       <span
                         className="text-violet-200 flex-1 question-block"

@@ -124,7 +124,7 @@ export default async function Page({
     isAuthorized && (
       <>
         {/* {combinedData.map((testItem, index) => ( */}
-        <TestDisplay testItem={finalData} />
+        <TestDisplay testItem={finalData} email={session.user.email} />
         {/* ))} */}
       </>
     )
