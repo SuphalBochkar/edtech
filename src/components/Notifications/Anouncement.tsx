@@ -39,6 +39,14 @@ const Announcement = () => {
     },
     {
       id: 2,
+      title:
+        "Warning: Protect Your Account - Avoid Using Tools or Sharing Info",
+      message:
+        "Please do not use any extensions or tools to complete the tests, as flags are being generated and you might be detected. Do not share your account credentials or pay others to complete your tests, as they may use automation tools, putting your account at risk.",
+      type: "important",
+    },
+    {
+      id: 2,
       title: "Course-2 (Perfectice) Notice",
       message:
         "For those who the Level 2 is not yet unlocked, you can still access the tests by clicking on the 'Start Test' or 'Test' button next to each test name. Check out the sample test for more details. Click link on your right to check it out.",
@@ -103,10 +111,13 @@ const Announcement = () => {
                   </motion.div>
                   <div>
                     <h2 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-violet-200 to-violet-400 bg-clip-text text-transparent">
-                      Latest Announcements
+                      Important Announcements
                     </h2>
                     <p className="text-xs md:text-sm text-violet-400/70 mt-0.5">
-                      Stay updated with our latest updates
+                      Please read these announcements carefully{" "}
+                      <span className="px-2 py-0.5 rounded-full font-medium bg-red-500/10 text-red-400 border border-red-500/20">
+                        Do not ignore
+                      </span>
                     </p>
                   </div>
                 </div>

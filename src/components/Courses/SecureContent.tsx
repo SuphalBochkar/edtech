@@ -21,11 +21,79 @@ const SecuredContent = ({
     setWatermarkText(Array(3).fill(text).join(" • "));
   }, [email]);
 
-  //   const generateWatermarkPattern = (email: string) => {
-  //     const timestamp = new Date().toISOString();
-  //     const watermarkText = `${email} • ${timestamp}`;
-  //     return Array(3).fill(watermarkText).join(" • ");
-  //   };
+  // Prevent debugger and dev tools
+  useEffect(() => {
+    let warningTimeout: NodeJS.Timeout;
+    const threshold = 160;
+    let devToolsTimeout: NodeJS.Timeout;
+
+    const showSecurityWarning = () => {
+      setShowWarning(true);
+      clearTimeout(warningTimeout);
+      warningTimeout = setTimeout(() => setShowWarning(false), 3000);
+    };
+
+    const checkDevTools = () => {
+      const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+      const heightThreshold =
+        window.outerHeight - window.innerHeight > threshold;
+
+      if (widthThreshold || heightThreshold) {
+        showSecurityWarning();
+        window.location.href = "/home";
+      }
+    };
+
+    // Set up continuous monitoring
+    const interval = setInterval(checkDevTools, 1000);
+
+    // Additional dev tools detection
+    const detectDevTools = () => {
+      const element = new Image() as HTMLImageElement & { id?: string };
+      Object.defineProperty(element, "id", {
+        get: function () {
+          window.location.href = "/home";
+          return "";
+        },
+      });
+      console.log(element);
+    };
+
+    // Prevent common dev tools shortcuts
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Block F12, Ctrl+Shift+I, Cmd+Option+I, Ctrl+Shift+J, Cmd+Option+J
+      if (
+        e.key === "F12" ||
+        ((e.ctrlKey || e.metaKey) &&
+          e.shiftKey &&
+          (e.key === "I" || e.key === "J" || e.key === "C"))
+      ) {
+        e.preventDefault();
+        showSecurityWarning();
+      }
+    };
+
+    // Set up debugger detection
+    const debuggerScript = () => {
+      debugger;
+      devToolsTimeout = setTimeout(debuggerScript, 100);
+    };
+    debuggerScript();
+
+    // Event listeners
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("resize", checkDevTools);
+    detectDevTools();
+
+    // Cleanup
+    return () => {
+      clearInterval(interval);
+      clearTimeout(devToolsTimeout);
+      clearTimeout(warningTimeout);
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("resize", checkDevTools);
+    };
+  }, []);
 
   useEffect(() => {
     let warningTimeout: NodeJS.Timeout;
@@ -142,7 +210,7 @@ const SecuredContent = ({
       {/* Dynamic Watermark Layer */}
       {watermarkText && (
         <div
-          className="fixed inset-0 pointer-events-none overflow-hidden opacity-[0.04] select-none flex items-center justify-center"
+          className="fixed inset-0 pointer-events-none overflow-hidden opacity-[0.02] select-none flex items-center justify-center"
           style={{
             zIndex: 1000,
           }}
