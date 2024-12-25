@@ -285,7 +285,7 @@ export default function Page({
                   <div className="text-center text-xs md:text-sm text-gray-400 mb-4 md:mb-6">
                     <p>Secured by Razorpay 🔒</p>
                     <p>
-                      Supports (PhonePe, Google Pay, Paytm & all UPI apps)
+                      Supports (PhonePe, Paytm)
                       <br />
                       Cards & Net Banking
                     </p>

@@ -100,7 +100,7 @@ const Pricing = ({ courseId, id }: { courseId: Course; id: string }) => {
         </ul>
 
         {/* <div className="mt-4 sm:mt-6 text-center text-xs sm:text-sm text-gray-400">
-          Supports PhonePe, Google Pay, Paytm & all UPI apps
+          Supports PhonePe, Paytm
         </div> */}
 
         <motion.a

@@ -210,7 +210,7 @@ const SecuredContent = ({
       {/* Dynamic Watermark Layer */}
       {watermarkText && (
         <div
-          className="fixed inset-0 pointer-events-none overflow-hidden opacity-[0.02] select-none flex items-center justify-center"
+          className="fixed inset-0 pointer-events-none overflow-hidden opacity-[0.03] select-none flex items-center justify-center"
           style={{
             zIndex: 1000,
           }}

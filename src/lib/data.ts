@@ -1,3 +1,5 @@
+export const DisablePayment = true;
+
 export enum Course {
   Course1Hitbulls = "C1001",
   Course1AE = "C1002",

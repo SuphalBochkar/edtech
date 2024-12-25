@@ -5,7 +5,7 @@ import { CalendarIcon, BookOpen, Sparkles, LucideIcon } from "lucide-react";
 import { aeTests, levelTests } from "@/lib/data-c1";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { Course } from "@/lib/data";
+import { Course, DisablePayment } from "@/lib/data";
 import { motion } from "framer-motion";
 
 export default function AllTests() {
@@ -72,6 +72,10 @@ export default function AllTests() {
 }
 
 function EnrollmentBadge({ isEnrolled }: { isEnrolled: boolean }) {
+  if (DisablePayment) {
+    return <></>;
+  }
+
   return (
     <span
       className={`
@@ -88,7 +92,7 @@ function EnrollmentBadge({ isEnrolled }: { isEnrolled: boolean }) {
           isEnrolled ? "bg-green-400" : "bg-red-400"
         }`}
       />
-      {isEnrolled ? "Enrolled" : "Enroll Now"}
+      {isEnrolled ? "Paid" : "Not Paid"}
     </span>
   );
 }

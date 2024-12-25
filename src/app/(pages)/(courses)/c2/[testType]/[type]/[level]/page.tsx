@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { Course, CourseIds } from "@/lib/data";
+import { Course, CourseIds, DisablePayment } from "@/lib/data";
 import { encodeData } from "@/lib/utils";
 import { getTypeTestId } from "@/actions/keyData";
 import { Status, TestItem } from "@/lib/types";
@@ -44,7 +44,7 @@ export default async function Page({
   const isAuthorized =
     user?.courses.includes(courseType) ||
     user?.courses.includes(Course.Course2Perfect) ||
-    false;
+    DisablePayment;
 
   if (!isAuthorized) {
     const encodedData = encodeData(courseType);

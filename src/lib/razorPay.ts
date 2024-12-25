@@ -50,7 +50,7 @@ export async function getRazorPayOptions(
     amount: amount * 100,
     currency: "INR",
     name: sessionData.user.name,
-    description: "Course Payment",
+    description: "Payment for Learning Course",
     order_id: orderId,
     handler: async (response: {
       razorpay_payment_id: string;

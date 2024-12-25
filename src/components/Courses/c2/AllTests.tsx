@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { testTypes } from "@/lib/data-c2";
-import { Course, CourseNames } from "@/lib/data";
+import { Course, CourseNames, DisablePayment } from "@/lib/data";
 import { useSession } from "next-auth/react";
 import { FaCode, FaTerminal, FaPython, FaJava } from "react-icons/fa";
 import { SiCplusplus } from "react-icons/si";
@@ -201,10 +201,12 @@ function SampleTestType({
             <FaCode className="w-5 h-5" />
           </div>
           <div className="flex gap-2">
-            <Badge className="bg-green-500/10 text-green-300">
-              <span className="inline-block w-1.5 h-1.5 rounded-full mr-1 bg-green-400" />
-              Free Access
-            </Badge>
+            {!DisablePayment && (
+              <Badge className="bg-green-500/10 text-green-300">
+                <span className="inline-block w-1.5 h-1.5 rounded-full mr-1 bg-green-400" />
+                Free Access
+              </Badge>
+            )}
             <Badge>5 Levels</Badge>
           </div>
         </div>
@@ -232,6 +234,10 @@ function StatusBadge({
   courses: string[] | undefined;
   testName: Course;
 }) {
+  if (DisablePayment) {
+    return <></>;
+  }
+
   if (!courses) {
     return <Badge className="text-gray-300">Loading...</Badge>;
   }
@@ -246,7 +252,7 @@ function StatusBadge({
       <span
         className={`inline-block w-1.5 h-1.5 rounded-full mr-1 ${isPaid ? "bg-green-400" : "bg-red-400"}`}
       />
-      {isPaid ? "Enrolled" : "Enroll Now"}
+      {isPaid ? "Paid" : "Not Paid"}
     </Badge>
   );
 }

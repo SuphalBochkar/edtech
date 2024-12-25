@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import JsonLoading from "./JsonLoading";
 import { DataItem, Status } from "@/lib/types";
-import { Course } from "@/lib/data";
+import { Course, DisablePayment } from "@/lib/data";
 import { prisma } from "@/lib/prisma";
 import { encodeData } from "@/lib/utils";
 import { AUTH_OPTIONS } from "@/lib/auth";
@@ -51,7 +51,7 @@ export default async function JsonFetch({
   const isAuthorized =
     user?.courses.includes(courseType) ||
     user?.courses.includes(courseEnrollment) ||
-    false;
+    DisablePayment;
 
   if (!isAuthorized) {
     const encodedData = encodeData(courseEnrollment);
