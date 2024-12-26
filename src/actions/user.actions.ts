@@ -57,3 +57,35 @@ export async function getUserFromDb(email: string, password: string) {
     };
   }
 }
+
+// export async function saveCourseRegistration(
+//   userId: string,
+//   selectedCourses: Course[],
+//   paymentProofUrl: string
+// ) {
+//   try {
+//     const registration = await prisma.courseRegistration.create({
+//       data: {
+//         userId,
+//         courses: selectedCourses,
+//         paymentProofUrl,
+//         status: "PENDING", // PENDING, APPROVED, REJECTED
+//         totalAmount: selectedCourses.reduce(
+//           (sum, course) => sum + CoursePrices[course],
+//           0
+//         ),
+//       },
+//     });
+
+//     return {
+//       success: true,
+//       data: registration,
+//     };
+//   } catch (error) {
+//     return {
+//       success: false,
+//       message:
+//         error instanceof Error ? error.message : "Failed to save registration",
+//     };
+//   }
+// }
