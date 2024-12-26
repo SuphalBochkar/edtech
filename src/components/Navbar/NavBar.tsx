@@ -7,9 +7,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { LogOut, Loader2 } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
-import ThemeSwitch from "./ThemeSwitch";
 import defaultImage from "@/assets/default-avatar.png";
 import myAvatar from "@/assets/my-avatar.jpg";
+// import ThemeSwitch from "./ThemeSwitch";
 
 const NavBar = () => {
   const { data: session, status } = useSession();
@@ -104,10 +104,10 @@ const NavBar = () => {
           </Link>
 
           <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
-            <div className="relative group">
+            {/* <div className="relative group">
               <div className="absolute -inset-2 rounded-xl bg-gradient-to-r from-violet-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-all duration-300 blur" />
               <ThemeSwitch />
-            </div>
+            </div> */}
 
             {status !== "loading" && (
               <AnimatePresence mode="wait">
