@@ -21,9 +21,10 @@ model User {
     updatedAt     DateTime  @updatedAt
     emailVerified DateTime?
 
-    accounts Account[]
-    sessions Session[]
-    queries  Query[]
+    accounts   Account[]
+    sessions   Session[]
+    queries    Query[]
+    Enrollment Enrollment[]
 }
 
 model Hitbullseye {
@@ -81,6 +82,24 @@ enum QueryStatus {
     PENDING
     RESOLVED
     ERROR
+}
+
+model Enrollment {
+    id              String           @id @default(auto()) @map("_id") @db.ObjectId
+    userId          String           @db.ObjectId
+    user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+    courses         Course[]
+    paymentProofUrl String?
+    status          EnrollmentStatus @default(PENDING)
+    totalAmount     Int
+    createdAt       DateTime         @default(now())
+    updatedAt       DateTime         @updatedAt
+}
+
+enum EnrollmentStatus {
+    PENDING
+    APPROVED
+    REJECTED
 }
 
 model Account {
