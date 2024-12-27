@@ -63,7 +63,7 @@ const FillPage = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
-  const [isSuccess, setIsSuccess] = useState(true);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   if (status === "loading") {
     return <FillSkeleton />;
