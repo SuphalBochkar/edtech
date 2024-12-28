@@ -1,37 +1,41 @@
 "use client";
 
-import { Suspense } from "react";
 import { useSession } from "next-auth/react";
-import dynamic from "next/dynamic";
-import Blobs from "@/components/Main/Blobs";
+import { redirect } from "next/navigation";
+import AllTests from "@/components/Courses/c1/AllTests";
 import Loading from "./loading";
-import Notify from "@/components/Notifications/Notify";
-
-const DynamicAllTests = dynamic(
-  () => import("@/components/Courses/c1/AllTests"),
-  {
-    loading: () => <></>,
-  }
-);
+// import { CustomMessageC1 } from "@/components/Notifications/CustomMessage";
+// import { NotifyBase } from "@/components/Notifications/Notify";
 
 const Page = () => {
-  const { data: session, status } = useSession();
+  const { data: session, status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      redirect("/");
+    },
+  });
 
-  if (status === "loading") return <Loading />;
+  if (status === "loading" || !session) {
+    return <Loading />;
+  }
+
+  const emails = process.env.NEXT_PUBLIC_MY_EMAIL!.split("-");
+  const isAdmin = emails.includes(session.user?.email as string);
+
+  if (isAdmin) {
+    redirect("/home");
+  }
 
   return (
     <>
       <div className="flex flex-col relative overflow-hidden">
-        <Blobs />
         {session?.user && (
           <div className="flex flex-col align-middle justify-center items-center content-center">
-            <Suspense fallback={<Loading />}>
-              <DynamicAllTests />
-            </Suspense>
+            <AllTests />
           </div>
         )}
       </div>
-      <Notify />
+      {/* <NotifyBase CustomMessage={CustomMessageC1} /> */}
     </>
   );
 };

@@ -1,0 +1,41 @@
+import { Redis } from "@upstash/redis";
+
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_URL!,
+  token: process.env.UPSTASH_REDIS_TOKEN!,
+});
+
+export const rateLimit = {
+  async check(userId: string): Promise<boolean> {
+    const key = `rate_limit:${userId}`;
+    const limit = 100; // requests per hour
+    const window = 3600; // 1 hour in seconds
+
+    try {
+      const current = await redis.incr(key);
+      if (current === 1) {
+        await redis.expire(key, window);
+      }
+
+      return current <= limit;
+    } catch (error) {
+      console.error("Rate limit check failed:", error);
+      return true; // Fail open if Redis is down
+    }
+  },
+};
+
+export const validateAccess = async (userId: string, contentType: string) => {
+  const key = `access:${userId}:${contentType}`;
+
+  try {
+    const accessData = await redis.get(key);
+    if (!accessData) return false;
+
+    // Add additional validation logic here
+    return true;
+  } catch (error) {
+    console.error("Access validation failed:", error);
+    return false;
+  }
+};

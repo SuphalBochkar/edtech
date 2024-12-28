@@ -4,9 +4,11 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Zap, Code, Database } from "lucide-react";
 import { testTypes } from "@/lib/data-c2";
-import { Course, CourseNames } from "@/lib/data";
+import { Course, CourseNames, DisablePayment } from "@/lib/data";
+import { useSession } from "next-auth/react";
+import { FaCode, FaTerminal, FaPython, FaJava } from "react-icons/fa";
+import { SiCplusplus } from "react-icons/si";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -15,265 +17,269 @@ const fadeInUp = {
 };
 
 const iconMap: Partial<Record<Course, JSX.Element>> = {
-  [Course.Course2Place]: <Zap className="w-6 h-6" />,
-  [Course.Course2V5]: <Code className="w-6 h-6" />,
-  [Course.Course2N2NCPP]: <Database className="w-6 h-6" />,
+  [Course.Course2Place]: <FaCode className="w-5 h-5" />,
+  [Course.Course2V5]: <FaTerminal className="w-5 h-5" />,
+  [Course.Course2N2NCPP]: <SiCplusplus className="w-5 h-5" />,
+  [Course.Course2N2NJAVA]: <FaJava className="w-5 h-5" />,
+  [Course.Course2N2NPYTHON]: <FaPython className="w-5 h-5" />,
 };
 
 export default function AllTests() {
   const router = useRouter();
+  const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return <LoadingSpinner />;
+  }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 lg:px-8 py-4 md:py-8">
-      <div className="flex flex-col items-center mb-12">
-        <h1 className="text-4xl font-bold text-center">Available Tests</h1>
-      </div>
+    <div className="w-full max-w-6xl mx-auto px-4 py-2">
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-        initial="initial"
-        animate="animate"
-        variants={{
-          animate: {
-            transition: {
-              staggerChildren: 0.1,
-            },
-          },
-        }}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-center mb-6"
       >
-        {testTypes.map((type) => (
-          <TestTypeComponent
-            key={type.name}
-            testName={type.name}
-            onClick={() => router.push(`/c2${type.path}`)}
-          />
-        ))}
+        <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-violet-200 to-violet-400 bg-clip-text text-transparent">
+          Available Tests
+        </h1>
       </motion.div>
+
+      <div className="space-y-6">
+        {/* Sample Test Section */}
+        <section>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 }}
+            className="flex items-center gap-2 mb-3"
+          >
+            <h2 className="text-lg font-bold bg-gradient-to-r from-violet-200 to-violet-400 bg-clip-text text-transparent">
+              Sample Test
+            </h2>
+            <div className="h-px flex-1 bg-violet-500/20" />
+          </motion.div>
+
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"
+            initial="initial"
+            animate="animate"
+            variants={{
+              animate: {
+                transition: { staggerChildren: 0.1 },
+              },
+            }}
+          >
+            <SampleTestType
+              testName="Sample Course"
+              onClick={() => router.push(`/c2/sample`)}
+            />
+          </motion.div>
+        </section>
+
+        {/* All Tests Section */}
+        <section>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+            className="flex items-center gap-2 mb-3"
+          >
+            <h2 className="text-lg font-bold bg-gradient-to-r from-violet-200 to-violet-400 bg-clip-text text-transparent">
+              All Tests
+            </h2>
+            <div className="h-px flex-1 bg-violet-500/20" />
+          </motion.div>
+
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"
+            initial="initial"
+            animate="animate"
+            variants={{
+              animate: {
+                transition: { staggerChildren: 0.1 },
+              },
+            }}
+          >
+            {testTypes.map((type) => (
+              <TestTypeComponent
+                key={type.name}
+                testName={type.name}
+                onClick={() => router.push(`/c2${type.path}`)}
+                courses={session?.user.courses}
+              />
+            ))}
+          </motion.div>
+        </section>
+      </div>
     </div>
   );
 }
 
-type TestTypeComponentProps = {
+function TestTypeComponent({
+  testName,
+  onClick,
+  courses,
+}: {
   testName: Course;
   onClick: () => void;
-};
-
-function TestTypeComponent({ testName, onClick }: TestTypeComponentProps) {
+  courses: string[] | undefined;
+}) {
   return (
     <motion.div
       variants={fadeInUp}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.97 }}
-      className="group cursor-pointer"
       onClick={onClick}
+      className="group relative cursor-pointer"
     >
-      <div className="bg-white/10 backdrop-blur-md rounded-xl overflow-hidden transition-all duration-300 dark:bg-purple-800/10 group-hover:bg-purple-800/40 group-hover:shadow-lg">
-        <div className="p-6">
-          <div className="flex items-center justify-between mb-4">
+      {/* Background glow effect */}
+      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-violet-600/20 via-purple-600/20 to-violet-600/20 blur-lg opacity-0 group-hover:opacity-70 transition-opacity duration-500" />
+
+      <div className="relative p-4 rounded-xl backdrop-blur-xl border border-violet-500/20 hover:border-violet-500/50 transition-all duration-300">
+        {/* Shine effect */}
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-violet-500/10 to-transparent animate-shine" />
+        </div>
+
+        {/* Header */}
+        <div className="flex items-center justify-between mb-3">
+          <div className="p-2 rounded-lg bg-violet-500/20 text-violet-300">
             {iconMap[testName]}
-            <span className="text-xs font-semibold bg-purple-500/20 text-purple-300 px-2 py-1 rounded-full">
-              5 Levels
-            </span>
           </div>
-          <h3 className="text-xl font-bold mb-2">{CourseNames[testName]}</h3>
-          <p className="text-sm text-gray-300 mb-4">
-            Master your skills in {CourseNames[testName]} tests
-          </p>
-          <div className="flex items-center text-purple-400 group-hover:text-purple-300 transition-colors duration-200">
-            <span className="text-sm font-medium mr-2">Start Now</span>
-            <ArrowRight className="w-4 h-4" />
+          <div className="flex gap-2">
+            <StatusBadge courses={courses} testName={testName} />
+            <Badge>5 Levels</Badge>
           </div>
+        </div>
+
+        {/* Content */}
+        <h3 className="text-lg font-semibold text-gray-200 mb-2">
+          {CourseNames[testName]}
+        </h3>
+        <p className="text-sm text-violet-400/80 mb-3">
+          Access the {CourseNames[testName]} tests
+        </p>
+
+        {/* Footer */}
+        <div className="flex items-center text-violet-400 group-hover:text-violet-300 transition-colors duration-200">
+          <span className="text-sm font-medium mr-2">Start Course</span>
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
         </div>
       </div>
     </motion.div>
   );
 }
 
-/* "use client";
-
-import React from "react";
-import { motion } from "framer-motion";
-import { CalendarIcon, BookOpen } from "lucide-react";
-import { aeTests, levelTests } from "@/lib/data";
-import { useRouter } from "next/navigation";
-
-const fadeInUp = {
-  initial: { opacity: 0, y: 10 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.4 },
-};
-
-export default function AllTests() {
-  const router = useRouter();
-
-  return (
-    <motion.div
-      className="w-[80vw] lg:w-[60vw] py-2 md:py-8 overflow-hidden"
-      initial="initial"
-      animate="animate"
-      variants={{
-        animate: {
-          transition: {
-            staggerChildren: 0.05,
-          },
-        },
-      }}
-    >
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8">
-        <motion.div variants={fadeInUp} className="p-3 md:p-6 rounded-lg">
-          <h2 className="text-xl md:text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4">
-            AE Tests
-          </h2>
-          <div className="space-y-4">
-            {aeTests.map((test) => (
-              <PracticeComponent
-                key={test.id}
-                {...test}
-                onClick={() => router.push("/c1/practice/" + test.id)}
-              />
-            ))}
-          </div>
-        </motion.div>
-        <motion.div variants={fadeInUp} className="p-3 md:p-6 rounded-lg">
-          <h2 className="text-xl md:text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-4">
-            Level Tests
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {levelTests.map((level) => (
-              <LevelComponent
-                key={level}
-                level={level}
-                onClick={() => router.push("/c1/level/" + level)}
-              />
-            ))}
-          </div>
-        </motion.div>
-      </div>
-    </motion.div>
-  );
-}
-
-function LevelComponent({
-  level,
+function SampleTestType({
+  testName,
   onClick,
 }: {
-  level: number;
+  testName: string;
   onClick: () => void;
 }) {
   return (
     <motion.div
-      className="relative overflow-hidden rounded-lg border-[1.75px] border-gray-400 dark:border-gray-400 cursor-pointer backdrop-blur-md bg-purple-800/10 dark:bg-purple-800/20"
-      whileHover={{ y: -3 }}
-      whileTap={{ scale: 0.98 }}
+      variants={fadeInUp}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.97 }}
       onClick={onClick}
+      className="group relative cursor-pointer"
     >
-      <div className="p-4 relative">
-        <div className="flex items-baseline mb-1">
-          <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mr-2">
-            Level {level}
-          </h3>
-          <p className="text-[12px] md:text-xs text-gray-600 dark:text-gray-400">
-            Aptitude & Programming
-          </p>
+      {/* Background glow effect */}
+      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-violet-600/20 via-purple-600/20 to-violet-600/20 blur-lg opacity-0 group-hover:opacity-70 transition-opacity duration-500" />
+
+      <div className="relative p-4 rounded-xl backdrop-blur-xl border border-violet-500/20 hover:border-violet-500/50 transition-all duration-300">
+        {/* Shine effect */}
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-violet-500/10 to-transparent animate-shine" />
         </div>
-        <div className="flex space-x-1">
-          {["A", "B", "C", "D", "E"].map((set) => (
-            <motion.span
-              key={set}
-              className="text-xs font-semibold px-1.5 py-0.5 rounded border border-gray-400 dark:border-gray-600 cursor-pointer backdrop-blur-md bg-purple-800/10 dark:bg-purple-800/20"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {set}
-            </motion.span>
-          ))}
+
+        {/* Header */}
+        <div className="flex items-center justify-between mb-3">
+          <div className="p-2 rounded-lg bg-violet-500/20 text-violet-300">
+            <FaCode className="w-5 h-5" />
+          </div>
+          <div className="flex gap-2">
+            {!DisablePayment && (
+              <Badge className="bg-green-500/10 text-green-300">
+                <span className="inline-block w-1.5 h-1.5 rounded-full mr-1 bg-green-400" />
+                Free Access
+              </Badge>
+            )}
+            <Badge>5 Levels</Badge>
+          </div>
+        </div>
+
+        {/* Content */}
+        <h3 className="text-lg font-semibold text-gray-200 mb-2">{testName}</h3>
+        <p className="text-sm text-violet-400/80 mb-3">
+          Try this free sample test to get started
+        </p>
+
+        {/* Footer */}
+        <div className="flex items-center text-violet-400 group-hover:text-violet-300 transition-colors duration-200">
+          <span className="text-sm font-medium mr-2">Start Now</span>
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
         </div>
       </div>
     </motion.div>
   );
 }
 
-function PracticeComponent({
-  name,
-  type,
-  date,
-  onClick,
+function StatusBadge({
+  courses,
+  testName,
 }: {
-  name: string;
-  type: string;
-  date: string;
-  onClick: () => void;
+  courses: string[] | undefined;
+  testName: Course;
 }) {
+  if (DisablePayment) {
+    return <></>;
+  }
+
+  if (!courses) {
+    return <Badge className="text-gray-300">Loading...</Badge>;
+  }
+
+  const isPaid = courses.includes(testName);
   return (
-    <motion.div
-      className="relative overflow-hidden rounded-lg border-[1.75px] border-gray-400 dark:border-gray-400 cursor-pointer backdrop-blur-md bg-purple-800/10 dark:bg-purple-800/20"
-      whileHover={{ y: -3 }}
-      whileTap={{ scale: 0.98 }}
-      onClick={onClick}
+    <Badge
+      className={
+        isPaid ? "bg-green-500/10 text-green-300" : "bg-red-500/10 text-red-300"
+      }
     >
-      <div className="relative z-10 p-4">
-        <div className="flex justify-between items-start">
-          <div className="flex-1">
-            <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200 leading-tight mb-2">
-              {name}
-            </h3>
-            <div className="flex justify-between items-center">
-              <p className="text-xs text-gray-600 dark:text-gray-400 flex items-center">
-                <BookOpen className="w-3 h-3 mr-1" />
-                {type}
-              </p>
-              <p className="text-xs text-gray-500 dark:text-gray-500">{date}</p>
-            </div>
-          </div>
-          <div className="bg-gray-100 dark:bg-gray-800 rounded-full p-1.5 ml-2">
-            <CalendarIcon className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-          </div>
-        </div>
-      </div>
-      <div
-        className="absolute inset-0 bg-gradient-to-br from-gray-100 to-white dark:from-gray-900 dark:to-gray-800 opacity-30"
-        style={{ filter: "blur(20px)" }}
+      <span
+        className={`inline-block w-1.5 h-1.5 rounded-full mr-1 ${isPaid ? "bg-green-400" : "bg-red-400"}`}
       />
-    </motion.div>
+      {isPaid ? "Enrolled" : "Not Enrolled"}
+    </Badge>
   );
-} */
+}
 
-// import React from "react";
-// import LevelComponent from "@/ui/Aceternity/LevelComponent";
+function Badge({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <span
+      className={`inline-flex items-center text-xs font-medium px-2 py-1 rounded-full ${className}`}
+    >
+      {children}
+    </span>
+  );
+}
 
-// export default function AllTests() {
-//   return (
-//     <div className="min-h-screen py-12">
-//       <div className="mb-16">
-//         <h2 className="text-3xl font-bold text-white mb-8 border-b pb-4">
-//           AE Tests
-//         </h2>
-//         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-//           {[1, 2].map((level) => (
-//             <div
-//               key={level}
-//               className="rounded-xl p-6 transition-all duration-300 hover:shadow-xl hover:shadow-black/20"
-//             >
-//               <LevelComponent level={level} />
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-
-//       <div>
-//         <h2 className="text-3xl font-bold text-white mb-8 border-b pb-4">
-//           Level Tests
-//         </h2>
-//         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-//           {[1, 2].map((level) => (
-//             <div
-//               key={level}
-//               className="rounded-xl p-6 transition-all duration-300 hover:shadow-xl hover:shadow-black/20"
-//             >
-//               <LevelComponent level={level} />
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
+function LoadingSpinner() {
+  return (
+    <div className="flex justify-center items-center min-h-[50vh]">
+      <div className="relative">
+        <div className="absolute inset-0 rounded-full border-2 border-violet-500/20 animate-ping" />
+        <div className="w-12 h-12 rounded-full border-2 border-violet-500/40 border-t-violet-500 animate-spin" />
+      </div>
+    </div>
+  );
+}

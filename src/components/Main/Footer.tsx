@@ -1,5 +1,6 @@
 import Link from "next/link";
-import React from "react";
+import { motion } from "framer-motion";
+import { Heart } from "lucide-react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -29,28 +30,53 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="absolute left-0 bottom-0 w-full mt-auto bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
-      <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center space-y-4 sm:space-y-0 sm:flex-row sm:justify-between sm:items-center">
-          <div>
-            <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-              © {currentYear} F66. All rights reserved.
-            </p>
+    <footer className="absolute left-0 bottom-0 w-full mt-auto border-t border-violet-500/10">
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-900/50 to-black/80 backdrop-blur-sm" />
+
+      <div className="relative max-w-3xl mx-auto px-4">
+        <div className="py-3">
+          {/* Top Row - F66 and Links */}
+          <div className="flex items-center justify-between mb-2">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="text-lg font-bold bg-gradient-to-r from-violet-400 to-violet-600 bg-clip-text text-transparent"
+            >
+              {businessName}
+            </motion.div>
+
+            <div className="flex flex-wrap gap-3 justify-end">
+              {footerLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  target="_blank"
+                  className="text-xs text-gray-400 hover:text-violet-400 transition-colors duration-200"
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
           </div>
-          <div className="text-sm sm:text-base font-semibold text-gray-800 dark:text-gray-200">
-            Business: {businessName}
-          </div>
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-            {footerLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                target="_blank"
-                className="hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200"
-              >
-                {link.name}
-              </Link>
-            ))}
+
+          {/* Bottom Row - Copyright and Security */}
+          <div className="flex items-center justify-between pt-2 border-t border-violet-500/10">
+            <div className="flex items-center space-x-1 text-xs text-gray-400">
+              <span>© {currentYear} F66.</span>
+              <span>Made with</span>
+              <Heart className="h-3 w-3 text-violet-500" />
+              <span>by {businessName}</span>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="text-xs text-gray-400"
+            >
+              Secured by Razorpay 🔒
+            </motion.div>
           </div>
         </div>
       </div>

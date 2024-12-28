@@ -1,0 +1,19 @@
+import { AES, enc } from "crypto-js";
+
+const SECRET_KEY = process.env.ENCRYPTION_KEY || "your-fallback-secret-key";
+
+export const encrypt = (content: any): string => {
+  const stringContent = JSON.stringify(content);
+  return AES.encrypt(stringContent, SECRET_KEY).toString();
+};
+
+export const decrypt = (encryptedContent: string): any => {
+  try {
+    const bytes = AES.decrypt(encryptedContent, SECRET_KEY);
+    const decryptedString = bytes.toString(enc.Utf8);
+    return JSON.parse(decryptedString);
+  } catch (error) {
+    console.error("Decryption failed:", error);
+    return null;
+  }
+};

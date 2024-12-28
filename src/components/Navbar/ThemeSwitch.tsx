@@ -1,44 +1,9 @@
-// // app/components/ThemeSwitch.tsx
-// "use client";
-
-// import { FiSun, FiMoon } from "react-icons/fi";
-// import { useState, useEffect } from "react";
-// import { useTheme } from "next-themes";
-// import Image from "next/image";
-
-// export default function ThemeSwitch() {
-//   const [mounted, setMounted] = useState(false);
-//   const { setTheme, resolvedTheme } = useTheme();
-
-//   useEffect(() => setMounted(true), []);
-
-//   if (!mounted)
-//     return (
-//       <Image
-//         src="data:image/svg+xml;base64,PHN2ZyBzdHJva2U9IiNGRkZGRkYiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iMCIgdmlld0JveD0iMCAwIDI0IDI0IiBoZWlnaHQ9IjIwMHB4IiB3aWR0aD0iMjAwcHgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiB4PSIyIiB5PSIyIiBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjIiIHJ4PSIyIj48L3JlY3Q+PC9zdmc+Cg=="
-//         width={36}
-//         height={36}
-//         sizes="36x36"
-//         alt="Loading Light/Dark Toggle"
-//         priority={false}
-//         title="Loading Light/Dark Toggle"
-//       />
-//     );
-
-//   if (resolvedTheme === "dark") {
-//     return <FiSun onClick={() => setTheme("light")} />;
-//   }
-
-//   if (resolvedTheme === "light") {
-//     return <FiMoon onClick={() => setTheme("dark")} />;
-//   }
-// }
-
 "use client";
 
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
-import Image from "next/image";
+import { motion } from "framer-motion";
+import { Sun, Moon } from "lucide-react";
 
 export default function ThemeSwitch() {
   const [mounted, setMounted] = useState(false);
@@ -46,73 +11,80 @@ export default function ThemeSwitch() {
 
   useEffect(() => setMounted(true), []);
 
-  if (!mounted)
+  if (!mounted) {
     return (
-      <Image
-        src="data:image/svg+xml;base64,PHN2ZyBzdHJva2U9IiNGRkZGRkYiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iMCIgdmlld0JveD0iMCAwIDI0IDI0IiBoZWlnaHQ9IjIwMHB4IiB3aWR0aD0iMjAwcHgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiB4PSIyIiB5PSIyIiBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjIiIHJ4PSIyIj48L3JlY3Q+PC9zdmc+Cg=="
-        width={36}
-        height={36}
-        sizes="36x36"
-        alt="Loading Light/Dark Toggle"
-        priority={false}
-        title="Loading Light/Dark Toggle"
-      />
+      <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-violet-500/20 to-purple-500/20 animate-pulse">
+        <div className="w-full h-full rounded-xl backdrop-blur-xl" />
+      </div>
     );
+  }
 
   return (
-    <div className="flex items-center gap-2">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="h-5 w-5 transition-all duration-300 text-yellow-500"
-      >
-        <circle cx="12" cy="12" r="4"></circle>
-        <path d="M12 2v2"></path>
-        <path d="M12 20v2"></path>
-        <path d="m4.93 4.93 1.41 1.41"></path>
-        <path d="m17.66 17.66 1.41 1.41"></path>
-        <path d="M2 12h2"></path>
-        <path d="M20 12h2"></path>
-        <path d="m6.34 17.66-1.41 1.41"></path>
-        <path d="m19.07 4.93-1.41 1.41"></path>
-      </svg>
+    <motion.button
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+      className="relative group flex items-center justify-center w-10 h-10 rounded-xl"
+    >
+      {/* Animated background */}
+      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-violet-500/10 to-purple-500/10 group-hover:from-violet-500/20 group-hover:to-purple-500/20 transition-all duration-300" />
 
-      <button
-        type="button"
-        role="switch"
-        aria-checked={resolvedTheme === "dark"}
-        data-state={resolvedTheme === "dark" ? "checked" : "unchecked"}
-        value={resolvedTheme === "dark" ? "on" : "off"}
-        onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-        className="relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out bg-gray-200 dark:bg-blue-600"
-      >
-        <span
-          data-state={resolvedTheme === "dark" ? "checked" : "unchecked"}
-          className="pointer-events-none relative inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out translate-x-0 dark:translate-x-4"
-        />
-      </button>
+      {/* Border gradient */}
+      <div className="absolute inset-0 rounded-xl border border-violet-500/20 group-hover:border-violet-500/40 transition-colors duration-300" />
 
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="h-5 w-5 transition-all duration-300 text-blue-600"
+      {/* Glow effect */}
+      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-violet-600/20 via-purple-600/20 to-violet-600/20 opacity-0 group-hover:opacity-70 blur-lg transition-opacity duration-500" />
+
+      {/* Icon with animations */}
+      <motion.div
+        initial={{ scale: 0.8 }}
+        animate={{ scale: 1 }}
+        transition={{
+          type: "spring",
+          stiffness: 200,
+          damping: 10,
+        }}
+        className="relative z-10"
       >
-        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-      </svg>
-    </div>
+        {resolvedTheme === "dark" ? (
+          <div className="relative">
+            <motion.div
+              animate={{
+                rotate: [0, 180],
+                scale: [1, 1.1, 1],
+              }}
+              transition={{
+                duration: 10,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            >
+              <Sun className="w-5 h-5 text-yellow-400" />
+            </motion.div>
+          </div>
+        ) : (
+          <div className="relative">
+            <motion.div
+              animate={{
+                rotate: [0, 360],
+                scale: [1, 1.1, 1],
+              }}
+              transition={{
+                duration: 10,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            >
+              <Moon className="w-5 h-5 text-violet-400" />
+            </motion.div>
+          </div>
+        )}
+      </motion.div>
+
+      {/* Shine effect */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-violet-500/10 to-transparent animate-shine rounded-xl" />
+      </div>
+    </motion.button>
   );
 }

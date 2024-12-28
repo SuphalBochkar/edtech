@@ -50,7 +50,7 @@ export async function getRazorPayOptions(
     amount: amount * 100,
     currency: "INR",
     name: sessionData.user.name,
-    description: "Course Payment",
+    description: "Payment for Learning Course",
     order_id: orderId,
     handler: async (response: {
       razorpay_payment_id: string;
@@ -75,8 +75,9 @@ export async function getRazorPayOptions(
           //     ...(sessionData.user.courses || []),
           //     Course.Course1Level,
           //   ];
-          update(sessionData);
           setPaymentFlow("success");
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+          update(sessionData);
         }
       } catch (error) {
         console.log("Error updating sessionData data after payment", error);

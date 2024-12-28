@@ -89,7 +89,7 @@ export function PayCourseCard({
               : "bg-violet-500/10 text-violet-400 hover:bg-violet-500/20 focus-visible:outline-violet-500"
           }`}
         >
-          Get Started (Do not Pay)
+          Get Started
         </motion.button>
       </div>
     </motion.div>

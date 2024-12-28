@@ -1,6 +1,7 @@
 "use client";
 
-import CustomBreadcrumb from "@/components/Courses/CustomBreadcrumb";
+import ContactUsButton from "@/components/Contact/ContactUsButton";
+import CustomBreadcrumb from "@/components/Main/CustomBreadcrumb";
 import NavBar from "@/components/Navbar/NavBar";
 import { NotistackProvider } from "@/components/Notifications/NotifyClientProvider";
 import { StyledMaterialDesignContent } from "@/components/Notifications/Notistack";
@@ -18,11 +19,12 @@ export default function TestLayout({
     >
       <div className="flex flex-col min-h-screen">
         <NavBar />
-        <div className="wrapper top-0 z-50 flex items-center justify-center gap-2 py-6 w-full">
-          <CustomBreadcrumb size="lg" />
+        <div className="wrapper top-0 z-50 flex items-center justify-center gap-2 py-1 md:py-3 w-full">
+          <CustomBreadcrumb />
         </div>
         {children}
       </div>
+      <ContactUsButton />
     </NotistackProvider>
   );
 }

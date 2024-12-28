@@ -5,6 +5,7 @@ const nextConfig = {
       "lh3.googleusercontent.com",
       "avatars.githubusercontent.com",
       "media.giphy.com",
+      "res.cloudinary.com",
     ],
     unoptimized: true,
   },

@@ -1,31 +1,35 @@
-import { useSnackbar } from "notistack";
+import { SnackbarKey, useSnackbar } from "notistack";
 import { useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X } from "lucide-react";
+import React from "react";
 
-const CustomMessage = () => {
-  return (
-    <div className="text-sm md:text-xl flex flex-col gap-2">
-      <div>
-        <span className="underline font-bold">AE Practice Tests 6 (2026)</span>{" "}
-        has been updated.
-      </div>
-      {/* <div>
-        Join our{" "}
-        <a
-          href="https://t.me/+sYgr_ndeZQIzZTll"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline text-[#994bff] md:no-underline md:hover:underline"
-        >
-          Telegram channel {""}
-        </a>
-        for the latest updates!
-      </div>{" "} */}
-    </div>
-  );
-};
-
-const Notify = () => {
+export const NotifyBase = ({ CustomMessage }: { CustomMessage: React.FC }) => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+  const action = React.useCallback(
+    (key: SnackbarKey) => (
+      <AnimatePresence>
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          className="flex items-center gap-4"
+        >
+          <CustomMessage />
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => closeSnackbar(key)}
+            className="group flex items-center gap-2 px-3 py-1.5 rounded-lg bg-violet-500/10 hover:bg-violet-500/20 border border-violet-500/20 hover:border-violet-500/30 transition-all duration-200"
+          >
+            <X className="w-4 h-4 text-violet-400 group-hover:text-violet-300" />
+          </motion.button>
+        </motion.div>
+      </AnimatePresence>
+    ),
+    [CustomMessage, closeSnackbar]
+  );
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -38,36 +42,15 @@ const Notify = () => {
     } else {
       enqueueSnackbar({
         variant: "default",
-        autoHideDuration: 3500,
+        autoHideDuration: 3000,
         anchorOrigin: {
           vertical: "top",
           horizontal: "center",
         },
-        action: (snackbarId) => action(snackbarId, closeSnackbar),
+        action: action,
       });
     }
-  }, [closeSnackbar, enqueueSnackbar]);
+  }, [closeSnackbar, enqueueSnackbar, action]);
 
-  function action(
-    snackbarId: string | number,
-    closeSnackbar: (id: string | number) => void
-  ) {
-    return (
-      <div className="text-sm md:text-xl mb-2 md:mb-0 flex items-center gap-4">
-        <CustomMessage />
-        <div className="flex mr-5 cursor-pointer">
-          <button
-            className="font-bold text-red-500 hover:underline transition-all"
-            onClick={() => closeSnackbar(snackbarId)}
-          >
-            Close
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  return <div></div>;
+  return null;
 };
-
-export default Notify;
