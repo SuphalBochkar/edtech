@@ -252,7 +252,7 @@ function StatusBadge({
       <span
         className={`inline-block w-1.5 h-1.5 rounded-full mr-1 ${isPaid ? "bg-green-400" : "bg-red-400"}`}
       />
-      {isPaid ? "Paid" : "Not Paid"}
+      {isPaid ? "Enrolled" : "Not Enrolled"}
     </Badge>
   );
 }

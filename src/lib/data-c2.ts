@@ -1,5 +1,5 @@
 import { Course } from "./data";
-import { Status, TestItem, TestTypeData } from "./types";
+import { TestItem, TestTypeData } from "./types";
 
 export const testTypes: Array<{ name: Course; path: string }> = [
   { name: Course.Course2N2NCPP, path: "/n2ncpp" },
@@ -59,10 +59,10 @@ export const testTypeData: Partial<TestTypeData> = {
     // },
     mcq: {
       "1": "9f1c6d7a5e7344b3a7289b52-6d3f5b72e9c452f0b18a3c5d-4c7e2b81d9a6345f7e3c1b0e-3b8f5a9d2e63720c9d74182f-7c5b3a8e6d1f4e2a93b6f0d7",
-      "2": Status.Updating,
-      "3": Status.Updating,
-      "4": Status.Updating,
-      "5": Status.Updating,
+      "2": "9f1c6d7a5e7344b3a7289b52-6d3f5b72e9c452f0b18a3c5d-4c7e2b81d9a6345f7e3c1b0e-3b8f5a9d2e63720c9d74182f-7c5b3a8e6d1f4e2a93b6f0d7",
+      //   "3": Status.Updating,
+      //   "4": Status.Updating,
+      //   "5": Status.Updating,
     },
   },
 };

@@ -9,11 +9,12 @@ import { useSession } from "next-auth/react";
 import DashboardSkeleton from "@/components/admin/DashboardSkeleton";
 import UserSessions from "@/components/admin/UserSessions";
 import UserPayments from "@/components/admin/UserPayments";
+import UserEnrollments from "@/components/admin/UserEnrollments";
 
 export default function AdminDashboard() {
   const { data: session, status: authStatus } = useSession();
   const [activeTab, setActiveTab] = useState<
-    "details" | "queries" | "sessions" | "payments"
+    "details" | "queries" | "sessions" | "payments" | "enrollments"
   >("details");
 
   const adminEmails = useMemo(() => {
@@ -70,6 +71,12 @@ export default function AdminDashboard() {
           Payments
         </Button>
         <Button
+          variant={activeTab === "enrollments" ? "outline" : "default"}
+          onClick={() => setActiveTab("enrollments")}
+        >
+          Enrollments
+        </Button>
+        <Button
           variant={activeTab === "sessions" ? "outline" : "default"}
           onClick={() => setActiveTab("sessions")}
         >
@@ -80,6 +87,7 @@ export default function AdminDashboard() {
       {activeTab === "queries" && <UserQueries />}
       {activeTab === "sessions" && <UserSessions />}
       {activeTab === "payments" && <UserPayments />}
+      {activeTab === "enrollments" && <UserEnrollments />}
     </div>
   );
 }

@@ -281,3 +281,114 @@ export async function getPayments(): Promise<PaymentsResponse> {
     return { error: "Failed to fetch payments" };
   }
 }
+
+export async function updateEnrollmentStatus(
+  enrollmentId: string,
+  status: "APPROVED" | "REJECTED" | "PENDING"
+) {
+  try {
+    const enrollment = await prisma.enrollment.findUnique({
+      where: { id: enrollmentId },
+    });
+
+    if (!enrollment) {
+      return {
+        success: false,
+        message: "Enrollment not found",
+      };
+    }
+
+    const updatedEnrollment = await prisma.enrollment.update({
+      where: { id: enrollmentId },
+      data: { status },
+    });
+
+    if (status === "APPROVED") {
+      await prisma.user.update({
+        where: { id: enrollment.userId },
+        data: {
+          courses: {
+            push: enrollment.courses,
+          },
+        },
+      });
+    }
+
+    return {
+      success: true,
+      message: `Enrollment ${status.toLowerCase()} successfully`,
+      enrollment: updatedEnrollment,
+    };
+  } catch (error) {
+    console.error("Error in updateEnrollmentStatus:", error);
+    return {
+      success: false,
+      message:
+        error instanceof Error
+          ? error.message
+          : "Failed to submit registration",
+    };
+  }
+}
+
+export type EnrollmentStatus = "PENDING" | "APPROVED" | "REJECTED";
+
+export async function getEnrollments(status?: EnrollmentStatus) {
+  try {
+    const where = status ? { status } : {};
+
+    const enrollments = await prisma.enrollment.findMany({
+      where,
+      include: {
+        user: {
+          select: {
+            name: true,
+            email: true,
+            image: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return {
+      success: true,
+      enrollments,
+    };
+  } catch (error) {
+    console.error("Error in getEnrollments:", error);
+    return {
+      success: false,
+      message: error instanceof Error ? error.message : "Failed to fetch enrollments",
+    };
+  }
+}
+
+export async function getUserEnrollments(userId: string) {
+  try {
+    const enrollments = await prisma.enrollment.findMany({
+      where: {
+        userId,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return {
+      success: true,
+      enrollments,
+    };
+  } catch (error) {
+    console.error("Error in getUserEnrollments:", error);
+    return {
+      success: false,
+      message:
+        error instanceof Error
+          ? error.message
+          : "Failed to fetch user enrollments",
+    };
+  }
+}

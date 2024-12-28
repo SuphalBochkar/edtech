@@ -92,7 +92,7 @@ function EnrollmentBadge({ isEnrolled }: { isEnrolled: boolean }) {
           isEnrolled ? "bg-green-400" : "bg-red-400"
         }`}
       />
-      {isEnrolled ? "Paid" : "Not Paid"}
+      {isEnrolled ? "Enrolled" : "Not Enrolled"}
     </span>
   );
 }
