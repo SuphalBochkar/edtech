@@ -1,55 +1,65 @@
 export default function PaymentsSkeleton() {
   return (
-    <div className="animate-pulse">
-      <div className="rounded-lg border border-gray-200">
-        {/* Header */}
-        <div className="p-6 border-b border-gray-200">
-          <div className="flex justify-between items-center">
+    <div className="w-full animate-pulse">
+      <div className="rounded-2xl border border-violet-500/20 backdrop-blur-xl overflow-hidden">
+        {/* Header Section */}
+        <div className="p-6 border-b border-violet-500/20">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            {/* Title Area */}
             <div className="space-y-2">
-              <div className="h-6 w-32 bg-gray-200 rounded"></div>
-              <div className="h-4 w-48 bg-gray-200 rounded"></div>
+              <div className="h-7 w-48 rounded-lg bg-violet-500/20" />
+              <div className="h-4 w-64 rounded-lg bg-violet-500/20" />
             </div>
-            <div className="flex gap-2">
-              <div className="h-9 w-64 bg-gray-200 rounded"></div>
-              <div className="h-9 w-32 bg-gray-200 rounded"></div>
-              <div className="h-9 w-24 bg-gray-200 rounded"></div>
+
+            {/* Controls Area */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <div className="relative flex-grow">
+                <div className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-violet-500/20" />
+                <div className="w-full sm:w-64 h-10 rounded-xl bg-violet-500/10 border border-violet-500/20" />
+              </div>
+              <div className="flex gap-2">
+                <div className="w-32 h-10 rounded-xl bg-violet-500/10 border border-violet-500/20" />
+                <div className="w-24 h-10 rounded-xl bg-violet-500/10 border border-violet-500/20" />
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Table */}
+        {/* Table Section */}
         <div className="p-6">
-          <div className="rounded-md border border-gray-200">
+          <div className="rounded-xl border border-violet-500/20 overflow-hidden">
             {/* Table Header */}
-            <div className="grid grid-cols-6 gap-4 p-4 bg-gray-50 border-b border-gray-200">
-              <div className="h-4 w-24 bg-gray-200 rounded"></div>
-              <div className="h-4 w-32 bg-gray-200 rounded"></div>
-              <div className="h-4 w-24 bg-gray-200 rounded"></div>
-              <div className="h-4 w-20 bg-gray-200 rounded"></div>
-              <div className="h-4 w-40 bg-gray-200 rounded"></div>
-              <div className="h-4 w-32 bg-gray-200 rounded"></div>
+            <div className="grid grid-cols-6 bg-violet-500/5 p-4 gap-4">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="h-4 rounded-lg bg-violet-500/20" />
+              ))}
             </div>
 
-            {/* Table Rows */}
-            {[...Array(5)].map((_, index) => (
-              <div
-                key={index}
-                className="grid grid-cols-6 gap-4 p-4 border-b border-gray-200"
-              >
-                <div className="space-y-2">
-                  <div className="h-4 w-32 bg-gray-200 rounded"></div>
-                  <div className="h-3 w-40 bg-gray-200 rounded"></div>
+            {/* Table Body */}
+            <div className="divide-y divide-violet-500/20">
+              {[...Array(5)].map((_, i) => (
+                <div key={i} className="grid grid-cols-6 p-4 gap-4">
+                  {/* User Info */}
+                  <div className="space-y-2">
+                    <div className="h-4 w-32 rounded-lg bg-violet-500/20" />
+                    <div className="h-3 w-24 rounded-lg bg-violet-500/20" />
+                  </div>
+                  {/* Course */}
+                  <div className="h-4 w-36 rounded-lg bg-violet-500/20" />
+                  {/* Amount */}
+                  <div className="h-4 w-24 rounded-lg bg-violet-500/20" />
+                  {/* Status */}
+                  <div className="w-20 h-6 rounded-full bg-violet-500/20" />
+                  {/* Payment Details */}
+                  <div className="space-y-2">
+                    <div className="h-4 w-48 rounded-lg bg-violet-500/20" />
+                    <div className="h-4 w-48 rounded-lg bg-violet-500/20" />
+                  </div>
+                  {/* Date */}
+                  <div className="h-4 w-32 rounded-lg bg-violet-500/20" />
                 </div>
-                <div className="h-4 w-36 bg-gray-200 rounded"></div>
-                <div className="h-4 w-24 bg-gray-200 rounded"></div>
-                <div className="h-6 w-20 bg-gray-200 rounded-full"></div>
-                <div className="space-y-2">
-                  <div className="h-4 w-48 bg-gray-200 rounded"></div>
-                  <div className="h-4 w-48 bg-gray-200 rounded"></div>
-                </div>
-                <div className="h-4 w-32 bg-gray-200 rounded"></div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>

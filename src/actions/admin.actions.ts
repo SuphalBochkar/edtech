@@ -29,18 +29,15 @@ type UserResponse = {
   error?: string;
 };
 
-export async function getUserDetails(search: string): Promise<UserResponse> {
+export async function getUserDetails(userId: string): Promise<UserResponse> {
   try {
-    if (!search) {
-      return { error: "Search term is required" };
+    if (!userId) {
+      return { error: "User ID is required" };
     }
 
-    const user = await prisma.user.findFirst({
+    const user = await prisma.user.findUnique({
       where: {
-        OR: [
-          { email: { contains: search, mode: "insensitive" } },
-          { name: { contains: search, mode: "insensitive" } },
-        ],
+        id: userId,
       },
       select: {
         image: true,
@@ -361,7 +358,8 @@ export async function getEnrollments(status?: EnrollmentStatus) {
     console.error("Error in getEnrollments:", error);
     return {
       success: false,
-      message: error instanceof Error ? error.message : "Failed to fetch enrollments",
+      message:
+        error instanceof Error ? error.message : "Failed to fetch enrollments",
     };
   }
 }
@@ -390,5 +388,62 @@ export async function getUserEnrollments(userId: string) {
           ? error.message
           : "Failed to fetch user enrollments",
     };
+  }
+}
+
+export async function deleteUserSession(sessionId: string) {
+  try {
+    const deleted = await prisma.session.delete({
+      where: {
+        id: sessionId,
+      },
+    });
+    return { success: true, data: deleted };
+  } catch (error) {
+    console.error("Error deleting session:", error);
+    return { success: false, error: "Failed to delete session" };
+  }
+}
+
+type SearchUserResponse = {
+  users?: {
+    id: string;
+    name: string | null;
+    email: string;
+    image: string | null;
+  }[];
+  error?: string;
+};
+
+export async function searchUsers(
+  searchTerm: string
+): Promise<SearchUserResponse> {
+  try {
+    if (!searchTerm) {
+      return { users: [] };
+    }
+
+    const users = await prisma.user.findMany({
+      where: {
+        OR: [
+          { email: { contains: searchTerm, mode: "insensitive" } },
+          { name: { contains: searchTerm, mode: "insensitive" } },
+        ],
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        image: true,
+      },
+      orderBy: {
+        name: "asc",
+      },
+    });
+
+    return { users };
+  } catch (error) {
+    console.error("Error searching users:", error);
+    return { error: "Failed to search users" };
   }
 }

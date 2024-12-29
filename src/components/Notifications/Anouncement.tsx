@@ -12,8 +12,30 @@ interface AnnouncementItem {
   link?: string;
 }
 
+const ANNOUNCEMENT_LAST_SHOWN_KEY = "announcement_last_shown_time";
+const SHOW_INTERVAL = 60 * 60 * 1000;
+
 const Announcement = () => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const lastShownTime = localStorage.getItem(ANNOUNCEMENT_LAST_SHOWN_KEY);
+    const currentTime = new Date().getTime();
+
+    if (!lastShownTime) {
+      setIsVisible(true);
+      localStorage.setItem(ANNOUNCEMENT_LAST_SHOWN_KEY, currentTime.toString());
+    } else {
+      const timeDiff = currentTime - parseInt(lastShownTime);
+      if (timeDiff > SHOW_INTERVAL) {
+        setIsVisible(true);
+        localStorage.setItem(
+          ANNOUNCEMENT_LAST_SHOWN_KEY,
+          currentTime.toString()
+        );
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
@@ -23,7 +45,6 @@ const Announcement = () => {
     };
 
     window.addEventListener("keydown", handleEsc);
-
     return () => {
       window.removeEventListener("keydown", handleEsc);
     };
@@ -70,6 +91,10 @@ const Announcement = () => {
     },
   ];
 
+  const handleClose = () => {
+    setIsVisible(false);
+  };
+
   if (!isVisible) return null;
 
   return (
@@ -79,7 +104,7 @@ const Announcement = () => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-        onClick={() => setIsVisible(false)}
+        onClick={handleClose}
       >
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
@@ -124,7 +149,7 @@ const Announcement = () => {
                 <motion.button
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.9 }}
-                  onClick={() => setIsVisible(false)}
+                  onClick={handleClose}
                   className="p-2 rounded-lg hover:bg-violet-500/10 text-violet-400 transition-colors"
                 >
                   <X className="w-5 h-5" />
