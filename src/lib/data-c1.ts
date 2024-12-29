@@ -83,7 +83,7 @@ export const tempData: tempTestData = {
 export const levelTests = [
   { level: 1, isNew: false },
   { level: 2, isNew: true },
-  { level: 3, isNew: true },
+  //   { level: 3, isNew: true },
 ];
 
 export const data: TestData = {
@@ -120,20 +120,20 @@ export const data: TestData = {
     },
   },
   "3": {
-    aptitude: {
-      "1": "66ac8d3d33ecd006ab359ed7",
-      "2": "66ac94f5a0564bb445ed9f1b",
-      "3": "66cce3426beabac6e2f958ca",
-      "4": "66d31ccddb2801e99cada95c",
-      "5": "66dd469dcc80a03015d78af5",
-    },
-    programming: {
-      "1": "66bfb0f5c44dc209859b00ec-66df5fea1cf66d1871b06fa9",
-      "2": "66c04ec09bc4b00bb23e1e66-66df60211cf66d1871b06fab",
-      "3": "66c050621ea8cc0124018ea1-66df603c1cf66d1871b06fad",
-      "4": "66c05235ce7f81fd696d4e0a-66df605e1cf66d1871b06faf",
-      "5": "66c0ece55281c0d2cd1f4c18-66df60811cf66d1871b06fb1",
-    },
+    // aptitude: {
+    //   "1": "66ac8d3d33ecd006ab359ed7",
+    //   "2": "66ac94f5a0564bb445ed9f1b",
+    //   "3": "66cce3426beabac6e2f958ca",
+    //   "4": "66d31ccddb2801e99cada95c",
+    //   "5": "66dd469dcc80a03015d78af5",
+    // },
+    // programming: {
+    //   "1": "66bfb0f5c44dc209859b00ec-66df5fea1cf66d1871b06fa9",
+    //   "2": "66c04ec09bc4b00bb23e1e66-66df60211cf66d1871b06fab",
+    //   "3": "66c050621ea8cc0124018ea1-66df603c1cf66d1871b06fad",
+    //   "4": "66c05235ce7f81fd696d4e0a-66df605e1cf66d1871b06faf",
+    //   "5": "66c0ece55281c0d2cd1f4c18-66df60811cf66d1871b06fb1",
+    // },
   },
   //   "4": {
   //     aptitude: {

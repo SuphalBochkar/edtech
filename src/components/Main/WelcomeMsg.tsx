@@ -94,13 +94,13 @@ const WelcomeMsg = ({ name, isPaid }: { name: string; isPaid: boolean }) => {
             </motion.div>
 
             {/* Status Text */}
-            <span
+            {/* <span
               className={`text-xs font-medium ${
                 isPaid ? "text-violet-300" : "text-gray-300"
               }`}
             >
-              {isPaid ? "Premium Member" : "Free User"}
-            </span>
+              {isPaid ? "Premium Member" : "Standard Member"}
+            </span> */}
 
             {/* Additional Icons for Premium */}
             {isPaid && (
