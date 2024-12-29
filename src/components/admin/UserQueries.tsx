@@ -7,6 +7,7 @@ import {
   RefreshCw,
   AlertCircle,
   Clipboard,
+  MessageSquare,
 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import {
@@ -68,9 +69,9 @@ const formatDate = (date: string) => {
 
 const getStatusColor = (status: Query["status"]) => {
   const colors = {
-    PENDING: "bg-yellow-100 text-yellow-800 hover:bg-yellow-200",
-    RESOLVED: "bg-green-100 text-green-800 hover:bg-green-200",
-    ERROR: "bg-red-100 text-red-800 hover:bg-red-200",
+    PENDING: "bg-yellow-500/10 text-yellow-300 hover:bg-yellow-500/20",
+    RESOLVED: "bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20",
+    ERROR: "bg-red-500/10 text-red-300 hover:bg-red-500/20",
   };
   return colors[status];
 };
@@ -128,7 +129,7 @@ export default function UserQueries() {
       if (result.error) {
         throw new Error(result.error);
       }
-      await fetchQueries(); // Refresh the queries list
+      await fetchQueries();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to update status");
       console.error("Error updating query:", err);
@@ -171,20 +172,15 @@ export default function UserQueries() {
     return <QueriesSkeleton />;
   }
 
-  const handleCopyToClipboard = (email: string | undefined | null) => {
-    if (email === undefined || email === null) return;
-    navigator.clipboard.writeText(email);
-  };
-
   if (!session || !adminEmails.includes(session.user?.email as string)) {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
-        <Card className="w-full max-w-md">
-          <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-bold text-red-600">
+        <Card className="w-full max-w-md border-violet-500/20 bg-black/50 backdrop-blur-xl">
+          <CardHeader className="text-center space-y-2">
+            <CardTitle className="text-2xl font-bold bg-gradient-to-r from-red-300 to-red-500 bg-clip-text text-transparent">
               Access Denied
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-violet-300">
               You must be an administrator to view this page.
             </CardDescription>
           </CardHeader>
@@ -194,35 +190,39 @@ export default function UserQueries() {
   }
 
   return (
-    <Card className="container mx-auto p-4">
+    <Card className="border-violet-500/20 bg-black/50 backdrop-blur-xl">
       <CardHeader>
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <CardTitle className="text-2xl font-bold">
-              Admin Dashboard
+            <CardTitle className="text-2xl font-bold bg-gradient-to-r from-violet-200 to-violet-400 bg-clip-text text-transparent flex items-center gap-2">
+              <MessageSquare className="h-6 w-6 text-violet-400" />
+              Support Queries
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-violet-300">
               Manage and track user support requests
             </CardDescription>
           </div>
-          <div className="flex flex-col sm:flex-row gap-2">
-            <div className="relative">
-              <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+          <div className="flex flex-col sm:flex-row gap-3">
+            <div className="relative flex-grow">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-violet-400" />
               <Input
                 placeholder="Search queries..."
-                className="pl-8 w-full sm:w-64"
+                className="pl-9 w-full sm:w-64 bg-violet-500/10 border-violet-500/20 text-violet-100 placeholder:text-violet-400/50"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  className="flex items-center gap-2 bg-violet-500/10 border-violet-500/20 text-violet-300 hover:bg-violet-500/20 hover:border-violet-500/30"
+                >
                   <Filter className="h-4 w-4" />
                   <span>Filter: {statusFilter}</span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-white text-background shadow-lg border">
+              <DropdownMenuContent className="bg-black/90 border-violet-500/20 text-violet-100">
                 <DropdownMenuItem onClick={() => setStatusFilter("ALL")}>
                   All Queries
                 </DropdownMenuItem>
@@ -241,7 +241,7 @@ export default function UserQueries() {
               variant="outline"
               onClick={refreshQueries}
               disabled={refreshing}
-              className="w-full sm:w-auto"
+              className="bg-violet-500/10 border-violet-500/20 text-violet-300 hover:bg-violet-500/20 hover:border-violet-500/30"
             >
               <RefreshCw
                 className={`h-4 w-4 mr-2 ${refreshing ? "animate-spin" : ""}`}
@@ -254,134 +254,130 @@ export default function UserQueries() {
 
       <CardContent>
         {error && (
-          <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md flex items-center gap-2 text-red-700">
+          <div className="mb-4 p-4 rounded-xl border border-red-500/20 bg-red-500/10 backdrop-blur-sm text-red-300 flex items-center gap-2">
             <AlertCircle className="h-4 w-4" />
             <span>{error}</span>
           </div>
         )}
 
-        <div className="rounded-md border">
-          <div className="overflow-x-auto">
-            <Table>
-              <TableHeader>
+        <div className="rounded-xl border border-violet-500/20 overflow-hidden">
+          <Table>
+            <TableHeader>
+              <TableRow className="border-violet-500/20 hover:bg-violet-500/5">
+                <TableHead
+                  onClick={() => {
+                    setSortField("user");
+                    setSortOrder(
+                      sortField === "user" && sortOrder === "asc"
+                        ? "desc"
+                        : "asc"
+                    );
+                  }}
+                  className="text-violet-300 cursor-pointer hover:text-violet-200"
+                >
+                  User{" "}
+                  {sortField === "user" && (sortOrder === "asc" ? "↑" : "↓")}
+                </TableHead>
+                <TableHead className="text-violet-300">Message</TableHead>
+                <TableHead
+                  onClick={() => {
+                    setSortField("status");
+                    setSortOrder(
+                      sortField === "status" && sortOrder === "asc"
+                        ? "desc"
+                        : "asc"
+                    );
+                  }}
+                  className="text-violet-300 cursor-pointer hover:text-violet-200"
+                >
+                  Status{" "}
+                  {sortField === "status" && (sortOrder === "asc" ? "↑" : "↓")}
+                </TableHead>
+                <TableHead
+                  onClick={() => {
+                    setSortField("createdAt");
+                    setSortOrder(
+                      sortField === "createdAt" && sortOrder === "asc"
+                        ? "desc"
+                        : "asc"
+                    );
+                  }}
+                  className="text-violet-300 cursor-pointer hover:text-violet-200"
+                >
+                  Date{" "}
+                  {sortField === "createdAt" &&
+                    (sortOrder === "asc" ? "↑" : "↓")}
+                </TableHead>
+                <TableHead className="text-violet-300">Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {filteredAndSortedQueries.length === 0 ? (
                 <TableRow>
-                  <TableHead
-                    onClick={() => {
-                      setSortField("user");
-                      setSortOrder(
-                        sortField === "user" && sortOrder === "asc"
-                          ? "desc"
-                          : "asc"
-                      );
-                    }}
-                    className="cursor-pointer"
+                  <TableCell
+                    colSpan={5}
+                    className="h-24 text-center text-violet-300"
                   >
-                    User{" "}
-                    {sortField === "user" && (sortOrder === "asc" ? "↑" : "↓")}
-                  </TableHead>
-                  <TableHead className="min-w-[300px] max-w-[500px]">
-                    Message
-                  </TableHead>
-                  <TableHead
-                    onClick={() => {
-                      setSortField("status");
-                      setSortOrder(
-                        sortField === "status" && sortOrder === "asc"
-                          ? "desc"
-                          : "asc"
-                      );
-                    }}
-                    className="cursor-pointer"
-                  >
-                    Status{" "}
-                    {sortField === "status" &&
-                      (sortOrder === "asc" ? "↑" : "↓")}
-                  </TableHead>
-                  <TableHead
-                    onClick={() => {
-                      setSortField("createdAt");
-                      setSortOrder(
-                        sortField === "createdAt" && sortOrder === "asc"
-                          ? "desc"
-                          : "asc"
-                      );
-                    }}
-                    className="cursor-pointer"
-                  >
-                    Date{" "}
-                    {sortField === "createdAt" &&
-                      (sortOrder === "asc" ? "↑" : "↓")}
-                  </TableHead>
-                  <TableHead>Actions</TableHead>
+                    No queries found matching your criteria.
+                  </TableCell>
                 </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredAndSortedQueries.length === 0 ? (
-                  <TableRow>
-                    <TableCell
-                      colSpan={5}
-                      className="h-24 text-center text-muted-foreground"
-                    >
-                      No queries found matching your criteria.
+              ) : (
+                filteredAndSortedQueries.map((query) => (
+                  <TableRow
+                    key={query.id}
+                    className="border-violet-500/20 hover:bg-violet-500/5"
+                  >
+                    <TableCell className="font-medium">
+                      <div className="flex flex-col">
+                        <span className="text-violet-200">
+                          {query.user?.name || "Anonymous"}
+                        </span>
+                        <span className="text-sm text-violet-400 flex items-center gap-1">
+                          {query.user?.email}
+                          <Clipboard
+                            className="h-3 w-3 cursor-pointer hover:text-violet-300"
+                            onClick={() =>
+                              navigator.clipboard.writeText(
+                                query.user?.email || ""
+                              )
+                            }
+                          />
+                        </span>
+                      </div>
+                    </TableCell>
+                    <TableCell className="max-w-[500px] break-words whitespace-normal text-violet-200">
+                      {query.message}
+                    </TableCell>
+                    <TableCell>
+                      <Badge className={getStatusColor(query.status)}>
+                        {query.status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-violet-300">
+                      {formatDate(query.createdAt)}
+                    </TableCell>
+                    <TableCell>
+                      <Select
+                        value={query.status}
+                        onValueChange={(value) =>
+                          handleUpdateStatus(query.id, value as Query["status"])
+                        }
+                      >
+                        <SelectTrigger className="w-[130px] bg-violet-500/10 border-violet-500/20 text-violet-300">
+                          <SelectValue placeholder="Change status" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-black/90 border-violet-500/20 text-violet-100">
+                          <SelectItem value="PENDING">Pending</SelectItem>
+                          <SelectItem value="RESOLVED">Resolved</SelectItem>
+                          <SelectItem value="ERROR">Error</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </TableCell>
                   </TableRow>
-                ) : (
-                  filteredAndSortedQueries.map((query) => (
-                    <TableRow key={query.id} className="hover:bg-muted/50">
-                      <TableCell className="font-medium flex items-center space-x-2">
-                        <span className="flex items-center">
-                          <span className="font-semibold">
-                            {query.user?.name || "Anonymous"}
-                          </span>
-                          <span className="text-gray-500 ml-2 flex items-center gap-1">
-                            {query.user?.email}
-                            <Clipboard
-                              width={16}
-                              height={16}
-                              onClick={() =>
-                                handleCopyToClipboard(query.user?.email)
-                              }
-                              className="cursor-pointer text-gray-500 hover:text-gray-700"
-                              data-tooltip="Copy email to clipboard"
-                            />
-                          </span>
-                        </span>
-                      </TableCell>
-                      <TableCell className="max-w-[500px] break-words whitespace-normal">
-                        {query.message}
-                      </TableCell>
-                      <TableCell>
-                        <Badge className={getStatusColor(query.status)}>
-                          {query.status}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>{formatDate(query.createdAt)}</TableCell>
-                      <TableCell>
-                        <Select
-                          value={query.status}
-                          onValueChange={(value) =>
-                            handleUpdateStatus(
-                              query.id,
-                              value as Query["status"]
-                            )
-                          }
-                        >
-                          <SelectTrigger className="w-[130px]">
-                            <SelectValue placeholder="Change status" />
-                          </SelectTrigger>
-                          <SelectContent className="bg-white text-background shadow-lg border">
-                            <SelectItem value="PENDING">Pending</SelectItem>
-                            <SelectItem value="RESOLVED">Resolved</SelectItem>
-                            <SelectItem value="ERROR">Error</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </TableCell>
-                    </TableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
-          </div>
+                ))
+              )}
+            </TableBody>
+          </Table>
         </div>
       </CardContent>
     </Card>

@@ -9,6 +9,8 @@ import {
   Check,
   X,
   Image as ImageIcon,
+  GraduationCap,
+  Search,
 } from "lucide-react";
 import {
   Table,
@@ -44,22 +46,6 @@ import EnrollmentsSkeleton from "./EnrollmentsSkeleton";
 
 type EnrollmentStatus = "PENDING" | "APPROVED" | "REJECTED";
 
-// type APIEnrollment = {
-//   id: string;
-//   userId: string;
-//   courses: Course[];
-//   paymentProofUrl: string | null;
-//   status: EnrollmentStatus;
-//   totalAmount: number;
-//   createdAt: Date;
-//   updatedAt: Date;
-//   user: {
-//     name: string | null;
-//     email: string;
-//     image: string | null;
-//   };
-// };
-
 type Enrollment = {
   id: string;
   userId: string;
@@ -77,6 +63,15 @@ type Enrollment = {
 
 type SortField = "status" | "createdAt" | "user" | "amount";
 type FilterStatus = "ALL" | EnrollmentStatus;
+
+const getStatusColor = (status: EnrollmentStatus) => {
+  const colors = {
+    PENDING: "bg-yellow-500/10 text-yellow-300 hover:bg-yellow-500/20",
+    APPROVED: "bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20",
+    REJECTED: "bg-red-500/10 text-red-300 hover:bg-red-500/20",
+  };
+  return colors[status];
+};
 
 export default function UserEnrollments() {
   const [enrollments, setEnrollments] = useState<Enrollment[]>([]);
@@ -97,7 +92,6 @@ export default function UserEnrollments() {
         throw new Error(result.message || "Failed to fetch enrollments");
       }
 
-      // Transform the API response to match our component's type
       const transformedEnrollments: Enrollment[] = result.enrollments.map(
         (enrollment) => ({
           ...enrollment,
@@ -144,15 +138,6 @@ export default function UserEnrollments() {
     return new Date(date).toLocaleString();
   };
 
-  const getStatusColor = (status: Enrollment["status"]) => {
-    const colors = {
-      PENDING: "bg-yellow-100 text-yellow-800",
-      APPROVED: "bg-green-100 text-green-800",
-      REJECTED: "bg-red-100 text-red-800",
-    };
-    return colors[status];
-  };
-
   if (loading) {
     return <EnrollmentsSkeleton />;
   }
@@ -187,30 +172,39 @@ export default function UserEnrollments() {
     });
 
   return (
-    <Card>
+    <Card className="border-violet-500/20 bg-black/50 backdrop-blur-xl">
       <CardHeader>
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <CardTitle>Course Enrollments</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-2xl font-bold bg-gradient-to-r from-violet-200 to-violet-400 bg-clip-text text-transparent flex items-center gap-2">
+              <GraduationCap className="h-6 w-6 text-violet-400" />
+              Course Enrollments
+            </CardTitle>
+            <CardDescription className="text-violet-300">
               Manage and review course enrollment requests
             </CardDescription>
           </div>
-          <div className="flex items-center gap-4">
-            <Input
-              placeholder="Search by name or email..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-64"
-            />
+          <div className="flex flex-col sm:flex-row gap-3">
+            <div className="relative flex-grow">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-violet-400" />
+              <Input
+                placeholder="Search by name or email..."
+                className="pl-9 w-full sm:w-64 bg-violet-500/10 border-violet-500/20 text-violet-100 placeholder:text-violet-400/50"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline">
-                  <Filter className="h-4 w-4 mr-2" />
-                  Filter
+                <Button
+                  variant="outline"
+                  className="flex items-center gap-2 bg-violet-500/10 border-violet-500/20 text-violet-300 hover:bg-violet-500/20 hover:border-violet-500/30"
+                >
+                  <Filter className="h-4 w-4" />
+                  <span>Filter: {statusFilter}</span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
+              <DropdownMenuContent className="bg-black/90 border-violet-500/20 text-violet-100">
                 <DropdownMenuItem onClick={() => setStatusFilter("ALL")}>
                   Show All
                 </DropdownMenuItem>
@@ -229,6 +223,7 @@ export default function UserEnrollments() {
               variant="outline"
               onClick={refreshEnrollments}
               disabled={refreshing}
+              className="bg-violet-500/10 border-violet-500/20 text-violet-300 hover:bg-violet-500/20 hover:border-violet-500/30"
             >
               <RefreshCw
                 className={`h-4 w-4 mr-2 ${refreshing ? "animate-spin" : ""}`}
@@ -241,144 +236,188 @@ export default function UserEnrollments() {
 
       <CardContent>
         {error && (
-          <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md flex items-center gap-2 text-red-700">
+          <div className="mb-4 p-4 rounded-xl border border-red-500/20 bg-red-500/10 backdrop-blur-sm text-red-300 flex items-center gap-2">
             <AlertCircle className="h-4 w-4" />
             <span>{error}</span>
           </div>
         )}
 
-        <div className="rounded-md border">
+        <div className="rounded-xl border border-violet-500/20 overflow-hidden">
           <Table>
             <TableHeader>
-              <TableRow>
+              <TableRow className="border-violet-500/20 hover:bg-violet-500/5">
                 <TableHead
                   onClick={() => {
-                    if (sortField === "user")
-                      setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
                     setSortField("user");
+                    setSortOrder(
+                      sortField === "user" && sortOrder === "asc"
+                        ? "desc"
+                        : "asc"
+                    );
                   }}
+                  className="text-violet-300 cursor-pointer hover:text-violet-200"
                 >
-                  User
+                  User{" "}
+                  {sortField === "user" && (sortOrder === "asc" ? "↑" : "↓")}
                 </TableHead>
-                <TableHead>Courses</TableHead>
+                <TableHead className="text-violet-300">Courses</TableHead>
                 <TableHead
                   onClick={() => {
-                    if (sortField === "amount")
-                      setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
                     setSortField("amount");
+                    setSortOrder(
+                      sortField === "amount" && sortOrder === "asc"
+                        ? "desc"
+                        : "asc"
+                    );
                   }}
+                  className="text-violet-300 cursor-pointer hover:text-violet-200"
                 >
-                  Amount
+                  Amount{" "}
+                  {sortField === "amount" && (sortOrder === "asc" ? "↑" : "↓")}
                 </TableHead>
-                <TableHead>Payment Proof</TableHead>
                 <TableHead
                   onClick={() => {
-                    if (sortField === "status")
-                      setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
                     setSortField("status");
+                    setSortOrder(
+                      sortField === "status" && sortOrder === "asc"
+                        ? "desc"
+                        : "asc"
+                    );
                   }}
+                  className="text-violet-300 cursor-pointer hover:text-violet-200"
                 >
-                  Status
+                  Status{" "}
+                  {sortField === "status" && (sortOrder === "asc" ? "↑" : "↓")}
                 </TableHead>
                 <TableHead
                   onClick={() => {
-                    if (sortField === "createdAt")
-                      setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
                     setSortField("createdAt");
+                    setSortOrder(
+                      sortField === "createdAt" && sortOrder === "asc"
+                        ? "desc"
+                        : "asc"
+                    );
                   }}
+                  className="text-violet-300 cursor-pointer hover:text-violet-200"
                 >
-                  Date
+                  Date{" "}
+                  {sortField === "createdAt" &&
+                    (sortOrder === "asc" ? "↑" : "↓")}
                 </TableHead>
-                <TableHead>Actions</TableHead>
+                <TableHead className="text-violet-300">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredAndSortedEnrollments.map((enrollment) => (
-                <TableRow key={enrollment.id}>
-                  <TableCell>
-                    <div className="flex items-center gap-3">
-                      <Avatar>
-                        <AvatarImage src={enrollment.user.image || ""} />
-                        <AvatarFallback>
-                          {enrollment.user.name?.[0] || "U"}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <div className="font-medium">
-                          {enrollment.user.name || "Anonymous"}
-                        </div>
-                        <div className="text-sm text-gray-500 flex items-center gap-1">
-                          {enrollment.user.email}
-                          <Clipboard
-                            className="h-4 w-4 cursor-pointer hover:text-gray-700"
-                            onClick={() =>
-                              navigator.clipboard.writeText(
-                                enrollment.user.email
-                              )
-                            }
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="space-y-1">
-                      {enrollment.courses.map((course) => (
-                        <div key={course} className="text-sm">
-                          {CourseNames[course]}
-                        </div>
-                      ))}
-                    </div>
-                  </TableCell>
-                  <TableCell>₹{enrollment.totalAmount}</TableCell>
-                  <TableCell>
-                    <a
-                      href={enrollment.paymentProofUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Button variant="outline" size="sm">
-                        <ImageIcon className="h-4 w-4 mr-2" />
-                        View Proof
-                      </Button>
-                    </a>
-                  </TableCell>
-                  <TableCell>
-                    <Badge className={getStatusColor(enrollment.status)}>
-                      {enrollment.status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>{formatDate(enrollment.createdAt)}</TableCell>
-                  <TableCell>
-                    {enrollment.status === "PENDING" && (
-                      <div className="flex gap-2">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="bg-green-500 hover:bg-green-600 text-white"
-                          onClick={() =>
-                            handleUpdateStatus(enrollment.id, "APPROVED")
-                          }
-                        >
-                          <Check className="h-4 w-4 mr-1" />
-                          Approve
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="bg-red-500 hover:bg-red-600 text-white"
-                          onClick={() =>
-                            handleUpdateStatus(enrollment.id, "REJECTED")
-                          }
-                        >
-                          <X className="h-4 w-4 mr-1" />
-                          Reject
-                        </Button>
-                      </div>
-                    )}
+              {filteredAndSortedEnrollments.length === 0 ? (
+                <TableRow>
+                  <TableCell
+                    colSpan={6}
+                    className="h-24 text-center text-violet-300"
+                  >
+                    No enrollments found matching your criteria.
                   </TableCell>
                 </TableRow>
-              ))}
+              ) : (
+                filteredAndSortedEnrollments.map((enrollment) => (
+                  <TableRow
+                    key={enrollment.id}
+                    className="border-violet-500/20 hover:bg-violet-500/5"
+                  >
+                    <TableCell>
+                      <div className="flex items-center gap-3">
+                        <Avatar>
+                          <AvatarImage src={enrollment.user.image || ""} />
+                          <AvatarFallback className="bg-violet-500/20 text-violet-200">
+                            {enrollment.user.name?.[0] || "A"}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <div className="font-medium text-violet-200">
+                            {enrollment.user.name || "Anonymous"}
+                          </div>
+                          <div className="text-sm text-violet-400 flex items-center gap-1">
+                            {enrollment.user.email}
+                            <Clipboard
+                              className="h-3 w-3 cursor-pointer hover:text-violet-300"
+                              onClick={() =>
+                                navigator.clipboard.writeText(
+                                  enrollment.user.email
+                                )
+                              }
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex flex-wrap gap-1">
+                        {enrollment.courses.map((course) => (
+                          <Badge
+                            key={course}
+                            className="bg-violet-500/10 text-violet-300"
+                          >
+                            {CourseNames[course]}
+                          </Badge>
+                        ))}
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-violet-200">
+                      ₹{enrollment.totalAmount.toLocaleString("en-IN")}
+                    </TableCell>
+                    <TableCell>
+                      <Badge className={getStatusColor(enrollment.status)}>
+                        {enrollment.status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-violet-200">
+                      {formatDate(enrollment.createdAt)}
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        {enrollment.status === "PENDING" && (
+                          <>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() =>
+                                handleUpdateStatus(enrollment.id, "APPROVED")
+                              }
+                              className="hover:bg-emerald-500/10 hover:text-emerald-300"
+                            >
+                              <Check className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() =>
+                                handleUpdateStatus(enrollment.id, "REJECTED")
+                              }
+                              className="hover:bg-red-500/10 hover:text-red-300"
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                          </>
+                        )}
+                        {enrollment.paymentProofUrl && (
+                          <a
+                            href={enrollment.paymentProofUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="hover:bg-violet-500/10 hover:text-violet-300"
+                            >
+                              <ImageIcon className="h-4 w-4" />
+                            </Button>
+                          </a>
+                        )}
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
             </TableBody>
           </Table>
         </div>
