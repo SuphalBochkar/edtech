@@ -5,11 +5,16 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { LogOut, Loader2 } from "lucide-react";
+import { LogOut, Loader2, BellRing } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 import defaultImage from "@/assets/default-avatar.png";
 import myAvatar from "@/assets/my-avatar.jpg";
-// import ThemeSwitch from "./ThemeSwitch";
+import Announcement, {
+  announcementsArray,
+} from "@/components/Notifications/Anouncement";
+
+const ANNOUNCEMENT_LAST_SHOWN_KEY = "announcement_last_shown_time";
+const SHOW_INTERVAL = 2 * 60 * 60 * 1000; // 2 hours
 
 const NavBar = () => {
   const { data: session, status } = useSession();
@@ -17,12 +22,38 @@ const NavBar = () => {
   const router = useRouter();
   const pathname = usePathname();
   const [loading, setLoading] = useState(false);
+  const [showAnnouncements, setShowAnnouncements] = useState(false);
+  const [hasNewAnnouncements, setHasNewAnnouncements] = useState(false);
+  const announcementsLength = announcementsArray?.length;
 
   useEffect(() => {
     if (status === "loading") return;
     if (pathname.includes("/pricing")) return;
     if (!user) router.push("/");
   }, [user, status, router, pathname]);
+
+  useEffect(() => {
+    const lastShownTime = localStorage.getItem(ANNOUNCEMENT_LAST_SHOWN_KEY);
+    const currentTime = new Date().getTime();
+
+    if (!lastShownTime) {
+      setHasNewAnnouncements(true);
+    } else {
+      const timeDiff = currentTime - parseInt(lastShownTime);
+      if (timeDiff > SHOW_INTERVAL) {
+        setHasNewAnnouncements(true);
+      }
+    }
+  }, []);
+
+  const handleAnnouncementClick = () => {
+    setShowAnnouncements(true);
+    setHasNewAnnouncements(false);
+    localStorage.setItem(
+      ANNOUNCEMENT_LAST_SHOWN_KEY,
+      new Date().getTime().toString()
+    );
+  };
 
   const relativeRoutes = ["/c1/level/", "/c1/practice/", "/c2/"];
   const isRelativeRoute = relativeRoutes.some((route) =>
@@ -138,6 +169,44 @@ const NavBar = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     className="flex items-center gap-2 sm:gap-4"
                   >
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={handleAnnouncementClick}
+                      className="group relative rounded-full bg-violet-500/10 p-2 transition-all hover:bg-violet-500/20"
+                    >
+                      {hasNewAnnouncements && (
+                        <motion.div
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          className="absolute -top-1.5 -right-1.5 flex items-center justify-center"
+                        >
+                          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-red-500/60 to-rose-500/60 blur-sm" />
+                          <div className="relative flex h-4.5 min-w-4.5 items-center justify-center rounded-full border border-red-400/30 bg-gradient-to-r from-red-500/80 to-rose-500/80 px-1 shadow-lg shadow-red-500/20">
+                            <span className="text-[10px] font-semibold text-red-50/90">
+                              {announcementsLength}
+                            </span>
+                          </div>
+                        </motion.div>
+                      )}
+                      <motion.div
+                        animate={
+                          hasNewAnnouncements
+                            ? {
+                                rotate: [-10, 10, -10],
+                                transition: {
+                                  duration: 0.5,
+                                  repeat: Infinity,
+                                  ease: "linear",
+                                },
+                              }
+                            : {}
+                        }
+                      >
+                        <BellRing className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-violet-300" />
+                      </motion.div>
+                    </motion.button>
+
                     <div className="group relative">
                       <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-violet-500 to-purple-500 opacity-50 blur group-hover:opacity-75 transition duration-300" />
                       <div className="relative rounded-full">
@@ -170,6 +239,11 @@ const NavBar = () => {
           </div>
         </div>
       </motion.div>
+
+      {/* Announcements Modal */}
+      {showAnnouncements && (
+        <Announcement onClose={() => setShowAnnouncements(false)} />
+      )}
     </nav>
   );
 };
