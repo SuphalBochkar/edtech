@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { AlertTriangle, ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { testTypes } from "@/lib/data-c2";
 import { Course, CourseNames, DisablePayment } from "@/lib/data";
@@ -46,8 +46,11 @@ export default function AllTests() {
       </motion.div>
 
       <div className="space-y-6">
+        {/* Notice Section */}
+        <Notice />
+
         {/* Sample Test Section */}
-        <section>
+        {/* <section>
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -75,7 +78,7 @@ export default function AllTests() {
               onClick={() => router.push(`/c2/sample`)}
             />
           </motion.div>
-        </section>
+        </section> */}
 
         {/* All Tests Section */}
         <section>
@@ -171,7 +174,7 @@ function TestTypeComponent({
   );
 }
 
-function SampleTestType({
+export function SampleTestType({
   testName,
   onClick,
 }: {
@@ -280,6 +283,56 @@ function LoadingSpinner() {
         <div className="absolute inset-0 rounded-full border-2 border-violet-500/20 animate-ping" />
         <div className="w-12 h-12 rounded-full border-2 border-violet-500/40 border-t-violet-500 animate-spin" />
       </div>
+    </div>
+  );
+}
+
+function Notice() {
+  return (
+    <div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, type: "spring", stiffness: 100 }}
+        className="w-full max-w-6xl mx-auto mb-8 backdrop-blur-lg border border-violet-500/20 shadow-2xl rounded-3xl p-6 sm:p-8 ring-1 ring-violet-500/50 hover:border-violet-500/30 transition-all duration-300"
+      >
+        <motion.h2
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.4 }}
+          className="text-xl sm:text-2xl font-semibold mb-4 text-violet-300 flex items-center gap-3"
+        >
+          <motion.div
+            whileHover={{ rotate: 20 }}
+            transition={{ type: "spring" }}
+          >
+            <AlertTriangle className="w-6 h-6 text-yellow-400" />
+          </motion.div>
+          Notice
+        </motion.h2>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="space-y-4 text-gray-300 text-sm sm:text-base"
+        >
+          <p className="leading-relaxed">
+            For those whose{" "}
+            <span className="text-violet-400 font-medium">Level 2</span> has not
+            been unlocked yet, you can still access the tests by clicking on the{" "}
+            <span className="hidden md:inline px-2 py-0.5 bg-violet-500/20 rounded-md font-medium text-violet-300 border border-violet-500/30 hover:bg-violet-500/30 transition-colors">
+              Start Test
+            </span>{" "}
+            <span className="inline-block md:hidden px-2 py-0.5 bg-violet-500/20 rounded-md font-medium text-violet-300 border border-violet-500/30 hover:bg-violet-500/30 transition-colors">
+              Test
+            </span>{" "}
+            button next to each test name which redirects directly to test page.
+            Select a test from below. After selection, click the link beside
+            each test name on the right to start that particular test.
+          </p>
+        </motion.div>
+      </motion.div>
     </div>
   );
 }

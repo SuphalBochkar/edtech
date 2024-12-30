@@ -33,6 +33,23 @@ const SecuredContent = ({
       warningTimeout = setTimeout(() => setShowWarning(false), 3000);
     };
 
+    const redirectHome = () => {
+      window.location.href = "/home";
+    };
+
+    // Check if DevTools is already open on component mount
+    const initialCheck = () => {
+      const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+      const heightThreshold =
+        window.outerHeight - window.innerHeight > threshold;
+      if (widthThreshold || heightThreshold) {
+        redirectHome();
+      }
+    };
+
+    // Run initial check
+    initialCheck();
+
     const checkDevTools = () => {
       const widthThreshold = window.outerWidth - window.innerWidth > threshold;
       const heightThreshold =
@@ -40,19 +57,19 @@ const SecuredContent = ({
 
       if (widthThreshold || heightThreshold) {
         showSecurityWarning();
-        window.location.href = "/home";
+        redirectHome();
       }
     };
 
     // Set up continuous monitoring
-    const interval = setInterval(checkDevTools, 1000);
+    const interval = setInterval(checkDevTools, 500);
 
-    // Additional dev tools detection
+    // Enhanced dev tools detection
     const detectDevTools = () => {
       const element = new Image() as HTMLImageElement & { id?: string };
       Object.defineProperty(element, "id", {
         get: function () {
-          window.location.href = "/home";
+          redirectHome();
           return "";
         },
       });
@@ -70,24 +87,62 @@ const SecuredContent = ({
       ) {
         e.preventDefault();
         showSecurityWarning();
+        redirectHome();
       }
     };
 
-    // Set up debugger detection
-    const debuggerScript = () => {
-      debugger;
-      devToolsTimeout = setTimeout(debuggerScript, 100);
+    // Enhanced debugger detection
+    const setupDebuggerTrap = () => {
+      try {
+        // First layer of debugger trap
+        debugger;
+
+        // Second layer with function decompilation check
+        const checkFunction = function () {
+          debugger;
+          return Date.now();
+        };
+
+        const startTime = Date.now();
+        checkFunction();
+        const endTime = Date.now();
+
+        // If debugging, this time difference will be significant
+        if (endTime - startTime > 100) {
+          redirectHome();
+        }
+      } catch (error) {
+        console.log(error);
+        redirectHome();
+      }
     };
-    debuggerScript();
+
+    // Run debugger detection periodically
+    const debuggerInterval = setInterval(setupDebuggerTrap, 100);
 
     // Event listeners
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("resize", checkDevTools);
     detectDevTools();
 
+    // Additional detection methods
+    const consoleCheck = () => {
+      const startTime = performance.now();
+      console.log("");
+      console.clear();
+      const endTime = performance.now();
+      if (endTime - startTime > 20) {
+        redirectHome();
+      }
+    };
+
+    const consoleInterval = setInterval(consoleCheck, 1000);
+
     // Cleanup
     return () => {
       clearInterval(interval);
+      clearInterval(debuggerInterval);
+      clearInterval(consoleInterval);
       clearTimeout(devToolsTimeout);
       clearTimeout(warningTimeout);
       window.removeEventListener("keydown", handleKeyDown);

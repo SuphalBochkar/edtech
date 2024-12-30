@@ -27,14 +27,14 @@ export const announcementsArray: AnnouncementItem[] = [
       "Please do not use any extensions or tools to complete the tests, as flags are being generated and you might be detected. Do not share your account credentials or pay others to complete your tests, as they may use automation tools, putting your account at risk.",
     type: "important",
   },
-  // {
-  //   id: 2,
-  //   title: "Course-2 (Perfectice) Notice",
-  //   message:
-  //     "For those who the Level 2 is not yet unlocked, you can still access the tests by clicking on the 'Start Test' or 'Test' button next to each test name. Check out the sample test for more details. Click link on your right to check it out.",
-  //   type: "important",
-  //   link: "/c2/sample",
-  // },
+  {
+    id: 2,
+    title: "Course-2 (Perfectice) Notice",
+    message:
+      "For those who the Level 2 is not yet unlocked, you can still access the tests by clicking on the 'Start Test' or 'Test' button next to each test name.",
+    type: "important",
+    link: "/c2/place",
+  },
   // {
   //   id: 3,
   //   title: "Course-1 (Bullseye) Update",
