@@ -121,7 +121,7 @@ const NavBar = () => {
                 animate={{ opacity: 1, x: 0 }}
                 className="bg-gradient-to-r from-indigo-100 via-purple-200 to-pink-200 bg-clip-text text-sm sm:text-lg md:text-xl font-bold tracking-tight text-transparent"
               >
-                Finish66
+                EdTech
               </motion.span>
               <motion.span
                 initial={{ opacity: 0, y: -5 }}

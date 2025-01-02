@@ -35,7 +35,7 @@ export default function Footer() {
 
       <div className="relative max-w-3xl mx-auto px-4">
         <div className="py-3">
-          {/* Top Row - F66 and Links */}
+          {/* Top Row - and Links */}
           <div className="flex items-center justify-between mb-2">
             <motion.div
               initial={{ opacity: 0 }}
@@ -63,7 +63,7 @@ export default function Footer() {
           {/* Bottom Row - Copyright and Security */}
           <div className="flex items-center justify-between pt-2 border-t border-violet-500/10">
             <div className="flex items-center space-x-1 text-xs text-gray-400">
-              <span>© {currentYear} F66.</span>
+              <span>© {currentYear} Edtech.</span>
               <span>Made with</span>
               <Heart className="h-3 w-3 text-violet-500" />
               <span>by {businessName}</span>

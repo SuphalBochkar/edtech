@@ -64,7 +64,6 @@
 //             }}
 //             className="text-2xl font-bold bg-gradient-to-r from-violet-200 to-violet-400 bg-clip-text text-transparent"
 //           >
-//             F66
 //           </motion.div>
 //         </motion.div>
 //       </motion.div>
@@ -201,9 +200,7 @@ const MainLoading = () => {
                 ease: "easeInOut",
               }}
               className="text-3xl font-bold bg-gradient-to-r from-violet-100 to-violet-300 bg-clip-text text-transparent"
-            >
-              F66
-            </motion.div>
+            ></motion.div>
             <motion.div
               animate={{
                 opacity: [0.7, 1, 0.7],

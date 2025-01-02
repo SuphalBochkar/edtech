@@ -10,9 +10,9 @@ import { SessionMonitor } from "@/components/Session/SessionMonitor";
 // import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "Finish66 EdTech",
+  title: "EdTech",
   description:
-    "Finish66 EdTech is a user-friendly platform designed for students seeking accessible education courses and resources. Our comprehensive content library offers a variety of educational materials tailored to enhance learning and drive success.",
+    "EdTech is a user-friendly platform designed for students seeking accessible education courses and resources. Our comprehensive content library offers a variety of educational materials tailored to enhance learning and drive success.",
 };
 
 const lato = Lato({

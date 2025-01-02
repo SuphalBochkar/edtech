@@ -83,9 +83,9 @@ const Content = () => {
             </span>
             <h1 className="tracking-tighter text-5xl md:text-5xl lg:text-6xl xl:text-7xl text-center font-bold flex items-center justify-center">
               <span className="font-bold bg-gradient-to-b from-violet-300 to-violet-800 bg-clip-text text-transparent">
-                Finish66
+                EdTech
               </span>
-              <span className="pl-2 text-foreground">EdTech</span>
+              <span className="pl-2 text-foreground">Platform</span>
             </h1>
           </motion.div>
 

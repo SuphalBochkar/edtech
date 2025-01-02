@@ -2,14 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  MessageCircle,
-  X,
-  Send,
-  Loader2,
-  Sparkles,
-  ExternalLink,
-} from "lucide-react";
+import { MessageCircle, X, Send, Loader2, Sparkles } from "lucide-react";
 import { useSession } from "next-auth/react";
 
 const ContactUsButton = () => {
@@ -136,7 +129,7 @@ const ContactUsButton = () => {
             <div className="mb-3">
               <p className="text-sm text-violet-300/70">
                 <span className="font-medium">You can also reach us on </span>
-                <a
+                {/* <a
                   href="https://t.me/+sYgr_ndeZQIzZTll"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -144,7 +137,7 @@ const ContactUsButton = () => {
                 >
                   Telegram
                   <ExternalLink className="ml-1 h-3 w-3 group-hover:translate-x-0.5 transition-transform duration-200" />
-                </a>
+                </a> */}
               </p>
             </div>
 

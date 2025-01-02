@@ -45,7 +45,7 @@ export const Appbar = () => {
             className="rounded-full size-10"
           />
           <span className="text-lg md:text-2xl font-bold tracking-tight text-foreground text-[#f9fafb] md:block">
-            Finish66
+            EdTech
           </span>
         </Link>
         <div className="flex items-center space-x-4">

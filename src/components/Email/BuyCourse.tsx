@@ -118,7 +118,7 @@ export const BuyCourseEmailTemplate: React.FC<
         If you have any questions, please don{"'"}t hesitate to contact our
         support team.
       </p>
-      <p style={{ marginTop: "10px" }}>© 2024 F66. All rights reserved.</p>
+      <p style={{ marginTop: "10px" }}>© 2025 Edtech. All rights reserved.</p>
     </div>
   </div>
 );

@@ -14,7 +14,7 @@
 // }: BuyCourseEmailProps) {
 //   try {
 //     const mailData = await resend.emails.send({
-//       from: "F66-Edtech <f66-edtech@resend.dev>",
+//       from: "Edtech <edtech@resend.dev>",
 //       to: [email],
 //       subject: "Thank you for purchasing our course!",
 //       react: BuyCourseEmailTemplate({ name: name }),

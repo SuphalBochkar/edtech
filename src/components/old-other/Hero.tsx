@@ -162,9 +162,9 @@ export default function Hero() {
           </span>
           <h1 className="tracking-tighter text-6xl md:text-7xl xl:text-8xl text-center font-bold my-2">
             <span className="font-bold bg-gradient-to-b from-blue-400 to-blue-700 bg-clip-text text-transparent">
-              Finish66
+              EdTech
             </span>{" "}
-            Hitbullsye.
+            Platform
           </h1>
         </div>
         <p className="text-primary/80 max-w-lg text-center tracking-tight md:text-lg font-light">

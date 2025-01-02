@@ -47,7 +47,7 @@ export default function AllTests() {
 
       <div className="space-y-6">
         {/* Notice Section */}
-        <Notice />
+        {/* <Notice /> */}
 
         {/* Sample Test Section */}
         {/* <section>
@@ -287,7 +287,7 @@ function LoadingSpinner() {
   );
 }
 
-function Notice() {
+export function Notice() {
   return (
     <div>
       <motion.div

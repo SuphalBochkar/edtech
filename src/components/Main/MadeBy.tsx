@@ -47,7 +47,7 @@ const MadeBy = () => {
         </motion.span>
 
         <Link
-          href="https://github.com/Finish66"
+          href="https://github.com/suphalbochkar"
           target="_blank"
           rel="noopener noreferrer"
           className="group/link relative flex items-center gap-1"
@@ -56,7 +56,7 @@ const MadeBy = () => {
             className="relative text-xs md:text-base font-bold bg-gradient-to-r from-violet-300 to-violet-500 bg-clip-text text-transparent group-hover/link:from-violet-400 group-hover/link:to-violet-600 transition-all duration-300"
             whileHover={{ scale: 1.05 }}
           >
-            Finish66
+            suphalbochkar
           </motion.span>
           <Github className="h-3 w-3 text-violet-400 opacity-0 group-hover/link:opacity-100 transform translate-x-[-5px] group-hover/link:translate-x-0 transition-all duration-300" />
         </Link>
@@ -96,7 +96,7 @@ const MadeBy = () => {
         className="flex gap-4 text-xs text-violet-400/80"
       >
         <Link
-          href="https://github.com/Finish66"
+          href="https://github.com/suphalbochkar"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-1 hover:text-violet-300 transition-colors duration-200 group"
@@ -107,7 +107,7 @@ const MadeBy = () => {
         </Link>
 
         <Link
-          href="https://github.com/Finish66"
+          href="https://github.com/suphalbochkar"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-1 hover:text-violet-300 transition-colors duration-200 group"
